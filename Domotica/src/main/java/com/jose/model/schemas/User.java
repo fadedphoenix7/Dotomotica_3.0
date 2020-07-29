@@ -1,10 +1,9 @@
-package com.jose;
+package com.jose.model.schemas;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "User")
 public class User {
     @Id
     @Column(name = "user_id")
@@ -17,13 +16,17 @@ public class User {
     private String email;
     @Column(name = "user_password")
     private String password;
+    @ManyToOne(targetEntity = House.class)
+    @JoinColumn(name = "house_id")
+    private int id_house;
 
-    public User(int _id, String _name, String _lastname, String _email, String _password){
+    public User(int _id, String _name, String _lastName, String _email, String _password, int _idHouse){
         this.ID = _id;
         this.userName = _name;
-        this.lastName = _lastname;
+        this.lastName = _lastName;
         this.email = _email;
         this.password = _password;
+        this.id_house = _idHouse;
     }
 
     public int getID() {
@@ -64,5 +67,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getId_house() {
+        return id_house;
+    }
+
+    public void setId_house(int id_house) {
+        this.id_house = id_house;
     }
 }

@@ -10,6 +10,7 @@
         <property name="connection.password">pepeok12</property>
 
         <!-- DB schema will be updated if needed -->
+        <mapping class="com.jose.model.schemas.House"/>
         <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
     </session-factory>
 </hibernate-configuration>
