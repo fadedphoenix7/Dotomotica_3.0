@@ -16,8 +16,7 @@ public class User {
     private String email;
     @Column(name = "user_password")
     private String password;
-    @ManyToOne(targetEntity = House.class)
-    @JoinColumn(name = "house_id")
+    @Column(name = "house_id")
     private int id_house;
 
     public User(int _id, String _name, String _lastName, String _email, String _password, int _idHouse){

@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="Domotica" transaction-type="RESOURCE_LOCAL">
-    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <class>com.jose.model.schemas.House</class>
+    <class>com.jose.model.schemas.User</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/domotica?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
-      <property name="javax.persistence.jdbc.user" value="appConection"/>
-      <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
-      <property name="javax.persistence.jdbc.password" value="wanda123"/>
-      <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
-      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="pepeok12"/>
     </properties>
   </persistence-unit>
 </persistence>
