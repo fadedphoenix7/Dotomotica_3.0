@@ -28,6 +28,8 @@ public class User {
         this.id_house = _idHouse;
     }
 
+    public User(){}
+
     public int getID() {
         return ID;
     }

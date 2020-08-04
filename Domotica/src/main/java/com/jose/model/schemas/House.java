@@ -19,6 +19,8 @@ public class House {
         this.code = _code;
     }
 
+    public House(){}
+
     public int getID() {
         return ID;
     }
