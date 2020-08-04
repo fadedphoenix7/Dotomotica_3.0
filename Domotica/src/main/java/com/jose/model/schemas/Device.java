@@ -7,12 +7,15 @@ import java.util.Set;
 @Entity
 @Table(name = "Device")
 public class Device {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "device_id")
     private int ID;
     @Column(name = "device_name")
     private String nameDevice;
     @Column(name = "house_id")
     private int ID_house;
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "DeviceToUser",
                 joinColumns = @JoinColumn(name = "parent_device_id"), inverseJoinColumns = @JoinColumn(name = "child_user_id"))
     private List<User> users;
@@ -25,9 +28,7 @@ public class Device {
         this.users = _users;
     }
 
-    @Id
-    @GeneratedValue
-    @Column(name = "device_id")
+
     public int getID() {
         return ID;
     }
