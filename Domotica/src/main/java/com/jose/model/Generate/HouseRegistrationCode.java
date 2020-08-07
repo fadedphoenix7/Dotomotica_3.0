@@ -5,9 +5,8 @@ import java.util.Random;
 
 public class HouseRegistrationCode {
 
-    private static final int size = 20;
 
-    public static String generate(){
+    public static String generate(int size){
         String code = "";
         int leftLimit = 48; // numeral '0'
         int rightLimit = 122; // letter 'z'
@@ -19,7 +18,6 @@ public class HouseRegistrationCode {
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
 
-        System.out.println(code);
         return code;
     }
 }

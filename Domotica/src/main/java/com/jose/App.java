@@ -1,6 +1,8 @@
 package com.jose;
 
+import com.jose.model.Generate.HouseRegistrationCode;
 import com.jose.model.bootstraper.EMFBootstrapper;
+import com.jose.model.crud.HouseCRUD;
 import com.jose.model.schemas.Device;
 import com.jose.model.schemas.House;
 import com.jose.model.schemas.User;
@@ -24,8 +26,9 @@ public class App
 {
     public static void main( String[] args )
     {
-
-
+        HouseCRUD c = new HouseCRUD();
+        c.delete(1);
+        /*
         EntityManager manager = EMFBootstrapper.openEntityManager();
         EntityTransaction transaction = manager.getTransaction();
         try {
@@ -40,6 +43,6 @@ public class App
         } finally {
             manager.close();
         }
-        System.out.println( "Complete!" );
+        System.out.println( "Complete!" );*/
     }
 }
