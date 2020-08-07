@@ -17,7 +17,8 @@ public class Device {
     private int ID_house;
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "DeviceToUser",
-                joinColumns = @JoinColumn(name = "parent_device_id"), inverseJoinColumns = @JoinColumn(name = "child_user_id"))
+                joinColumns = @JoinColumn(name = "parent_device_id"),
+                inverseJoinColumns = @JoinColumn(name = "child_user_id"))
     private List<User> users;
 
     public Device(){}

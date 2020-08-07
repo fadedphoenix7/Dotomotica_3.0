@@ -16,15 +16,18 @@ public class Area {
     private int ID_house;
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "AreaToArea",
-            joinColumns = @JoinColumn(name = "parent_area_id"), inverseJoinColumns = @JoinColumn(name = "child_area_id"))
+            joinColumns = @JoinColumn(name = "parent_area_id"),
+            inverseJoinColumns = @JoinColumn(name = "child_area_id"))
     private List<Area> areas;
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "AreaToUser",
-            joinColumns = @JoinColumn(name = "parent_area_id"), inverseJoinColumns = @JoinColumn(name = "child_user_id"))
+            joinColumns = @JoinColumn(name = "parent_area_id"),
+            inverseJoinColumns = @JoinColumn(name = "child_user_id"))
     private List<User> users;
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "AreaToDevice",
-            joinColumns = @JoinColumn(name = "parent_area_id"), inverseJoinColumns = @JoinColumn(name = "child_device_id"))
+            joinColumns = @JoinColumn(name = "parent_area_id"),
+            inverseJoinColumns = @JoinColumn(name = "child_device_id"))
     private List<Device> devices;
 
     public Area(){}

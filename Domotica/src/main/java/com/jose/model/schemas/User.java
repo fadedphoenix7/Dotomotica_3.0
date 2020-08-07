@@ -19,13 +19,16 @@ public class User {
     private String password;
     @Column(name = "house_id")
     private int id_house;
+    @Column(name = "role_id")
+    private int id_role;
 
-    public User(String _name, String _lastName, String _email, String _password, int _idHouse){
+    public User(String _name, String _lastName, String _email, String _password, int _idHouse, int _idRole){
         this.userName = _name;
         this.lastName = _lastName;
         this.email = _email;
         this.password = _password;
         this.id_house = _idHouse;
+        this.id_role = _idRole;
     }
 
     public User(){}
@@ -77,5 +80,13 @@ public class User {
 
     public void setId_house(int id_house) {
         this.id_house = id_house;
+    }
+
+    public int getId_role() {
+        return id_role;
+    }
+
+    public void setId_role(int id_role) {
+        this.id_role = id_role;
     }
 }
