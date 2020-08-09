@@ -10,20 +10,20 @@ import javax.persistence.Query;
 import java.util.ArrayList;
 
 public class HouseCodeCRUD {
-    public void create(String code){
-        EntityManager manager = EMFBootstrapper.openEntityManager();
-        EntityTransaction transaction = manager.getTransaction();
+    private static EntityManager manager = EMFBootstrapper.openEntityManager();
+    private static EntityTransaction transaction = manager.getTransaction();
+
+    public static void create(String code){
+
 
         ArrayList<HouseCode> houseCodes = new ArrayList<HouseCode>();
         try {
             transaction.begin();
-            if(!exitsCode(code,manager)){
-                HouseCode houseCode = new HouseCode();
-                houseCode.setRegistrationCode(code);
-                manager.persist(houseCode);
-                transaction.commit();
-                System.out.println("Si se pudo");
-            }
+            HouseCode houseCode = new HouseCode();
+            houseCode.setRegistrationCode(code);
+            manager.persist(houseCode);
+            transaction.commit();
+            System.out.println("Si se pudo");
         } catch (PersistenceException e) {
             transaction.rollback();
             throw e;
@@ -33,8 +33,7 @@ public class HouseCodeCRUD {
         System.out.println( "Complete!" );
     }
 
-    public boolean exitsCode(String code, EntityManager manager){
-        EntityTransaction transaction = manager.getTransaction();
+    public static boolean exitsCode(String code){
         ArrayList<HouseCode> houseCodes = new ArrayList<HouseCode>();
         try {
             Query query = manager.createQuery("Select h From HouseCode h WHERE h.registrationCode = :code")
