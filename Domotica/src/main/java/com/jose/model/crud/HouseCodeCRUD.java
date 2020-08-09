@@ -10,9 +10,7 @@ import javax.persistence.Query;
 import java.util.ArrayList;
 
 public class HouseCodeCRUD {
-    public void create(){
-        String code = HouseRegistrationCode.generate(20); //moved of place -->
-
+    public void create(String code){
         EntityManager manager = EMFBootstrapper.openEntityManager();
         EntityTransaction transaction = manager.getTransaction();
 

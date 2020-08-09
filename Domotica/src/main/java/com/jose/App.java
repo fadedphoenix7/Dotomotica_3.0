@@ -3,9 +3,10 @@ package com.jose;
 import com.jose.model.Generate.HouseRegistrationCode;
 import com.jose.model.bootstraper.EMFBootstrapper;
 import com.jose.model.crud.HouseCRUD;
-import com.jose.model.schemas.Device;
-import com.jose.model.schemas.House;
-import com.jose.model.schemas.User;
+import com.jose.model.crud.HouseCodeCRUD;
+import com.jose.model.crud.UserCRUD;
+import com.jose.model.operations.UserFunctions;
+import com.jose.model.schemas.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -26,15 +27,18 @@ public class App
 {
     public static void main( String[] args )
     {
-        HouseCRUD c = new HouseCRUD();
-        c.delete(1);
+
+        UserFunctions.updateUser("","", "AASSS@aa.co," ,
+                "aaaaaa", 1 , UserRole.ADMIN);
+
         /*
         EntityManager manager = EMFBootstrapper.openEntityManager();
         EntityTransaction transaction = manager.getTransaction();
         try {
             transaction.begin();
 
-            //manager.persist(device);
+            manager.persist(user);
+
             transaction.commit();
             System.out.printf("se ha añadido con exito");
         } catch (PersistenceException e) {

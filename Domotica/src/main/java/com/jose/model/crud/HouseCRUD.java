@@ -86,6 +86,7 @@ public class HouseCRUD {
             transaction.rollback();
             throw e;
         } finally {
+
             manager.close();
         }
         System.out.println( "Complete!" );

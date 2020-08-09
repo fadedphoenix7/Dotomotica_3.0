@@ -19,16 +19,17 @@ public class User {
     private String password;
     @Column(name = "house_id")
     private int id_house;
-    @Column(name = "role_id")
-    private int id_role;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "user_role")
+    private UserRole userRole = UserRole.USER;
 
-    public User(String _name, String _lastName, String _email, String _password, int _idHouse, int _idRole){
+    public User(String _name, String _lastName, String _email, String _password, int _idHouse, UserRole _role){
         this.userName = _name;
         this.lastName = _lastName;
         this.email = _email;
         this.password = _password;
         this.id_house = _idHouse;
-        this.id_role = _idRole;
+        this.userRole = _role;
     }
 
     public User(){}
@@ -82,11 +83,17 @@ public class User {
         this.id_house = id_house;
     }
 
-    public int getId_role() {
-        return id_role;
+    public UserRole getUserRole() {
+        return userRole;
     }
 
-    public void setId_role(int id_role) {
-        this.id_role = id_role;
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
     }
+
+    public String toString(){
+        return "ID: " + this.ID + "\n\tNombre: " + this.userName + "\n\tApellido: " + this.lastName
+                + "\n\tEmail: " + this.email + "\n\t idHouse: " + this.id_house + "\n\tUserRole: " + this.userRole.toString();
+    }
+
 }
