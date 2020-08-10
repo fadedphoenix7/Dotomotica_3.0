@@ -2,10 +2,13 @@ package com.jose;
 
 import com.jose.controller.Controller;
 import com.jose.model.Generate.HouseRegistrationCode;
+import com.jose.model.Validation.StringValidation;
 import com.jose.model.bootstraper.EMFBootstrapper;
+import com.jose.model.crud.DeviceCRUD;
 import com.jose.model.crud.HouseCRUD;
 import com.jose.model.crud.HouseCodeCRUD;
 import com.jose.model.crud.UserCRUD;
+import com.jose.model.operations.DeviceFunctions;
 import com.jose.model.operations.UserFunctions;
 import com.jose.model.schemas.*;
 import com.jose.view.LogRegView.LogHomeView;
@@ -27,26 +30,10 @@ import java.util.ArrayList;
  */
 public class App 
 {
-    public static void main( String[] args )
-    {
-        Controller app = new Controller();
+    public static void main( String[] args ) {
 
-        /*
-        EntityManager manager = EMFBootstrapper.openEntityManager();
-        EntityTransaction transaction = manager.getTransaction();
-        try {
-            transaction.begin();
+        DeviceFunctions.deviceAddUser(1,5);
+        EMFBootstrapper.closeEntityManager();
 
-            manager.persist(user);
-
-            transaction.commit();
-            System.out.printf("se ha añadido con exito");
-        } catch (PersistenceException e) {
-            transaction.rollback();
-            throw e;
-        } finally {
-            manager.close();
-        }
-        System.out.println( "Complete!" );*/
     }
 }

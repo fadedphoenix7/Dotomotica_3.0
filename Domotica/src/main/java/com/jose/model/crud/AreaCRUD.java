@@ -40,7 +40,7 @@ public class AreaCRUD {
             transaction.rollback();
             throw e;
         } finally {
-            manager.close();
+            //manager.close();
         }
         System.out.println( "Complete!" );
     }
@@ -56,7 +56,7 @@ public class AreaCRUD {
             transaction.rollback();
             throw e;
         } finally {
-            manager.close();
+            //manager.close();
         }
         System.out.println( "Complete!" );
     }
@@ -74,7 +74,7 @@ public class AreaCRUD {
             transaction.rollback();
             throw e;
         } finally {
-            manager.close();
+            //manager.close();
         }
         System.out.println( "Complete!" );
     }

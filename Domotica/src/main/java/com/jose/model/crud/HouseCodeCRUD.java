@@ -28,7 +28,7 @@ public class HouseCodeCRUD {
             transaction.rollback();
             throw e;
         } finally {
-            manager.close();
+            //manager.close();
         }
         System.out.println( "Complete!" );
     }

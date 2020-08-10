@@ -29,6 +29,8 @@ public class Area {
             joinColumns = @JoinColumn(name = "parent_area_id"),
             inverseJoinColumns = @JoinColumn(name = "child_device_id"))
     private List<Device> devices;
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users")
+    private List<Area> areas_child;
 
     public Area(){}
 
@@ -84,5 +86,18 @@ public class Area {
 
     public void setDevices(List<Device> devices) {
         this.devices = devices;
+    }
+
+    public List<Area> getAreas_child() {
+        return areas_child;
+    }
+
+    public void setAreas_child(List<Area> areas_child) {
+        this.areas_child = areas_child;
+    }
+
+    public String toString(){
+        return "ID: " + this.ID + "\n\tNombre: " + this.nameArea
+                + "\n\tID_House: " + this.ID_house +"\n";
     }
 }

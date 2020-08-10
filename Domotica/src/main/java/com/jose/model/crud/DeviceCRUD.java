@@ -4,10 +4,7 @@ import com.jose.model.bootstraper.EMFBootstrapper;
 import com.jose.model.schemas.Device;
 import com.jose.model.schemas.User;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceException;
-import javax.persistence.Query;
+import javax.persistence.*;
 
 public class DeviceCRUD {
 
@@ -29,6 +26,28 @@ public class DeviceCRUD {
         }
     }
 
+   /* public static boolean exitsRelation(int deviceID, int userID){
+        boolean containUser = false;
+        Device device  = null;
+        try {
+            System.out.println("aaaaa");
+            Query query = manager.createQuery("Select rdu From Device rdu Join rdu.users ru " +
+                    " where rdu.ID = :deviceID and ru.ID =: userID")
+                    .setParameter("userID",userID)
+                    .setParameter("deviceID", deviceID);
+            System.out.println("aaa");
+            System.out.println(query.getResultList());
+            device = (Device) query.getResultList().get(0);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            throw e;
+        } finally {
+            return containUser;
+        }
+
+    }*/
+
     public static void create(Device device){
         try {
             transaction.begin();
@@ -40,7 +59,7 @@ public class DeviceCRUD {
             transaction.rollback();
             throw e;
         } finally {
-            manager.close();
+            //manager.close();
         }
         System.out.println( "Complete!" );
     }
@@ -56,7 +75,7 @@ public class DeviceCRUD {
             transaction.rollback();
             throw e;
         } finally {
-            manager.close();
+            //manager.close();
         }
         System.out.println( "Complete!" );
     }
@@ -74,7 +93,7 @@ public class DeviceCRUD {
             transaction.rollback();
             throw e;
         } finally {
-            manager.close();
+            //manager.close();
         }
         System.out.println( "Complete!" );
     }

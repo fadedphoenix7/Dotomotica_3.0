@@ -51,6 +51,21 @@ public class UserCRUD {
         }
     }
 
+    public static User getUser(int userID){
+        User user = null;
+        try {
+            Query query = manager.createQuery("Select u From User u WHERE u.ID = :userID ")
+                    .setParameter("userID",userID);
+            user = (User) query.getResultList().get(0);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            throw e;
+        } finally {
+            return user;
+        }
+    }
+
     public static void create(User user){
         try {
             transaction.begin();
@@ -62,7 +77,7 @@ public class UserCRUD {
             transaction.rollback();
             throw e;
         } finally {
-            manager.close();
+            //manager.close();
         }
         System.out.println( "Complete!" );
     }
@@ -78,7 +93,7 @@ public class UserCRUD {
             transaction.rollback();
             throw e;
         } finally {
-            manager.close();
+            //manager.close();
         }
         System.out.println( "Complete!" );
     }
@@ -96,7 +111,7 @@ public class UserCRUD {
             transaction.rollback();
             throw e;
         } finally {
-            manager.close();
+            //manager.close();
         }
         System.out.println( "Complete!" );
     }

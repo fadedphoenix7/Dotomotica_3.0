@@ -1,6 +1,7 @@
 package com.jose.model.schemas;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "User")
@@ -22,6 +23,17 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(name = "user_role")
     private UserRole userRole = UserRole.USER;
+
+
+
+
+//    @JoinTable(name = "DeviceToUser",
+//            joinColumns = @JoinColumn(name = "parent_device_id"),
+//            inverseJoinColumns = @JoinColumn(name = "child_user_id"))
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users")
+    private List<Device> devices;
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users")
+    private List<Area> areas;
 
     public User(String _name, String _lastName, String _email, String _password, int _idHouse, UserRole _role){
         this.userName = _name;
@@ -89,6 +101,22 @@ public class User {
 
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
+    }
+
+    public List<Device> getDevices() {
+        return devices;
+    }
+
+    public void setDevices(List<Device> devices) {
+        this.devices = devices;
+    }
+
+    public List<Area> getAreas() {
+        return areas;
+    }
+
+    public void setAreas(List<Area> areas) {
+        this.areas = areas;
     }
 
     public String toString(){

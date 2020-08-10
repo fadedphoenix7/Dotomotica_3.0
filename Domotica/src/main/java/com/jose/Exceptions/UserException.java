@@ -7,6 +7,8 @@ public class UserException extends Exception{
         switch (errorType){
             case 1:
                 message = "Contraseña incorrecta";break;
+            case 2:
+                message = "Permisos incorrectos ";break;
         }
     }
 

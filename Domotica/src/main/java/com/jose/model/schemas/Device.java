@@ -15,11 +15,15 @@ public class Device {
     private String nameDevice;
     @Column(name = "house_id")
     private int ID_house;
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = {CascadeType.MERGE})
     @JoinTable(name = "DeviceToUser",
                 joinColumns = @JoinColumn(name = "parent_device_id"),
                 inverseJoinColumns = @JoinColumn(name = "child_user_id"))
     private List<User> users;
+    @Column(name = "device_state")
+    private boolean state;
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "devices")
+    private List<Area> areas;
 
     public Device(){}
 
@@ -60,5 +64,34 @@ public class Device {
 
     public void setUsers(List<User> users) {
         this.users = users;
+    }
+
+    public boolean getState() {
+        return state;
+    }
+
+    public void setState(boolean state) {
+        this.state = state;
+    }
+
+    public void addUser(User user){
+        users.add(user);
+    }
+
+    public boolean isState() {
+        return state;
+    }
+
+    public List<Area> getAreas() {
+        return areas;
+    }
+
+    public void setAreas(List<Area> areas) {
+        this.areas = areas;
+    }
+
+    public String toString(){
+        return "ID:" + this.ID +"\n\tNombre: " + this.nameDevice +
+                "\n\tState: " + this.state + "\n\tID_house: " + this.ID_house;
     }
 }

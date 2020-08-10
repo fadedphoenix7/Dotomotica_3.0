@@ -10,6 +10,8 @@ public class NoExitsException extends Exception {
                 message = "Correo no existente "; break;
             case "com.jose.model.schemas.House":
                 message = "Codigo no existente"; break;
+            case "com.jose.model.schemas.Device":
+                message = "Dispositivo no existente"; break;
         }
     }
 
