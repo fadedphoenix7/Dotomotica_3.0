@@ -11,11 +11,6 @@ public class Controller {
         logRegController = new LogRegController();
         logHomeView = new LogHomeView(logRegController);
 
-        try {
-            LogHomeView.initComponents();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
 }

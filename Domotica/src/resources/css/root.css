@@ -1,4 +1,47 @@
 .root{
-    -fx-background-color: #fff1f1 ;
+    -fx-background-color: #FAFAFA ;
 }
 
+.text-field, .password-field{
+    -fx-background-color: #fdfdfd ;
+    -jfx-focus-color: #1C86EE;
+}
+
+
+.text-field:focused,  .password-field:focused{
+    -fx-background-color: #eaeaea;
+    -fx-scale-x: 120%;
+}
+
+#CloseButton {
+    -fx-background-radius: 100%;
+    -fx-background-color: #a70000;
+}
+
+#loginButton{
+    -fx-background-color: #1C86EE;
+    -fx-text-fill: #FAFAFA;
+    -fx-background-radius: 10px ;
+}
+
+#loginButton:hover{
+    -fx-background-color: #1978d6;
+}
+
+#loginButton:pressed{
+    -fx-background-color: #166bbe;
+}
+
+#houseCodeButton{
+    -fx-background-color: #ee1c1c;
+    -fx-text-fill: #FAFAFA;
+    -fx-background-radius: 10px ;
+}
+
+#houseCodeButton:hover{
+    -fx-background-color: #d61919;
+}
+
+#houseCodeButton:pressed{
+    -fx-background-color: #be1616;
+}

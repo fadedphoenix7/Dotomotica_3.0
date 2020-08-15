@@ -7,16 +7,15 @@ public class StringValidation {
 
     public static boolean noInitSpace(String text){
         boolean isOnlySpace;
-        String pat = "^[a-zA-Z].+";
+        String pat = "^[\\s].*";
         isOnlySpace = Pattern.matches(pat, text);
-        return !isOnlySpace;
+        return isOnlySpace;
     }
 
     public static boolean noNumbers(String text){
         boolean haveNumbers = false;
         String pat = ".+[\\d].+";
         haveNumbers = Pattern.matches(pat, text);
-        System.out.println(haveNumbers);
         return !haveNumbers;
     }
 
@@ -24,17 +23,21 @@ public class StringValidation {
         boolean haveSpecialCharacters = false;
         String pat = "[\\w_+@?\\-.\\s]+";
         haveSpecialCharacters = Pattern.matches(pat, text);
-        System.out.println(haveSpecialCharacters);
         return haveSpecialCharacters;
     }
 
     public static boolean noSpace(String text){
         boolean haveSpace = false;
-        String pat = ".+[\\s].+";
+        String pat = ".+[\\s].*";
         haveSpace = Pattern.matches(pat,text);
-        System.out.println(haveSpace);
-        return !haveSpace;
+        return haveSpace;
     }
 
+    public static boolean arroba(String text){
+        boolean haveArroba = false;
+        String pat = ".*[@].*";
+        haveArroba = Pattern.matches(pat,text);
+        return haveArroba;
+    }
 
 }

@@ -4,10 +4,8 @@ import com.jose.controller.Controller;
 import com.jose.model.Generate.HouseRegistrationCode;
 import com.jose.model.Validation.StringValidation;
 import com.jose.model.bootstraper.EMFBootstrapper;
-import com.jose.model.crud.DeviceCRUD;
-import com.jose.model.crud.HouseCRUD;
-import com.jose.model.crud.HouseCodeCRUD;
-import com.jose.model.crud.UserCRUD;
+import com.jose.model.crud.*;
+import com.jose.model.operations.AreaFunctions;
 import com.jose.model.operations.DeviceFunctions;
 import com.jose.model.operations.UserFunctions;
 import com.jose.model.schemas.*;
@@ -31,8 +29,7 @@ import java.util.ArrayList;
 public class App 
 {
     public static void main( String[] args ) {
-
-        DeviceFunctions.deviceAddUser(1,5);
+        Controller con = new Controller();
         EMFBootstrapper.closeEntityManager();
 
     }

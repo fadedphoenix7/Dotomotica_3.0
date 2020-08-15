@@ -66,6 +66,22 @@ public class UserCRUD {
         }
     }
 
+    public static User getUser(String email, String password){
+        User user = null;
+        try {
+            Query query = manager.createQuery("Select u From User u WHERE u.email = :email and u.password =: password ")
+                    .setParameter("email",email)
+                    .setParameter("password", password);
+            user = (User) query.getResultList().get(0);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            throw e;
+        } finally {
+            return user;
+        }
+    }
+
     public static void create(User user){
         try {
             transaction.begin();

@@ -45,7 +45,7 @@ public class DeviceFunctions {
         try{
             Device exitsDevice = DeviceCRUD.getDevice(deviceID);
             if(exitsDevice == null){
-                throw new NoExitsException(User.class);
+                throw new NoExitsException(Device.class);
             }
             else{
                 if(userRole == UserRole.MODERATOR || userRole == UserRole.ADMIN){
@@ -98,7 +98,7 @@ public class DeviceFunctions {
             Device device = DeviceCRUD.getDevice(deviceID);
             if(device == null)  throw new NoExitsException(Device.class);
             if(user == null)    throw new NoExitsException(User.class);
-            if(!exitsRelation( device, user)) throw new DeviceException(1);
+            if(exitsRelation( device, user)) throw new DeviceException(1);
             else{
                 device.addUser(user);
                 user.getDevices().add(device);

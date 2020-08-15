@@ -2,7 +2,9 @@ package com.jose.model.operations;
 
 import com.jose.model.Generate.HouseRegistrationCode;
 import com.jose.model.crud.HouseCodeCRUD;
+import com.jose.model.crud.UserCRUD;
 import com.jose.model.schemas.HouseCode;
+import com.jose.model.schemas.User;
 
 public class LogRegFunctions {
     public static String registerNewHouse(){
@@ -16,5 +18,13 @@ public class LogRegFunctions {
         HouseCodeCRUD.create(code);
 
         return code;
+    }
+
+    public static User login(String email, String password){
+
+        User userLogged = null;
+        userLogged = UserCRUD.getUser(email, password);
+
+        return userLogged;
     }
 }

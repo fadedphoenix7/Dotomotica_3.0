@@ -92,6 +92,6 @@ public class Device {
 
     public String toString(){
         return "ID:" + this.ID +"\n\tNombre: " + this.nameDevice +
-                "\n\tState: " + this.state + "\n\tID_house: " + this.ID_house;
+                "\n\tState: " + this.state + "\n\tID_house: " + this.ID_house +"\n\t" + users.toString() + "\n";
     }
 }

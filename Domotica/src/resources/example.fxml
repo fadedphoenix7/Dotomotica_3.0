@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+
+<Pane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.jose.controller.LogReg.LogRegController"
+      fx:id="pane">
+   <children>
+
+      <ImageView fitHeight="600.0" fitWidth="400.0" layoutX="400.0" pickOnBounds="true" smooth="false">
+         <image>
+            <Image url="@/Images/LoginBack.jpg" />
+         </image>
+      </ImageView>
+
+      <JFXTextField fx:id="emailText" labelFloat="true" layoutX="100.0" layoutY="100.0" prefHeight="30.0"
+                    prefWidth="200.0" promptText="Email">
+         <font>
+            <Font name="Gadugi" size="16.0" />
+         </font>
+      </JFXTextField>
+
+      <Button id="CloseButton" cancelButton="true" layoutX="762.0" layoutY="14.0" mnemonicParsing="false"
+              onAction="#closeWindow" text="X" textAlignment="JUSTIFY" textFill="WHITE" />
+
+      <JFXPasswordField fx:id="passwordText" labelFloat="true" layoutX="100.0" layoutY="165.0" prefHeight="30.0"
+                        prefWidth="200.0" promptText="password">
+         <font>
+            <Font name="Gadugi" size="16.0" />
+         </font></JFXPasswordField>
+
+      <Line endX="100.0" startX="-100.0" />
+      <Line endX="150.0" layoutX="200.0" layoutY="300.0" startX="-150.0" stroke="#7c7c7c" />
+
+      <JFXButton fx:id="loginButton" buttonType="RAISED" layoutX="169.0" layoutY="229.0" text="Login" onAction="#login">
+         <font>
+            <Font name="Gadugi" size="16.0" />
+         </font>
+      </JFXButton>
+
+      <Label fx:id="emailLabel" layoutX="100.0" layoutY="137.0" textFill="#f51111" />
+
+      <JFXTextField fx:id="homeCodeText" labelFloat="true" layoutX="100.0" layoutY="400.0" prefHeight="30.0"
+                    prefWidth="200.0" promptText="Code Registration" alignment="CENTER">
+         <font>
+            <Font name="Gadugi" size="16.0" />
+         </font>
+      </JFXTextField>
+
+      <JFXButton fx:id="houseCodeButton" buttonType="RAISED" layoutX="169.0" layoutY="464.0" text="Create" onAction="#create">
+         <font>
+            <Font name="Gadugi" size="16.0" />
+         </font>
+      </JFXButton>
+
+   </children>
+</Pane>

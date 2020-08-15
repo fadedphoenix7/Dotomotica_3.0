@@ -3,6 +3,7 @@ package com.jose.model.crud;
 import com.jose.model.bootstraper.EMFBootstrapper;
 import com.jose.model.schemas.Area;
 import com.jose.model.schemas.User;
+import org.hibernate.HibernateException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;

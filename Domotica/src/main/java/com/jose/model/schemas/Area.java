@@ -14,17 +14,17 @@ public class Area {
     private String nameArea;
     @Column(name = "house_id")
     private int ID_house;
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = {CascadeType.MERGE})
     @JoinTable(name = "AreaToArea",
             joinColumns = @JoinColumn(name = "parent_area_id"),
             inverseJoinColumns = @JoinColumn(name = "child_area_id"))
     private List<Area> areas;
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = {CascadeType.MERGE})
     @JoinTable(name = "AreaToUser",
             joinColumns = @JoinColumn(name = "parent_area_id"),
             inverseJoinColumns = @JoinColumn(name = "child_user_id"))
     private List<User> users;
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = {CascadeType.MERGE})
     @JoinTable(name = "AreaToDevice",
             joinColumns = @JoinColumn(name = "parent_area_id"),
             inverseJoinColumns = @JoinColumn(name = "child_device_id"))
@@ -96,8 +96,21 @@ public class Area {
         this.areas_child = areas_child;
     }
 
+    public void addArea(Area area){
+        areas.add(area);
+    }
+
+    public void addDevice(Device device){
+        devices.add(device);
+    }
+
+    public void addUser(User user){
+        users.add(user);
+    }
+
     public String toString(){
         return "ID: " + this.ID + "\n\tNombre: " + this.nameArea
-                + "\n\tID_House: " + this.ID_house +"\n";
+                + "\n\tID_House: " + this.ID_house +"\n"
+                +"\t" + areas.toString() + "\n\t" + devices.toString() + "\n\t" + users.toString() + "\n";
     }
 }
