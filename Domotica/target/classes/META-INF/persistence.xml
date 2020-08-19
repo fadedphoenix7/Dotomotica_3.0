@@ -6,7 +6,6 @@
     <class>com.jose.model.schemas.Area</class>
     <class>com.jose.model.schemas.Device</class>
     <class>com.jose.model.schemas.HouseCode</class>
-    <class>com.jose.model.schemas.UserRoles</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/domotica?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

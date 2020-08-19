@@ -23,7 +23,6 @@ public class HouseCodeCRUD {
             houseCode.setRegistrationCode(code);
             manager.persist(houseCode);
             transaction.commit();
-            System.out.println("Si se pudo");
         } catch (PersistenceException e) {
             transaction.rollback();
             throw e;
@@ -39,13 +38,27 @@ public class HouseCodeCRUD {
             Query query = manager.createQuery("Select h From HouseCode h WHERE h.registrationCode = :code")
                     .setParameter("code",code);
             houseCodes = (ArrayList<HouseCode>) query.getResultList();
-            System.out.println(houseCodes);
 
         } catch (PersistenceException e) {
             System.out.println(e.getMessage());
             throw e;
         } finally {
             return !houseCodes.isEmpty();
+        }
+    }
+
+    public static HouseCode getCode(String code){
+        ArrayList<HouseCode> houseCodes = new ArrayList<HouseCode>();
+        try {
+            Query query = manager.createQuery("Select h From HouseCode h WHERE h.registrationCode = :code")
+                    .setParameter("code",code);
+            houseCodes = (ArrayList<HouseCode>) query.getResultList();
+
+        } catch (PersistenceException e) {
+            System.out.println(e.getMessage());
+            throw e;
+        } finally {
+            return houseCodes.get(0);
         }
     }
 }

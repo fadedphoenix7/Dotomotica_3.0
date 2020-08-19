@@ -17,6 +17,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 import java.util.List;
@@ -29,7 +30,9 @@ import java.util.ArrayList;
 public class App 
 {
     public static void main( String[] args ) {
-        Controller con = new Controller();
+//        EMFBootstrapper.initConnection();
+//        Controller con = new Controller();
+        System.out.println(UserCRUD.getNumbersOfUserFromHouse(1));
         EMFBootstrapper.closeEntityManager();
 
     }

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0"
+      style="-fx-background-color: #aaaaaa;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.jose.controller.LogReg.LogRegController" fx:id="pane">
+   <children>
+      <Pane layoutX="200.0" layoutY="150.0" prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: #ffffff;">
+         <children>
+            <JFXTextField editable="false" labelFloat="true" layoutX="100.0" layoutY="74.0" prefHeight="30.0" prefWidth="200.0" promptText="House Code">
+               <font>
+                  <Font name="Gadugi" size="16.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextField labelFloat="true" layoutX="100.0" layoutY="125.0" prefHeight="30.0" prefWidth="200.0" promptText="House Name">
+               <font>
+                  <Font name="Gadugi" size="16.0" />
+               </font>
+            </JFXTextField>
+            <JFXButton  layoutX="14.0" layoutY="14.0" text="Back" >
+               <font>
+                  <Font name="Gadugi" size="16.0" />
+               </font>
+            </JFXButton>
+            <JFXButton layoutX="160.0" layoutY="189.0" text="Register">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </JFXButton>
+            <Label alignment="CENTER" layoutX="114.0" layoutY="19.0" text="Register a new House" textAlignment="CENTER">
+               <font>
+                  <Font name="Gadugi" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <JFXButton layoutX="762.0" layoutY="14.0" text="X" fx:id="closeButton" onAction="#closeWindow"/>
+   </children>
+</Pane>

@@ -9,13 +9,14 @@ import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 public class HouseCRUD {
-    public void create(String name, String code, String registerCode){
-        EntityManager manager = EMFBootstrapper.openEntityManager();
-        EntityTransaction transaction = manager.getTransaction();
 
+    private static EntityManager manager = EMFBootstrapper.openEntityManager();
+    private static EntityTransaction transaction = manager.getTransaction();
+
+    public void create(String name, String code, String registerCode){
         try {
             transaction.begin();
-            int registrationCodeID = exitsHouse(registerCode,manager);
+            int registrationCodeID = exitsHouseByCode(registerCode);
             if(registrationCodeID >= 0){
                 House house = new House();
                 house.setName(name);
@@ -34,15 +35,27 @@ public class HouseCRUD {
         System.out.println( "Complete!" );
     }
 
-    public int exitsHouse(String registerCode,EntityManager manager){
-        EntityTransaction transaction = manager.getTransaction();
+    public static boolean exitsHouseByCodeID(int codeID){
+        boolean exitsHouse = false;
+        try {
+            Query query = manager.createQuery("Select h From House h WHERE h.registrationCodeID = :code")
+                    .setParameter("code",codeID);
+            House house =  (House) query.getResultList().get(0);
+            if(house != null) exitsHouse = true;
+        } catch (PersistenceException e) {
+            System.out.println(e.getMessage());
+            throw e;
+        } finally {
+            return !exitsHouse;
+        }
+    }
+
+    public static int exitsHouseByRegisterCode(String registerCode){
         int registerCdoeID = -1;
         try {
-            Query query = manager.createQuery("Select h.ID From HouseCode h WHERE h.registrationCode = :code")
+            Query query = manager.createQuery("Select h.ID From House h WHERE h.code = :code")
                     .setParameter("code",registerCode);
-            System.out.println(query.getResultList());
             registerCdoeID = (int) query.getResultList().get(0);
-            System.out.println(registerCdoeID);
 
         } catch (PersistenceException e) {
             System.out.println(e.getMessage());
@@ -52,8 +65,22 @@ public class HouseCRUD {
         }
     }
 
-    public House getHouse(int houseID, EntityManager manager){
-        EntityTransaction transaction = manager.getTransaction();
+    public static int exitsHouseByCode(String houseCodeRegister){
+        int registerCdoeID = -1;
+        try {
+            Query query = manager.createQuery("Select h.ID From HouseCode h WHERE h.registrationCode = :code")
+                    .setParameter("code",houseCodeRegister);
+            registerCdoeID = (int) query.getResultList().get(0);
+
+        } catch (PersistenceException e) {
+            System.out.println(e.getMessage());
+            throw e;
+        } finally {
+            return registerCdoeID;
+        }
+    }
+
+    public static House getHouse(int houseID){
         House house = new House();
         try {
             Query query = manager.createQuery("Select h From House h WHERE h.ID = :houseID")
@@ -75,7 +102,7 @@ public class HouseCRUD {
 
         try {
             transaction.begin();
-            House house = getHouse(houseID, manager);
+            House house = getHouse(houseID);
             if(house != null){
                 house.setName(newName);
                 manager.persist(house);
@@ -98,7 +125,7 @@ public class HouseCRUD {
 
         try {
             transaction.begin();
-            House house = getHouse(houseID, manager);
+            House house = getHouse(houseID);
             if(house != null){
                 int delete = manager.createQuery("Delete FROM House  h where h.ID = :houseID")
                         .setParameter("houseID", house.getID()).executeUpdate();
@@ -114,4 +141,5 @@ public class HouseCRUD {
         }
         System.out.println( "Complete!" );
     }
+
 }

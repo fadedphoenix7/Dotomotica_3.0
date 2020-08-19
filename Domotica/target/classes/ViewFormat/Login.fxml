@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import com.jfoenix.controls.JFXPasswordField?>
 
-<Pane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+
+<Pane focusTraversable="true" maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0"
       prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.jose.controller.LogReg.LogRegController"
       fx:id="pane">
    <children>
 
       <ImageView fitHeight="600.0" fitWidth="400.0" layoutX="400.0" pickOnBounds="true" smooth="false">
-         <image>
-            <Image url="@/Images/LoginBack.jpg" />
-         </image>
+         <Image url="@../Images/LoginBack.jpg"/>
       </ImageView>
 
       <JFXTextField fx:id="emailText" labelFloat="true" layoutX="100.0" layoutY="100.0" prefHeight="30.0"
@@ -30,7 +26,7 @@
       </JFXTextField>
 
       <Button id="CloseButton" cancelButton="true" layoutX="762.0" layoutY="14.0" mnemonicParsing="false"
-              onAction="#closeWindow" text="X" textAlignment="JUSTIFY" textFill="WHITE" />
+              onAction="#closeWindow" text="X" textAlignment="JUSTIFY" />
 
       <JFXPasswordField fx:id="passwordText" labelFloat="true" layoutX="100.0" layoutY="165.0" prefHeight="30.0"
                         prefWidth="200.0" promptText="password">
@@ -50,7 +46,7 @@
       <Label fx:id="emailLabel" layoutX="100.0" layoutY="137.0" textFill="#f51111" />
 
       <JFXTextField fx:id="homeCodeText" labelFloat="true" layoutX="100.0" layoutY="400.0" prefHeight="30.0"
-                    prefWidth="200.0" promptText="Code Registration" alignment="CENTER">
+                    prefWidth="200.0" promptText="House Code Registration" alignment="CENTER">
          <font>
             <Font name="Gadugi" size="16.0" />
          </font>
@@ -61,6 +57,8 @@
             <Font name="Gadugi" size="16.0" />
          </font>
       </JFXButton>
+      <Hyperlink  layoutX="100.0" layoutY="500.0" text="Create new Code" onAction="#createCode"/>
+      <Hyperlink  layoutX="50.0" layoutY="210.0" text="Register" onAction="#register"/>
 
    </children>
 </Pane>

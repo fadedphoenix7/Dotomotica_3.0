@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane id="register" maxHeight="800.0" maxWidth="600.0" minHeight="800.0" minWidth="600.0" prefHeight="600.0"
+      prefWidth="800.0"
+      xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.jose.controller.LogReg.LogRegController"
+      fx:id="Pane">
+   <children>
+      <Pane layoutX="150.0" layoutY="100.0" prefHeight="400.0" prefWidth="500.0" style="-fx-background-color: #ffffff;">
+         <children>
+            <JFXTextField labelFloat="true" layoutX="150.0" layoutY="80.0" maxWidth="200.0"
+                          prefHeight="30.0" prefWidth="200.0" promptText="Email" fx:id="emailText">
+               <font>
+                  <Font name="Gadugi" size="16.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextField labelFloat="true" layoutX="150.0" layoutY="140.0" maxWidth="200.0" prefHeight="30.0"
+                          prefWidth="200.0" promptText="Name" fx:id="nameText">
+               <font>
+                  <Font name="Gadugi" size="16.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextField labelFloat="true" layoutX="150.0" layoutY="200.0" maxWidth="200.0" prefHeight="30.0"
+                          prefWidth="200.0" promptText="Last name" fx:id="lastNameText">
+               <font>
+                  <Font name="Gadugi" size="16.0" />
+               </font>
+            </JFXTextField>
+            <JFXButton layoutX="374.0" layoutY="80.0" text="Verify" fx:id="verifyEmailButton" onAction="#verifyIsEmailRegister">
+               <font>
+                  <Font name="Gadugi" size="16.0" />
+               </font>
+            </JFXButton>
+            <JFXButton layoutX="210.0" layoutY="335.0" text="Register" onAction="#registerNewUser">
+               <font>
+                  <Font name="Gadugi" size="16.0" />
+               </font>
+            </JFXButton>
+            <JFXPasswordField labelFloat="true" layoutX="150.0" layoutY="260.0" prefHeight="30.0" prefWidth="200.0"
+                              promptText="Password" fx:id="passwordText">
+               <font>
+                  <Font name="Gadugi" size="16.0" />
+               </font>
+            </JFXPasswordField>
+            <JFXButton layoutX="14.0" layoutY="14.0" text="Back" onAction="#back">
+               <font>
+                  <Font name="Gadugi" size="16.0" />
+               </font>
+            </JFXButton>
+            <Label layoutX="150" layoutY="10" text="#aaaa " textAlignment="CENTER" fx:id="houseName" >
+               <font>
+                  <Font name="Gadugi" size="25.0" />
+               </font>
+            </Label>
+            <Label layoutX="150" layoutY="120" text=" " textAlignment="CENTER" fx:id="emailLabel" >
+               <font>
+                  <Font name="Gadugi" size="16" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <JFXButton layoutX="762.0" layoutY="15.0" text="X" onAction="#closeWindow" fx:id="closeButton" id="CloseButton">
+         <font>
+            <Font name="Gadugi" size="12.0" />
+         </font>
+      </JFXButton>
+   </children>
+</Pane>

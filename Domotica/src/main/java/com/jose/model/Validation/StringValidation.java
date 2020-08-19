@@ -14,15 +14,23 @@ public class StringValidation {
 
     public static boolean noNumbers(String text){
         boolean haveNumbers = false;
-        String pat = ".+[\\d].+";
+        String pat = ".*[\\d].*";
+        haveNumbers = Pattern.matches(pat, text);
+        return !haveNumbers;
+    }
+
+    public static boolean noRareChars(String text){
+        boolean haveNumbers = false;
+        String pat = ".*[\\W\\S].*";
         haveNumbers = Pattern.matches(pat, text);
         return !haveNumbers;
     }
 
     public static boolean noValidChars(String text){
         boolean haveSpecialCharacters = false;
-        String pat = "[\\w_+@?\\-.\\s]+";
+        String pat = "[^\\w\\_\\+\\@\\?\\.].*";
         haveSpecialCharacters = Pattern.matches(pat, text);
+        System.out.println(text + "  " + haveSpecialCharacters);
         return haveSpecialCharacters;
     }
 
@@ -35,7 +43,7 @@ public class StringValidation {
 
     public static boolean arroba(String text){
         boolean haveArroba = false;
-        String pat = ".*[@].*";
+        String pat = ".*@.*\\.com.*";
         haveArroba = Pattern.matches(pat,text);
         return haveArroba;
     }
