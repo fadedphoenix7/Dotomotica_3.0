@@ -24,7 +24,7 @@ public class AreaFunctions {
 
     public static void updateArea(int areaID,String newName){
         try{
-            Area exitsArea = AreaCRUD.getArea(areaID);
+            Area exitsArea = AreaCRUD.getAreaByID(areaID);
             System.out.println(exitsArea);
             if(exitsArea == null){
                 throw new NoExitsException(Area.class);
@@ -44,7 +44,7 @@ public class AreaFunctions {
 
     public static void deleteArea(int areaID, UserRole userRole){
         try{
-            Area area = AreaCRUD.getArea(areaID);
+            Area area = AreaCRUD.getAreaByID(areaID);
             if(area == null){
                 throw new NoExitsException(Area.class);
             }
@@ -65,7 +65,7 @@ public class AreaFunctions {
 
     public static void turnOnDevices(int deviceID){
         try{
-            Device device = DeviceCRUD.getDevice(deviceID);
+            Device device = DeviceCRUD.getDeviceByID(deviceID);
             if(device == null){
                 throw new NoExitsException(User.class);
             }
@@ -80,7 +80,7 @@ public class AreaFunctions {
 
     public static void turnOffDevice(int deviceID){
         try{
-            Device device = DeviceCRUD.getDevice(deviceID);
+            Device device = DeviceCRUD.getDeviceByID(deviceID);
             if(device == null){
                 throw new NoExitsException(Device.class);
             }
@@ -95,8 +95,8 @@ public class AreaFunctions {
 
     public static void areaAddArea(int areaID_parent, int areaID_child){
         try{
-            Area parent_area = AreaCRUD.getArea(areaID_parent);
-            Area children_area = AreaCRUD.getArea(areaID_child);
+            Area parent_area = AreaCRUD.getAreaByID(areaID_parent);
+            Area children_area = AreaCRUD.getAreaByID(areaID_child);
             if(parent_area == null)  throw new NoExitsException(Area.class);
             if(children_area == null)    throw new NoExitsException(Area.class);
             if(exitsRelationAA( parent_area, children_area)) throw new AreaException(1);
@@ -115,8 +115,8 @@ public class AreaFunctions {
 
     public static void areaAdDevice(int areaID, int deviceID){
         try{
-            Area area = AreaCRUD.getArea(areaID);
-            Device device = DeviceCRUD.getDevice(deviceID);
+            Area area = AreaCRUD.getAreaByID(areaID);
+            Device device = DeviceCRUD.getDeviceByID(deviceID);
             if(area == null)  throw new NoExitsException(Area.class);
             if(device == null)    throw new NoExitsException(Device.class);
             if(exitsRelationAD( area, device)) throw new AreaException(1);
@@ -135,8 +135,8 @@ public class AreaFunctions {
 
     public static void areaAddUser(int areaID, int userID){
         try{
-            Area area = AreaCRUD.getArea(areaID);
-            User user = UserCRUD.getUser(userID);
+            Area area = AreaCRUD.getAreaByID(areaID);
+            User user = UserCRUD.getUserByID(userID);
             if(area == null)  throw new NoExitsException(Area.class);
             if(user == null)    throw new NoExitsException(User.class);
             if(exitsRelationAU( area, user)) throw new AreaException(1);

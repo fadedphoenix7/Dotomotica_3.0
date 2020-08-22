@@ -12,24 +12,25 @@ import com.jose.model.schemas.UserRole;
 import java.util.ArrayList;
 
 public class DeviceFunctions {
-    public static void addDevice(String name, int houseID, ArrayList<User> users){
+    public static void addDevice(String name, int houseID, ArrayList<User> users, boolean usersCanUse){
         Device newDevice = new Device();
         newDevice.setNameDevice(name);
         newDevice.setID_house(houseID);
         newDevice.setUsers(users);
+        newDevice.setUsersCanUse(usersCanUse);
 
         DeviceCRUD.create(newDevice);
     }
 
-    public static void updateDevice(int deviceID,String newName){
+    public static void updateDevice(int deviceID,String newName, boolean usersCanUse){
         try{
-            Device exitsDevice = DeviceCRUD.getDevice(deviceID);
+            Device exitsDevice = DeviceCRUD.getDeviceByID(deviceID);
             System.out.println(exitsDevice);
             if(exitsDevice == null){
                 throw new NoExitsException(Device.class);
             }
             else{
-                reConfigDevice(exitsDevice, newName);
+                reConfigDevice(exitsDevice, newName, usersCanUse);
                 DeviceCRUD.update(exitsDevice);
             }
         } catch (NoExitsException error) {
@@ -37,13 +38,14 @@ public class DeviceFunctions {
         }
     }
 
-    public static void reConfigDevice(Device device,String newName){
+    public static void reConfigDevice(Device device,String newName, boolean usersCanUse){
         if(!newName.isEmpty() ||device.getNameDevice().equals(newName)) device.setNameDevice(newName);
+        device.setUsersCanUse(usersCanUse);
     }
 
     public static void deleteDevice(int deviceID, UserRole userRole){
         try{
-            Device exitsDevice = DeviceCRUD.getDevice(deviceID);
+            Device exitsDevice = DeviceCRUD.getDeviceByID(deviceID);
             if(exitsDevice == null){
                 throw new NoExitsException(Device.class);
             }
@@ -64,7 +66,7 @@ public class DeviceFunctions {
 
     public static void turnOnDevice(int deviceID){
         try{
-            Device device = DeviceCRUD.getDevice(deviceID);
+            Device device = DeviceCRUD.getDeviceByID(deviceID);
             if(device == null){
                 throw new NoExitsException(User.class);
             }
@@ -79,7 +81,7 @@ public class DeviceFunctions {
 
     public static void turnOffDevice(int deviceID){
         try{
-            Device device = DeviceCRUD.getDevice(deviceID);
+            Device device = DeviceCRUD.getDeviceByID(deviceID);
             if(device == null){
                 throw new NoExitsException(Device.class);
             }
@@ -94,8 +96,8 @@ public class DeviceFunctions {
 
     public static void deviceAddUser(int deviceID, int userID){
         try{
-            User user = UserCRUD.getUser(userID);
-            Device device = DeviceCRUD.getDevice(deviceID);
+            User user = UserCRUD.getUserByID(userID);
+            Device device = DeviceCRUD.getDeviceByID(deviceID);
             if(device == null)  throw new NoExitsException(Device.class);
             if(user == null)    throw new NoExitsException(User.class);
             if(exitsRelation( device, user)) throw new DeviceException(1);

@@ -1,13 +1,7 @@
 package com.jose.controller.LogReg;
 
-import com.jfoenix.animation.alert.JFXAlertAnimation;
-import com.jfoenix.controls.JFXAlert;
-import com.jfoenix.controls.JFXDialog;
 import com.jose.model.Validation.StringValidation;
-import com.jose.model.crud.HouseCodeCRUD;
-import com.jose.model.crud.UserCRUD;
 import com.jose.model.operations.LogRegFunctions;
-import com.jose.model.operations.UserFunctions;
 import com.jose.model.schemas.House;
 import com.jose.model.schemas.User;
 import com.jose.view.PopupView;
@@ -17,12 +11,9 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.stage.Window;
-import sun.font.TextLabel;
 
+
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class LogRegController {
@@ -30,7 +21,7 @@ public class LogRegController {
     @FXML
     private Button closeButton, loginButton,houseCodeButton,verifyEmailButton;
     @FXML
-    private TextField emailText,homeCodeText, registerCodeText,nameText,lastNameText;
+    private TextField emailText,homeCodeText, registerCodeText,nameText,lastNameText,houseNameTxt,houseRegistrationCode;
     @FXML
     private PasswordField passwordText;
     @FXML
@@ -64,19 +55,23 @@ public class LogRegController {
         main.getStylesheets().add("css/root.css");
     }
 
-    public void register(){
+    public void registerProcess(){
         activate("registerCode");
 
     }
 
     public void registerNewHouse(){
-        String code = LogRegFunctions.registerNewHouse();
-        returnRegisterHouseCode(code);
+        String nameOfHouse = houseNameTxt.getText();
+        String registrationCode = houseRegistrationCode.getText();
+        House house = LogRegFunctions.registerNewHouse(nameOfHouse,registrationCode);
+        PopupView p = new PopupView(house.getCode(),"Codigo de registro para nuevos usuarios" +
+                "\n(No pierdas el codigo, no es reuperable)" +
+                "\nCodigo:");
+        configRegisterView(house.getName());
+        activate("register");
+        setHouseToRegister(house);
     }
 
-    public void returnRegisterHouseCode(String code){
-
-    }
 
     @FXML
     private void closeWindow(ActionEvent event) {
@@ -85,7 +80,7 @@ public class LogRegController {
     }
 
     @FXML
-    private void back() {
+    private void backToLogin() {
         activate("login");
     }
 
@@ -93,20 +88,30 @@ public class LogRegController {
     public void login(ActionEvent event){
         String email = emailText.getText();
         String password = passwordText.getText();
-        User userLogged = LogRegFunctions.login(email, password);
-        System.out.println(userLogged);
+        System.out.println(email + "  " + password);
+        ArrayList<User> usersLogged = LogRegFunctions.login(email, password);
+        System.out.println(usersLogged);
     }
 
     @FXML
-    public void create(ActionEvent event){
+    public void createNewHouse(ActionEvent event){
         String code =homeCodeText.getText();
-        System.out.println();
-        if(LogRegFunctions.registerNewHouseCode(code)) activate("registerHouse");
+        System.out.println("Aqui estoy");
+
+        if(LogRegFunctions.registerNewHouseCode(code)) {
+            Pane registerHousePane = screenMap.get("registerHouse");
+            Pane registerHousePaneCode = (Pane) registerHousePane.getChildrenUnmodifiable().get(0);
+            TextField codeTxt = (TextField) registerHousePaneCode.getChildren().get(0);
+            codeTxt.setText(code);
+            codeTxt.setDisable(true);
+            activate("registerHouse");
+
+        }
     }
 
     @FXML
     public void createCode(ActionEvent event){
-        String msg = LogRegFunctions.registerNewHouse();
+        String msg = LogRegFunctions.registerNewRegistrationCode();
         PopupView pop = new PopupView(msg, "Codigo");
     }
 
@@ -122,7 +127,7 @@ public class LogRegController {
         }
         else{
             emailForm = false;
-            emailTxt.setText("Correo no valido");
+            emailTxt.setText("Correo invalido");
         }
         loginFormListerner(_loginButton);
 
@@ -165,9 +170,9 @@ public class LogRegController {
     }
 
     @FXML
-    public void registerHouseCode(){
-        String code = registerCodeText.getText();
-        House house = LogRegFunctions.registerCodeHouse(code);
+    public void registerUserByCode(){
+        String codeToRegister = registerCodeText.getText();
+        House house = LogRegFunctions.registerUserByCode(codeToRegister);
         if( house != null){
             configRegisterView(house.getName());
             activate("register");
@@ -179,7 +184,7 @@ public class LogRegController {
     }
 
     @FXML
-    public void registerCode(String code, Button confirmButton){
+    public void validateCodeToRegister(String code, Button confirmButton){
         boolean haveSpace = StringValidation.noSpace(code);
         if(code.length() == 15 && !haveSpace && !code.isEmpty()){
             confirmButton.setDisable(false);
@@ -204,12 +209,12 @@ public class LogRegController {
         Label emailLabel = (Label) registerPaneCode.getChildrenUnmodifiable().get(8);
         TextField emailField = (TextField) registerPaneCode.getChildrenUnmodifiable().get(0);
         emailField.textProperty().addListener((observable, oldValue, newValue) -> {
-            this.emailValidationR(newValue,emailLabel,verifyEmailButton);
+            this.emailValidationRegister(newValue,emailLabel,verifyEmailButton);
         });
     }
 
     @FXML
-    public void emailValidationR(String email,Label emailTxt, Button _verifyEmailButton){
+    public void emailValidationRegister(String email,Label emailTxt, Button _verifyEmailButton){
         boolean initSpace = StringValidation.noInitSpace(email);
         boolean haveSpace = StringValidation.noSpace(email);
         boolean haveArroba = StringValidation.arroba(email);
@@ -229,7 +234,7 @@ public class LogRegController {
     @FXML
     public void verifyIsEmailRegister(){
         String email = emailText.getText();
-        boolean isRegister = LogRegFunctions.emailValidation(email, getHouseToRegister().getID());
+        boolean isRegister = LogRegFunctions.isEmailRegistered(email, getHouseToRegister().getID());
         System.out.println(isRegister);
         registerDisableView(isRegister);
 

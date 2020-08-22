@@ -8,10 +8,8 @@ import javax.persistence.*;
 
 public class DeviceCRUD {
 
-    private static EntityManager manager = EMFBootstrapper.openEntityManager();
-    private static EntityTransaction transaction = manager.getTransaction();
-
-    public static Device getDevice(int deviceID){
+    public static Device getDeviceByID(int deviceID){
+        EntityManager manager = EMFBootstrapper.openEntityManager();
         Device device = null;
         try {
             Query query = manager.createQuery("Select d From Device d WHERE d.ID = : deviceID")
@@ -22,6 +20,7 @@ public class DeviceCRUD {
             System.out.println(e.getMessage());
             throw e;
         } finally {
+            manager.close();
             return device;
         }
     }
@@ -49,38 +48,44 @@ public class DeviceCRUD {
     }*/
 
     public static void create(Device device){
+        EntityManager manager = EMFBootstrapper.openEntityManager();
+        EntityTransaction transaction = manager.getTransaction();
         try {
             transaction.begin();
             manager.persist(device);
             transaction.commit();
             System.out.println("Se Agreo correctamente");
 
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             transaction.rollback();
             throw e;
         } finally {
-            //manager.close();
+            manager.close();
         }
         System.out.println( "Complete!" );
     }
 
     public static void update(Device device){
+        EntityManager manager = EMFBootstrapper.openEntityManager();
+        EntityTransaction transaction = manager.getTransaction();
         try {
             transaction.begin();
             manager.persist(device);
             transaction.commit();
             System.out.println("Se actualizo correctamente");
 
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             transaction.rollback();
             throw e;
         } finally {
-            //manager.close();
+            manager.close();
         }
         System.out.println( "Complete!" );
     }
 
     public static void delete(Device device){
+        EntityManager manager = EMFBootstrapper.openEntityManager();
+        EntityTransaction transaction = manager.getTransaction();
         try {
             transaction.begin();
             int delete = manager.createQuery("Delete FROM Device  d where d.ID = :deviceID")
@@ -89,11 +94,11 @@ public class DeviceCRUD {
             transaction.commit();
             System.out.println("Se borro correctamente");
 
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             transaction.rollback();
             throw e;
         } finally {
-            //manager.close();
+            manager.close();
         }
         System.out.println( "Complete!" );
     }

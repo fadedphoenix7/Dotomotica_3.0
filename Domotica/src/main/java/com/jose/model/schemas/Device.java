@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "Device")
+@Table(name = "device")
 public class Device {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +22,8 @@ public class Device {
     private List<User> users;
     @Column(name = "device_state")
     private boolean state;
+    @Column(name = "device_users_use")
+    private boolean usersCanUse;
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "devices")
     private List<Area> areas;
 
@@ -88,6 +90,14 @@ public class Device {
 
     public void setAreas(List<Area> areas) {
         this.areas = areas;
+    }
+
+    public boolean isUsersCanUse() {
+        return usersCanUse;
+    }
+
+    public void setUsersCanUse(boolean usersCanUse) {
+        this.usersCanUse = usersCanUse;
     }
 
     public String toString(){

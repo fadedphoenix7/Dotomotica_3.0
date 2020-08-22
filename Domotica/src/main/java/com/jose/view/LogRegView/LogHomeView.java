@@ -96,7 +96,7 @@ public class LogHomeView extends DefaultView {
 
         TextField registerCodeLabel = (TextField) registerPaneCode.getChildrenUnmodifiable().get(1);
         registerCodeLabel.textProperty().addListener((observable, oldValue, newValue) -> {
-            controller.registerCode(newValue,registerCodeButton);
+            controller.validateCodeToRegister(newValue,registerCodeButton);
         });
 
         scene.setOnMousePressed(new EventHandler<MouseEvent>() {

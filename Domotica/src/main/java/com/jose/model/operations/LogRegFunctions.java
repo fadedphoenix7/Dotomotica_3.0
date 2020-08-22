@@ -9,29 +9,36 @@ import com.jose.model.schemas.HouseCode;
 import com.jose.model.schemas.User;
 import com.jose.model.schemas.UserRole;
 
+import java.util.ArrayList;
+
+/*
+    Rename Variables and refactor functions
+ */
+
 public class LogRegFunctions {
-    public static String registerNewHouse(){
 
-        String code = HouseRegistrationCode.generate(20); // Generate a house register CODE
+    public static String registerNewRegistrationCode(){
 
-        while(HouseCodeCRUD.exitsCode(code)){
-            code = HouseRegistrationCode.generate(20); //checks if that code not exits
+        String registrationCode = HouseRegistrationCode.generate(20); // Generate a house register CODE
+
+        while(verificateCode(registrationCode)){
+            registrationCode = HouseRegistrationCode.generate(20); //checks if that code not exits
         }
 
-        HouseCodeCRUD.create(code);
+        HouseCodeCRUD.create(registrationCode);
 
-        return code;
+        return registrationCode;
     }
 
-    public static boolean verificateCode(String code){
-        return HouseCodeCRUD.exitsCode(code);
+    public static boolean verificateCode(String registrationCode){
+        return HouseCodeCRUD.exitsCode(registrationCode); //Check if the code exits.
     }
 
     public static boolean registerNewHouseCode(String code){
         boolean canCreate = false;
         boolean exits = verificateCode(code);
         if(exits){
-            HouseCode codeH = HouseCodeCRUD.getCode(code);
+            HouseCode codeH = HouseCodeCRUD.getCodeByCode(code);
             canCreate = HouseCRUD.exitsHouseByCodeID(codeH.getID());
         }
         else{
@@ -41,25 +48,20 @@ public class LogRegFunctions {
         return canCreate;
     }
 
-    public static User login(String email, String password){
+    public static ArrayList<User> login(String email, String password){
 
-        User userLogged = null;
-        userLogged = UserCRUD.getUser(email, password);
+        ArrayList<User> usersFromDifferentHouse;
+        usersFromDifferentHouse = UserCRUD.getUserByEmailAndPassword(email, password);
 
-        return userLogged;
+        return usersFromDifferentHouse;
     }
 
-    public static House registerCodeHouse(String houseCode){
-        int houseID = HouseCRUD.exitsHouseByRegisterCode(houseCode);
-        House house = null;
-        if(houseID != -1) {
-            house = HouseCRUD.getHouse(houseID);
-
-        }
+    public static House registerUserByCode(String houseCode){
+        House house = HouseCRUD.getHouseByRegisterCode(houseCode);
         return house;
     }
 
-    public static boolean emailValidation(String email, int houseID){
+    public static boolean isEmailRegistered(String email, int houseID){
         boolean emailRegistered = false;
 
         if(UserCRUD.exitsUserByEmailAndHouseID(email,houseID)){
@@ -72,10 +74,24 @@ public class LogRegFunctions {
     public static void registerNewUser(String name, String lastName, String userEmail,
                                   String password, int idHouse){
     int numbersOfUSer = UserCRUD.getNumbersOfUserFromHouse(idHouse);
-        UserRole role = UserRole.USER;
-    if(numbersOfUSer < 0) role = UserRole.ADMIN;
+    UserRole role = UserRole.USER;
+    if(numbersOfUSer == 0) role = UserRole.ADMIN;
 
     UserFunctions.addUser(name,lastName,userEmail,password,idHouse,role);
 
+    }
+
+    public static House registerNewHouse(String houseName, String registrationHouseCode){
+        House house = new House();
+        String codeToRegisterHouse = HouseRegistrationCode.generate(15);
+        while(HouseCRUD.exitsHouseByRegisterCode(codeToRegisterHouse)){
+            codeToRegisterHouse = HouseRegistrationCode.generate(15);
+        }
+        int idregistrationCode = HouseCodeCRUD.getCodeByCode(registrationHouseCode).getID();
+        house.setName(houseName);
+        house.setRegistrationCodeID(idregistrationCode);
+        house.setCode(codeToRegisterHouse);
+        HouseCRUD.create(house);
+        return house;
     }
 }

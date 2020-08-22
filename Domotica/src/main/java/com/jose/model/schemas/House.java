@@ -12,13 +12,13 @@ public class House {
     @Column(name = "house_name")
     private String name;
     @Column(name = "house_code")
-    private String code;
+    private String codeToRegister;
     @Column(name = "house_registration_id")
     private int registrationCodeID;
 
     public House(String _name,String _code){
         this.name = _name;
-        this.code = _code;
+        this.codeToRegister = _code;
     }
 
     public House(){}
@@ -41,11 +41,11 @@ public class House {
     }
 
     public String getCode() {
-        return code;
+        return codeToRegister;
     }
 
     public void setCode(String code) {
-        this.code = code;
+        this.codeToRegister = code;
     }
 
     public int getRegistrationCodeID() {
@@ -57,6 +57,6 @@ public class House {
     }
 
     public String toString(){
-        return "ID:" + this.ID + " \n\tName: " + this.name + " \n\tCode: " + this.code + " \n\tRegisterIDCode: " + this.registrationCodeID;
+        return "ID:" + this.ID + " \n\tName: " + this.name + " \n\tCode: " + this.codeToRegister + " \n\tRegisterIDCode: " + this.registrationCodeID;
     }
 }

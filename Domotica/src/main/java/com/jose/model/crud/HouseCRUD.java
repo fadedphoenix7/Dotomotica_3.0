@@ -10,134 +10,155 @@ import javax.persistence.Query;
 
 public class HouseCRUD {
 
-    private static EntityManager manager = EMFBootstrapper.openEntityManager();
-    private static EntityTransaction transaction = manager.getTransaction();
+    public static void create(House house){
+        EntityManager manager = EMFBootstrapper.openEntityManager();
+        EntityTransaction transaction = manager.getTransaction();
 
-    public void create(String name, String code, String registerCode){
         try {
             transaction.begin();
-            int registrationCodeID = exitsHouseByCode(registerCode);
-            if(registrationCodeID >= 0){
-                House house = new House();
-                house.setName(name);
-                house.setCode(code);
-                house.setRegistrationCodeID(registrationCodeID);
-                manager.persist(house);
-                transaction.commit();
-                System.out.println("Se Agreo correctamente");
-            }
-        } catch (PersistenceException e) {
+            manager.persist(house);
+            transaction.commit();
+            System.out.println("Se Agreo correctamente");
+
+        } catch (Exception e) {
             transaction.rollback();
             throw e;
         } finally {
-            //manager.close();
+            manager.close();
         }
         System.out.println( "Complete!" );
     }
 
     public static boolean exitsHouseByCodeID(int codeID){
+        EntityManager manager = EMFBootstrapper.openEntityManager();
         boolean exitsHouse = false;
+
         try {
             Query query = manager.createQuery("Select h From House h WHERE h.registrationCodeID = :code")
                     .setParameter("code",codeID);
             House house =  (House) query.getResultList().get(0);
             if(house != null) exitsHouse = true;
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             throw e;
         } finally {
+            manager.close();
             return !exitsHouse;
         }
     }
 
-    public static int exitsHouseByRegisterCode(String registerCode){
-        int registerCdoeID = -1;
-        try {
-            Query query = manager.createQuery("Select h.ID From House h WHERE h.code = :code")
-                    .setParameter("code",registerCode);
-            registerCdoeID = (int) query.getResultList().get(0);
+    public static boolean exitsHouseByRegisterCode(String registerCode){
+        EntityManager manager = EMFBootstrapper.openEntityManager();
+        boolean existHouse = false;
 
-        } catch (PersistenceException e) {
+        try {
+            Query query = manager.createQuery("Select h.ID From House h WHERE h.codeToRegister = :code")
+                    .setParameter("code",registerCode);
+            if(query.getResultList().size() > 0 ){
+                existHouse = true;
+            }
+
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             throw e;
         } finally {
-            return registerCdoeID;
+            manager.close();
+            return existHouse;
+        }
+    }
+
+    public static House getHouseByRegisterCode(String registerCode){
+        EntityManager manager = EMFBootstrapper.openEntityManager();
+        House house = null;
+
+        try {
+            Query query = manager.createQuery("Select h From House h WHERE h.codeToRegister = :code")
+                    .setParameter("code",registerCode);
+            System.out.println(query.getResultList());
+           house = (House) query.getResultList().get(0);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            throw e;
+        } finally {
+            manager.close();
+            return house;
         }
     }
 
     public static int exitsHouseByCode(String houseCodeRegister){
+        EntityManager manager = EMFBootstrapper.openEntityManager();
         int registerCdoeID = -1;
+
         try {
             Query query = manager.createQuery("Select h.ID From HouseCode h WHERE h.registrationCode = :code")
                     .setParameter("code",houseCodeRegister);
             registerCdoeID = (int) query.getResultList().get(0);
 
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             throw e;
         } finally {
+            manager.close();
             return registerCdoeID;
         }
     }
 
-    public static House getHouse(int houseID){
+    public static House getHouseByID(int houseID){
+        EntityManager manager = EMFBootstrapper.openEntityManager();
         House house = new House();
+
         try {
             Query query = manager.createQuery("Select h From House h WHERE h.ID = :houseID")
                     .setParameter("houseID",houseID);
             house = (House) query.getResultList().get(0);
             System.out.println(house);
 
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             throw e;
         } finally {
+            manager.close();
             return house;
         }
     }
 
-    public void update(int houseID, String newName){
+    public static void update(House house){
         EntityManager manager = EMFBootstrapper.openEntityManager();
         EntityTransaction transaction = manager.getTransaction();
 
         try {
             transaction.begin();
-            House house = getHouse(houseID);
-            if(house != null){
-                house.setName(newName);
-                manager.persist(house);
-                transaction.commit();
-                System.out.println("Se Actualizo correctamente");
-            }
-        } catch (PersistenceException e) {
+            manager.persist(house);
+            transaction.commit();
+            System.out.println("Se Actualizo correctamente");
+
+        } catch (Exception e) {
             transaction.rollback();
             throw e;
         } finally {
-
-            //manager.close();
+            manager.close();
         }
         System.out.println( "Complete!" );
     }
 
-    public void delete(int houseID){
+    public static void delete(House house){
         EntityManager manager = EMFBootstrapper.openEntityManager();
         EntityTransaction transaction = manager.getTransaction();
 
         try {
             transaction.begin();
-            House house = getHouse(houseID);
-            if(house != null){
-                int delete = manager.createQuery("Delete FROM House  h where h.ID = :houseID")
+            int delete = manager.createQuery("Delete FROM House  h where h.ID = :houseID")
                         .setParameter("houseID", house.getID()).executeUpdate();
-                System.out.println(delete);
-                transaction.commit();
-                System.out.println("Se borro correctamente");
-            }
-        } catch (PersistenceException e) {
+            System.out.println(delete);
+            transaction.commit();
+            System.out.println("Se borro correctamente");
+
+        } catch (Exception e) {
             transaction.rollback();
             throw e;
         } finally {
-            //manager.close();
+            manager.close();
         }
         System.out.println( "Complete!" );
     }

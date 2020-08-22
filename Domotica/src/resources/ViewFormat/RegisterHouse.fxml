@@ -12,12 +12,14 @@
    <children>
       <Pane layoutX="200.0" layoutY="150.0" prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: #ffffff;">
          <children>
-            <JFXTextField editable="false" labelFloat="true" layoutX="100.0" layoutY="74.0" prefHeight="30.0" prefWidth="200.0" promptText="House Code">
+            <JFXTextField editable="false" labelFloat="true" layoutX="100.0" layoutY="75.0" prefHeight="30.0"
+                          prefWidth="200.0" promptText="House Code" fx:id="houseRegistrationCode">
                <font>
                   <Font name="Gadugi" size="16.0" />
                </font>
             </JFXTextField>
-            <JFXTextField labelFloat="true" layoutX="100.0" layoutY="125.0" prefHeight="30.0" prefWidth="200.0" promptText="House Name">
+            <JFXTextField labelFloat="true" layoutX="100.0" layoutY="145.0" prefHeight="30.0" prefWidth="200.0"
+                          promptText="House Name" fx:id="houseNameTxt">
                <font>
                   <Font name="Gadugi" size="16.0" />
                </font>
@@ -27,7 +29,7 @@
                   <Font name="Gadugi" size="16.0" />
                </font>
             </JFXButton>
-            <JFXButton layoutX="160.0" layoutY="189.0" text="Register">
+            <JFXButton layoutX="160.0" layoutY="200.0" text="Register" onAction="#registerNewHouse">
                <font>
                   <Font size="16.0" />
                </font>
@@ -39,6 +41,6 @@
             </Label>
          </children>
       </Pane>
-      <JFXButton layoutX="762.0" layoutY="14.0" text="X" fx:id="closeButton" onAction="#closeWindow"/>
+      <JFXButton layoutX="762.0" layoutY="14.0" text="X" id="CloseButton" onAction="#closeWindow"/>
    </children>
 </Pane>

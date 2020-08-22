@@ -12,7 +12,7 @@ public class UserFunctions {
     public static void addUser(String userName, String lastName, String userEmail,
                                String password, int idHouse, UserRole userRole){
         try{
-            if(UserCRUD.exitsUser(userEmail)){
+            if(UserCRUD.exitsUserByEmailAndHouseID(userEmail,idHouse)){
                 throw new ExitsException(User.class);
             }
             else{
@@ -34,7 +34,7 @@ public class UserFunctions {
     public static void updateUser(String userName, String lastName, String userEmail,
                            String password, int idHouse, UserRole userRole){
         try{
-            User exitsUser = UserCRUD.getUser(userEmail);
+            User exitsUser = UserCRUD.getUserByEmail(userEmail,idHouse);
             System.out.println(exitsUser);
             if(exitsUser == null){
                 throw new NoExitsException(User.class);
@@ -57,9 +57,9 @@ public class UserFunctions {
         user.setUserRole(userRole);
     }
 
-    public static void deleteUser(String userEmail, String password){
+    public static void deleteUser(String userEmail, String password,int houseID){
         try{
-            User exitsUser = UserCRUD.getUser(userEmail);
+            User exitsUser = UserCRUD.getUserByEmail(userEmail, houseID);
             if(exitsUser == null){
                 throw new NoExitsException(User.class);
             }

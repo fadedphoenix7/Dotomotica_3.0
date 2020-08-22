@@ -10,36 +10,36 @@ import javax.persistence.Query;
 import java.util.ArrayList;
 
 public class HouseCodeCRUD {
-    private static EntityManager manager = EMFBootstrapper.openEntityManager();
-    private static EntityTransaction transaction = manager.getTransaction();
 
     public static void create(String code){
+        EntityManager manager = EMFBootstrapper.openEntityManager();
+        EntityTransaction transaction = manager.getTransaction();
 
-
-        ArrayList<HouseCode> houseCodes = new ArrayList<HouseCode>();
         try {
             transaction.begin();
             HouseCode houseCode = new HouseCode();
             houseCode.setRegistrationCode(code);
             manager.persist(houseCode);
             transaction.commit();
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             transaction.rollback();
             throw e;
         } finally {
-            //manager.close();
+            manager.close();
         }
         System.out.println( "Complete!" );
     }
 
     public static boolean exitsCode(String code){
+        EntityManager manager = EMFBootstrapper.openEntityManager();
         ArrayList<HouseCode> houseCodes = new ArrayList<HouseCode>();
+
         try {
             Query query = manager.createQuery("Select h From HouseCode h WHERE h.registrationCode = :code")
                     .setParameter("code",code);
             houseCodes = (ArrayList<HouseCode>) query.getResultList();
 
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             throw e;
         } finally {
@@ -47,14 +47,16 @@ public class HouseCodeCRUD {
         }
     }
 
-    public static HouseCode getCode(String code){
+    public static HouseCode getCodeByCode(String code){
+        EntityManager manager = EMFBootstrapper.openEntityManager();
         ArrayList<HouseCode> houseCodes = new ArrayList<HouseCode>();
+
         try {
             Query query = manager.createQuery("Select h From HouseCode h WHERE h.registrationCode = :code")
                     .setParameter("code",code);
             houseCodes = (ArrayList<HouseCode>) query.getResultList();
 
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             throw e;
         } finally {

@@ -30,9 +30,7 @@ import java.util.ArrayList;
 public class App 
 {
     public static void main( String[] args ) {
-//        EMFBootstrapper.initConnection();
-//        Controller con = new Controller();
-        System.out.println(UserCRUD.getNumbersOfUserFromHouse(1));
+        Controller con = new Controller();
         EMFBootstrapper.closeEntityManager();
 
     }

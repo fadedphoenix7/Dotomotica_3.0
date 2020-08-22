@@ -52,13 +52,13 @@
          </font>
       </JFXTextField>
 
-      <JFXButton fx:id="houseCodeButton" buttonType="RAISED" layoutX="169.0" layoutY="464.0" text="Create" onAction="#create">
+      <JFXButton fx:id="houseCodeButton" buttonType="RAISED" layoutX="169.0" layoutY="464.0" text="Create" onAction="#createNewHouse">
          <font>
             <Font name="Gadugi" size="16.0" />
          </font>
       </JFXButton>
       <Hyperlink  layoutX="100.0" layoutY="500.0" text="Create new Code" onAction="#createCode"/>
-      <Hyperlink  layoutX="50.0" layoutY="210.0" text="Register" onAction="#register"/>
+      <Hyperlink  layoutX="50.0" layoutY="210.0" text="Register" onAction="#registerProcess"/>
 
    </children>
 </Pane>
