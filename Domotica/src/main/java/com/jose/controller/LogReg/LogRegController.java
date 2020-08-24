@@ -1,20 +1,25 @@
 package com.jose.controller.LogReg;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXListView;
 import com.jose.model.Validation.StringValidation;
 import com.jose.model.operations.LogRegFunctions;
 import com.jose.model.schemas.House;
 import com.jose.model.schemas.User;
+import com.jose.view.LogRegView.LogHomeView;
 import com.jose.view.PopupView;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
-
-
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class LogRegController {
 
@@ -28,10 +33,11 @@ public class LogRegController {
     private Label emailLabel,houseName;
     @FXML
     private Pane pane;
+    @FXML
+    private ListView usersList;
 
     private static boolean emailForm = false, passwordForm = false;
 
-    private static HashMap<String, Pane> screenMap = new HashMap<>();
     private static Scene main;
 
     private static House houseToRegister;
@@ -42,21 +48,12 @@ public class LogRegController {
         main = scene;
     }
 
-    public static void addScreen(String name, Pane pane){
-        screenMap.put(name, pane);
-    }
-
-    public void removeScreen(String name){
-        screenMap.remove(name);
-    }
-
-    public void activate(String name){
-        main.setRoot( screenMap.get(name) );
-        main.getStylesheets().add("css/root.css");
-    }
-
     public void registerProcess(){
-        activate("registerCode");
+        try {
+            main.setRoot(LogHomeView.initRegisterCodeView());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -64,11 +61,14 @@ public class LogRegController {
         String nameOfHouse = houseNameTxt.getText();
         String registrationCode = houseRegistrationCode.getText();
         House house = LogRegFunctions.registerNewHouse(nameOfHouse,registrationCode);
-        PopupView p = new PopupView(house.getCode(),"Codigo de registro para nuevos usuarios" +
+        new PopupView(house.getCode(),"Codigo de registro para nuevos usuarios" +
                 "\n(No pierdas el codigo, no es reuperable)" +
                 "\nCodigo:");
-        configRegisterView(house.getName());
-        activate("register");
+        try {
+            main.setRoot(LogHomeView.initRegisterView(house.getName()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         setHouseToRegister(house);
     }
 
@@ -81,38 +81,50 @@ public class LogRegController {
 
     @FXML
     private void backToLogin() {
-        activate("login");
+        try {
+            main.setRoot(LogHomeView.initLoginView());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
-    public void login(ActionEvent event){
+    public void login(){
         String email = emailText.getText();
         String password = passwordText.getText();
         System.out.println(email + "  " + password);
         ArrayList<User> usersLogged = LogRegFunctions.login(email, password);
         System.out.println(usersLogged);
+
+        try {
+            main.setRoot(LogHomeView.selectUserView(usersLogged));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
+
+
     @FXML
-    public void createNewHouse(ActionEvent event){
+    public void createNewHouse(){
         String code =homeCodeText.getText();
         System.out.println("Aqui estoy");
 
         if(LogRegFunctions.registerNewHouseCode(code)) {
-            Pane registerHousePane = screenMap.get("registerHouse");
-            Pane registerHousePaneCode = (Pane) registerHousePane.getChildrenUnmodifiable().get(0);
-            TextField codeTxt = (TextField) registerHousePaneCode.getChildren().get(0);
-            codeTxt.setText(code);
-            codeTxt.setDisable(true);
-            activate("registerHouse");
+
+            try {
+                main.setRoot(LogHomeView.initRegisterHouseView(code));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
         }
     }
 
     @FXML
-    public void createCode(ActionEvent event){
+    public void createCode(){
         String msg = LogRegFunctions.registerNewRegistrationCode();
-        PopupView pop = new PopupView(msg, "Codigo");
+        new PopupView(msg, "Codigo");
     }
 
     @FXML
@@ -135,12 +147,8 @@ public class LogRegController {
 
     @FXML
     public void loginFormListerner(Button _loginButton){
-        if(emailForm && passwordForm){
-            _loginButton.setDisable(false);
-        }
-        else {
-            _loginButton.setDisable(true);
-        }
+        boolean disable = !emailForm && !passwordForm;
+        _loginButton.setDisable(disable);
     }
 
     @FXML
@@ -148,25 +156,16 @@ public class LogRegController {
         boolean initSpace = StringValidation.noInitSpace(password);
         boolean haveSpace = StringValidation.noSpace(password);
 
-        if(!initSpace && !haveSpace && !password.isEmpty()){
-            passwordForm = true;
-        }
-        else{
-            passwordForm = false;
-        }
+        passwordForm = !initSpace && !haveSpace && !password.isEmpty();
         loginFormListerner(_loginButton);
 
     }
 
     @FXML
     public void validateHouseCode(String code, Button createButton){
-        boolean haveSpace = StringValidation.noSpace(code);
-        if(!code.isEmpty() && code.length() == 20 && !haveSpace ){
-            createButton.setDisable(false);
-        }
-        else {
-            createButton.setDisable(true);
-        }
+        boolean haveSpace = StringValidation.noSpace(code), disable;
+        disable = code.length() == 20 && !haveSpace;
+        createButton.setDisable(!disable);
     }
 
     @FXML
@@ -174,43 +173,23 @@ public class LogRegController {
         String codeToRegister = registerCodeText.getText();
         House house = LogRegFunctions.registerUserByCode(codeToRegister);
         if( house != null){
-            configRegisterView(house.getName());
-            activate("register");
+            try {
+                main.setRoot(LogHomeView.initRegisterView(house.getName()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             setHouseToRegister(house);
         }
         else{
-            PopupView error = new PopupView("Codigo incorrecto");
+            new PopupView("Codigo incorrecto");
         }
     }
 
     @FXML
     public void validateCodeToRegister(String code, Button confirmButton){
-        boolean haveSpace = StringValidation.noSpace(code);
-        if(code.length() == 15 && !haveSpace && !code.isEmpty()){
-            confirmButton.setDisable(false);
-        }
-        else {
-            confirmButton.setDisable(true);
-        }
-    }
-
-    public void configRegisterView(String name){
-        Pane registerPane = screenMap.get("register");
-        Pane registerPaneCode = (Pane) registerPane.getChildrenUnmodifiable().get(0);
-
-        registerDisableView(true);
-
-        Label houseLabel = (Label)registerPaneCode.getChildren().get(7);
-        houseLabel.setText(name);
-
-        Button verifyEmailButton = (Button) registerPaneCode.getChildren().get(3);
-
-
-        Label emailLabel = (Label) registerPaneCode.getChildrenUnmodifiable().get(8);
-        TextField emailField = (TextField) registerPaneCode.getChildrenUnmodifiable().get(0);
-        emailField.textProperty().addListener((observable, oldValue, newValue) -> {
-            this.emailValidationRegister(newValue,emailLabel,verifyEmailButton);
-        });
+        boolean haveSpace = StringValidation.noSpace(code), disable;
+        disable = code.length() == 15 && !haveSpace;
+        confirmButton.setDisable(disable);
     }
 
     @FXML
@@ -218,7 +197,7 @@ public class LogRegController {
         boolean initSpace = StringValidation.noInitSpace(email);
         boolean haveSpace = StringValidation.noSpace(email);
         boolean haveArroba = StringValidation.arroba(email);
-        registerDisableView(true);
+        LogHomeView.registerDisableView(true, main.getRoot());
         if(!initSpace && !haveSpace && haveArroba){
             emailTxt.setText(" ");
             _verifyEmailButton.setDisable(false);
@@ -236,27 +215,10 @@ public class LogRegController {
         String email = emailText.getText();
         boolean isRegister = LogRegFunctions.isEmailRegistered(email, getHouseToRegister().getID());
         System.out.println(isRegister);
-        registerDisableView(isRegister);
-
+        LogHomeView.registerDisableView(isRegister, main.getRoot());
 
     }
 
-    public void registerDisableView(boolean disable){
-        Pane registerPane = screenMap.get("register");
-        Pane registerPaneCode = (Pane) registerPane.getChildrenUnmodifiable().get(0);
-
-        TextField nameField = (TextField) registerPaneCode.getChildren().get(1);
-        nameField.setDisable(disable);
-
-        TextField lastnameField = (TextField) registerPaneCode.getChildren().get(2);
-        lastnameField.setDisable(disable);
-
-        PasswordField passwordField = (PasswordField) registerPaneCode.getChildren().get(5);
-        passwordField.setDisable(disable);
-
-        Button registerButton = (Button) registerPaneCode.getChildren().get(4);
-        registerButton.setDisable(disable);
-    }
 
     public void registerNewUser(){
         String name = nameText.getText(), lastName = lastNameText.getText(),
@@ -272,17 +234,30 @@ public class LogRegController {
             if(validLastName){
                 if(validPassword){
                     LogRegFunctions.registerNewUser(name,lastName,email,password,getHouseToRegister().getID());
-                    PopupView error = new PopupView("Usuario Registrado Correctamente");
-                    activate("login");
+                    new PopupView("Usuario Registrado Correctamente");
+                    try {
+                        main.setRoot(LogHomeView.initLoginView());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }else{
-                    PopupView error = new PopupView("Password invalido. Escriba otro (Longitud o caracteres incorrectos)");
+                    new PopupView("Password invalido. Escriba otro (Longitud o caracteres incorrectos)");
                 }
             }else{
-                PopupView error = new PopupView("Apellido invalido. Escriba otro (Sin numeros ni espacios al inicio)");
+                new PopupView("Apellido invalido. Escriba otro (Sin numeros ni espacios al inicio)");
             }
         }else{
-            PopupView error = new PopupView("Nombre invalido. Escriba otro (Sin numero ni espacios al inicio)");
+            new PopupView("Nombre invalido. Escriba otro (Sin numero ni espacios al inicio)");
         }
+    }
+
+    public void selectedItem(){
+        LogHomeView.activateSelectedUserButton(false, main.getRoot());
+    }
+
+    public void loggedUser(){
+        System.out.println(usersList.getSelectionModel().getSelectedItem());
+        System.out.println(usersList.getSelectionModel().getSelectedItem().getClass());
     }
 
     public static House getHouseToRegister() {
