@@ -1,6 +1,7 @@
 package com.jose.model.schemas;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,23 +15,26 @@ public class Area {
     private String nameArea;
     @Column(name = "house_id")
     private int ID_house;
-    @ManyToMany(cascade = {CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.MERGE}, fetch= FetchType.EAGER)
     @JoinTable(name = "AreaToArea",
             joinColumns = @JoinColumn(name = "parent_area_id"),
             inverseJoinColumns = @JoinColumn(name = "child_area_id"))
-    private List<Area> areas;
-    @ManyToMany(cascade = {CascadeType.MERGE})
+    private List<Area> areas = new ArrayList<>();
+    @ManyToMany(cascade = {CascadeType.MERGE},fetch= FetchType.EAGER)
     @JoinTable(name = "AreaToUser",
             joinColumns = @JoinColumn(name = "parent_area_id"),
             inverseJoinColumns = @JoinColumn(name = "child_user_id"))
-    private List<User> users;
-    @ManyToMany(cascade = {CascadeType.MERGE})
+    private List<User> users = new ArrayList<>();
+    @ManyToMany(cascade = {CascadeType.MERGE}, fetch= FetchType.EAGER)
     @JoinTable(name = "AreaToDevice",
             joinColumns = @JoinColumn(name = "parent_area_id"),
             inverseJoinColumns = @JoinColumn(name = "child_device_id"))
-    private List<Device> devices;
+    private List<Device> devices = new ArrayList<>();
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users")
-    private List<Area> areas_child;
+    private List<Area> areas_child = new ArrayList<>();
+    @Enumerated(EnumType.STRING)
+    @Column(name = "area_role")
+    private UserRole userRole = UserRole.USER;
 
     public Area(){}
 
@@ -106,6 +110,14 @@ public class Area {
 
     public void addUser(User user){
         users.add(user);
+    }
+
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
     }
 
     public String toString(){

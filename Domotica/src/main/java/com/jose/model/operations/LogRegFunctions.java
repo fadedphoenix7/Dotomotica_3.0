@@ -57,8 +57,7 @@ public class LogRegFunctions {
     }
 
     public static House registerUserByCode(String houseCode){
-        House house = HouseCRUD.getHouseByRegisterCode(houseCode);
-        return house;
+        return HouseCRUD.getHouseByRegisterCode(houseCode);
     }
 
     public static boolean isEmailRegistered(String email, int houseID){

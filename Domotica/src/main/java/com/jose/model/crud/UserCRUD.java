@@ -1,6 +1,7 @@
 package com.jose.model.crud;
 
 import com.jose.model.bootstraper.EMFBootstrapper;
+import com.jose.model.schemas.Device;
 import com.jose.model.schemas.House;
 import com.jose.model.schemas.User;
 import com.jose.model.schemas.UserRole;
@@ -10,6 +11,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class UserCRUD {
     /*
@@ -121,6 +123,70 @@ public class UserCRUD {
         } finally {
             manager.close();
             return numbersOfUsers;
+        }
+
+    }
+
+    public static ArrayList<User> getUsersInHouse(int houseID){
+        EntityManager manager = EMFBootstrapper.openEntityManager();
+        ArrayList<User> users = new ArrayList<>();
+        try {
+            Query query = manager.createQuery("SELECT s FROM User  s where s.id_house = :houseID and not s.userRole =:userRole")
+                    .setParameter("houseID", houseID)
+                    .setParameter("userRole", UserRole.INVITED);
+            users = (ArrayList<User>) query.getResultList();
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            manager.close();
+            return users;
+        }
+
+    }
+
+    public static ArrayList<User> getUsersInHouseAndNoDevice(int houseID, int deviceID){
+        EntityManager manager = EMFBootstrapper.openEntityManager();
+        ArrayList<User> users = new ArrayList<>();
+        ArrayList<User> finalUsers = new ArrayList<>();
+        try {
+            Query query = manager.createQuery("SELECT s FROM User s WHERE s.id_house = :houseID " +
+                    "AND NOT s.userRole = :userRole")
+                    .setParameter("houseID", houseID)
+                    .setParameter("userRole", UserRole.INVITED);
+            users = (ArrayList<User>) query.getResultList();
+            Device d =DeviceCRUD.getDeviceByID(deviceID);
+            finalUsers = users;
+            for(Iterator<User> iterator = users.iterator(); iterator.hasNext();){
+                User user = iterator.next();
+                for(Device device : user.getDevices()){
+                    if(d.getID() == device.getID()) iterator.remove();
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            manager.close();
+            return finalUsers;
+        }
+
+    }
+
+    public static ArrayList<User> getUsersInDevice(int deviceID, int houseID){
+        EntityManager manager = EMFBootstrapper.openEntityManager();
+        ArrayList<User> users = new ArrayList<>();
+        try {
+            Query query = manager.createQuery("SELECT s FROM User  s Join s.devices ud where s.id_house = :houseID and ud.ID = :deviceID")
+                    .setParameter("houseID", houseID)
+                    .setParameter("deviceID", deviceID);
+            users = (ArrayList<User>) query.getResultList();
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            manager.close();
+            return users;
         }
 
     }

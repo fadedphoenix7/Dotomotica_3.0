@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="525.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.jose.controller.Home.AreaController">
+   <children>
+      <JFXTextField labelFloat="true" layoutX="37.0" layoutY="32.0" prefHeight="51.0" prefWidth="230.0" promptText="Name area">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </JFXTextField>
+      <JFXComboBox editable="true" layoutX="37.0" layoutY="116.0" prefHeight="31.0" prefWidth="230.0" promptText="User Permission" visibleRowCount="4" />
+      <JFXListView layoutX="27.0" layoutY="303.0" prefHeight="200.0" prefWidth="230.0" />
+      <JFXListView layoutX="273.0" layoutY="303.0" prefHeight="200.0" prefWidth="230.0" />
+      <JFXListView layoutX="285.0" layoutY="32.0" prefHeight="200.0" prefWidth="230.0" />
+      <JFXListView layoutX="540.0" layoutY="32.0" prefHeight="200.0" prefWidth="230.0" />
+      <JFXButton layoutX="91.0" layoutY="170.0" text="Update">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="668.0" layoutY="455.0" text="Back" onAction="#backToAreaList">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="509.0" layoutY="346.0" text="Remove">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="515.0" layoutY="403.0" prefHeight="48.0" prefWidth="95.0" text="Add">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="400.0" layoutY="239.0" text="Remove">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="540.0" layoutY="239.0" text="Add">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

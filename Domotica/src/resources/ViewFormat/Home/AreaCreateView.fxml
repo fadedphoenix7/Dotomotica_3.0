@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="525.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.jose.controller.Home.AreaController">
+   <children>
+      <JFXTextField alignment="BASELINE_LEFT" labelFloat="true" layoutX="249.0" layoutY="102.0" prefWidth="300.0"
+                    promptText="Name Area" fx:id="nameAreaField">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </JFXTextField>
+      <JFXComboBox labelFloat="true" layoutX="249.0" layoutY="247.0" prefWidth="300.0" promptText="Permission level"
+                   visibleRowCount="4" fx:id="roleComboBox" />
+      <JFXButton layoutX="682.0" layoutY="14.0" text="Cancel" onAction="#backToAreaList">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="348.0" layoutY="386.0" text="Create" onAction="#createNewArea">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

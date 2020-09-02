@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="525.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.jose.controller.Home.AreaController">
+   <children>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="39.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="261.0" layoutY="55.0" text="Name:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="350.0" layoutY="55.0" text="nameArea">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <JFXListView layoutX="39.0" layoutY="263.0" prefHeight="200.0" prefWidth="300.0" />
+      <JFXListView layoutX="422.0" layoutY="263.0" prefHeight="200.0" prefWidth="300.0" />
+      <Label layoutX="39.0" layoutY="228.0" text="Areas">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="424.0" layoutY="228.0" text="Devices">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <JFXButton layoutX="261.0" layoutY="139.0" text="ON">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="339.0" layoutY="139.0" text="OFF">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="717.0" layoutY="25.0" text="Back" onAction="#backToAreaList">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="525.0" layoutY="49.0" text="Config" onAction="#configArea">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

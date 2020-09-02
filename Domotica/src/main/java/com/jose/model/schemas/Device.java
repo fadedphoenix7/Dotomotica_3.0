@@ -1,6 +1,7 @@
 package com.jose.model.schemas;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -13,17 +14,20 @@ public class Device {
     private int ID;
     @Column(name = "device_name")
     private String nameDevice;
+    @Column(name = "device_description")
+    private String descriptionDevice;
     @Column(name = "house_id")
     private int ID_house;
-    @ManyToMany(cascade = {CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.MERGE}, fetch= FetchType.EAGER)
     @JoinTable(name = "DeviceToUser",
                 joinColumns = @JoinColumn(name = "parent_device_id"),
                 inverseJoinColumns = @JoinColumn(name = "child_user_id"))
-    private List<User> users;
+    private List<User> users = new ArrayList<>();
     @Column(name = "device_state")
     private boolean state;
-    @Column(name = "device_users_use")
-    private boolean usersCanUse;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "device_role")
+    private UserRole userRole = UserRole.USER;
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "devices")
     private List<Area> areas;
 
@@ -92,15 +96,24 @@ public class Device {
         this.areas = areas;
     }
 
-    public boolean isUsersCanUse() {
-        return usersCanUse;
+    public UserRole getUserRole() {
+        return userRole;
     }
 
-    public void setUsersCanUse(boolean usersCanUse) {
-        this.usersCanUse = usersCanUse;
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
+    }
+
+    public String getDescriptionDevice() {
+        return descriptionDevice;
+    }
+
+    public void setDescriptionDevice(String descriptionDevice) {
+        this.descriptionDevice = descriptionDevice;
     }
 
     public String toString(){
+        if(users == null) return "Usuarios vacios";
         return "ID:" + this.ID +"\n\tNombre: " + this.nameDevice +
                 "\n\tState: " + this.state + "\n\tID_house: " + this.ID_house +"\n\t" + users.toString() + "\n";
     }

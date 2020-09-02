@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="domotica">
-  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.18">
+  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.19">
     <root id="1">
       <ServerVersion>8.0.21</ServerVersion>
       <DefaultEngine>InnoDB</DefaultEngine>
@@ -891,18 +891,32 @@
     </user>
     <user id="282" parent="1" name="mysql.infoschema">
       <Host>localhost</Host>
+      <ObjectGrants>SELECT
+</ObjectGrants>
     </user>
     <user id="283" parent="1" name="mysql.session">
       <Host>localhost</Host>
+      <ObjectGrants>SHUTDOWN,SUPER
+BACKUP_ADMIN,CLONE_ADMIN,CONNECTION_ADMIN,PERSIST_RO_VARIABLES_ADMIN,SESSION_VARIABLES_ADMIN,SYSTEM_USER,SYSTEM_VARIABLES_ADMIN
+SELECT|performance_schema:null
+SELECT|mysql.user:null
+</ObjectGrants>
     </user>
     <user id="284" parent="1" name="mysql.sys">
       <Host>localhost</Host>
+      <ObjectGrants>TRIGGER|sys:null
+SELECT|sys.sys_config:null
+</ObjectGrants>
     </user>
     <user id="285" parent="1" name="pepe">
       <Host>%</Host>
+      <ObjectGrants>SELECT,LOCK TABLES,EVENT
+</ObjectGrants>
     </user>
     <user id="286" parent="1" name="root">
       <Host>localhost</Host>
+      <ObjectGrants>SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,RELOAD,SHUTDOWN,PROCESS,FILE,REFERENCES,INDEX,ALTER,SHOW DATABASES,SUPER,CREATE TEMPORARY TABLES,LOCK TABLES,EXECUTE,REPLICATION SLAVE,REPLICATION CLIENT,CREATE VIEW,SHOW VIEW,CREATE ROUTINE,ALTER ROUTINE,CREATE USER,EVENT,TRIGGER,CREATE TABLESPACE,CREATE ROLE,DROP ROLE!
+</ObjectGrants>
     </user>
     <table id="287" parent="2" name="area"/>
     <table id="288" parent="2" name="areatoarea"/>
@@ -917,454 +931,438 @@
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-      <ColumnKind>normal</ColumnKind>
+      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="297" parent="287" name="area_name">
       <Position>2</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
     <column id="298" parent="287" name="house_id">
       <Position>3</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="299" parent="287" name="area_id">
+    <column id="299" parent="287" name="area_role">
+      <Position>4</Position>
+      <DataType>varchar(15)|0s</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;USER&apos;</DefaultExpression>
+    </column>
+    <index id="300" parent="287" name="area_id">
       <ColNames>area_id</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="300" parent="287" name="house_id">
+    <index id="301" parent="287" name="house_id">
       <ColNames>house_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="301" parent="287" name="PRIMARY">
+    <key id="302" parent="287" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>area_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="302" parent="287" name="area_id">
+    <key id="303" parent="287" name="area_id">
       <ColNames>area_id</ColNames>
       <UnderlyingIndexName>area_id</UnderlyingIndexName>
     </key>
-    <foreign-key id="303" parent="287" name="area_ibfk_1">
+    <foreign-key id="304" parent="287" name="area_ibfk_1">
       <ColNames>house_id</ColNames>
       <RefTableName>house</RefTableName>
       <RefColNames>house_id</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="304" parent="288" name="relation_id">
+    <column id="305" parent="288" name="relation_id">
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-      <ColumnKind>normal</ColumnKind>
+      <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="305" parent="288" name="parent_area_id">
+    <column id="306" parent="288" name="parent_area_id">
       <Position>2</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="306" parent="288" name="child_area_id">
+    <column id="307" parent="288" name="child_area_id">
       <Position>3</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="307" parent="288" name="relation_id">
+    <index id="308" parent="288" name="relation_id">
       <ColNames>relation_id</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="308" parent="288" name="parent_area_id">
+    <index id="309" parent="288" name="parent_area_id">
       <ColNames>parent_area_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="309" parent="288" name="child_area_id">
+    <index id="310" parent="288" name="child_area_id">
       <ColNames>child_area_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="310" parent="288" name="PRIMARY">
+    <key id="311" parent="288" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>relation_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="311" parent="288" name="relation_id">
+    <key id="312" parent="288" name="relation_id">
       <ColNames>relation_id</ColNames>
       <UnderlyingIndexName>relation_id</UnderlyingIndexName>
     </key>
-    <foreign-key id="312" parent="288" name="areatoarea_ibfk_1">
+    <foreign-key id="313" parent="288" name="areatoarea_ibfk_1">
       <ColNames>parent_area_id</ColNames>
       <RefTableName>area</RefTableName>
       <RefColNames>area_id</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="313" parent="288" name="areatoarea_ibfk_2">
+    <foreign-key id="314" parent="288" name="areatoarea_ibfk_2">
       <ColNames>child_area_id</ColNames>
       <RefTableName>area</RefTableName>
       <RefColNames>area_id</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="314" parent="289" name="relation_id">
+    <column id="315" parent="289" name="relation_id">
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-      <ColumnKind>normal</ColumnKind>
+      <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="315" parent="289" name="parent_area_id">
+    <column id="316" parent="289" name="parent_area_id">
       <Position>2</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="316" parent="289" name="child_device_id">
+    <column id="317" parent="289" name="child_device_id">
       <Position>3</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="317" parent="289" name="relation_id">
+    <index id="318" parent="289" name="relation_id">
       <ColNames>relation_id</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="318" parent="289" name="parent_area_id">
+    <index id="319" parent="289" name="parent_area_id">
       <ColNames>parent_area_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="319" parent="289" name="child_device_id">
+    <index id="320" parent="289" name="child_device_id">
       <ColNames>child_device_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="320" parent="289" name="PRIMARY">
+    <key id="321" parent="289" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>relation_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="321" parent="289" name="relation_id">
+    <key id="322" parent="289" name="relation_id">
       <ColNames>relation_id</ColNames>
       <UnderlyingIndexName>relation_id</UnderlyingIndexName>
     </key>
-    <foreign-key id="322" parent="289" name="areatodevice_ibfk_1">
+    <foreign-key id="323" parent="289" name="areatodevice_ibfk_1">
       <ColNames>parent_area_id</ColNames>
       <RefTableName>area</RefTableName>
       <RefColNames>area_id</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="323" parent="289" name="areatodevice_ibfk_2">
+    <foreign-key id="324" parent="289" name="areatodevice_ibfk_2">
       <ColNames>child_device_id</ColNames>
       <RefTableName>device</RefTableName>
       <RefColNames>device_id</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="324" parent="290" name="relation_id">
+    <column id="325" parent="290" name="relation_id">
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-      <ColumnKind>normal</ColumnKind>
+      <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="325" parent="290" name="parent_area_id">
+    <column id="326" parent="290" name="parent_area_id">
       <Position>2</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="326" parent="290" name="child_user_id">
+    <column id="327" parent="290" name="child_user_id">
       <Position>3</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="327" parent="290" name="relation_id">
+    <index id="328" parent="290" name="relation_id">
       <ColNames>relation_id</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="328" parent="290" name="parent_area_id">
+    <index id="329" parent="290" name="parent_area_id">
       <ColNames>parent_area_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="329" parent="290" name="child_user_id">
+    <index id="330" parent="290" name="child_user_id">
       <ColNames>child_user_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="330" parent="290" name="PRIMARY">
+    <key id="331" parent="290" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>relation_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="331" parent="290" name="relation_id">
+    <key id="332" parent="290" name="relation_id">
       <ColNames>relation_id</ColNames>
       <UnderlyingIndexName>relation_id</UnderlyingIndexName>
     </key>
-    <foreign-key id="332" parent="290" name="areatouser_ibfk_1">
+    <foreign-key id="333" parent="290" name="areatouser_ibfk_1">
       <ColNames>parent_area_id</ColNames>
       <RefTableName>area</RefTableName>
       <RefColNames>area_id</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="333" parent="290" name="areatouser_ibfk_2">
+    <foreign-key id="334" parent="290" name="areatouser_ibfk_2">
       <ColNames>child_user_id</ColNames>
       <RefTableName>user</RefTableName>
       <RefColNames>user_id</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="334" parent="291" name="device_id">
+    <column id="335" parent="291" name="device_id">
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-      <ColumnKind>normal</ColumnKind>
+      <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="335" parent="291" name="device_name">
+    <column id="336" parent="291" name="device_name">
       <Position>2</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="336" parent="291" name="device_state">
+    <column id="337" parent="291" name="device_state">
       <Position>3</Position>
       <DataType>tinyint(1)|0s</DataType>
       <DefaultExpression>0</DefaultExpression>
-      <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="337" parent="291" name="house_id">
+    <column id="338" parent="291" name="device_description">
       <Position>4</Position>
+      <DataType>varchar(400)|0s</DataType>
+    </column>
+    <column id="339" parent="291" name="device_role">
+      <Position>5</Position>
+      <DataType>varchar(15)|0s</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;USER&apos;</DefaultExpression>
+    </column>
+    <column id="340" parent="291" name="house_id">
+      <Position>6</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="338" parent="291" name="device_id">
+    <index id="341" parent="291" name="device_id">
       <ColNames>device_id</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="339" parent="291" name="house_id">
+    <index id="342" parent="291" name="house_id">
       <ColNames>house_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="340" parent="291" name="PRIMARY">
+    <key id="343" parent="291" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>device_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="341" parent="291" name="device_id">
+    <key id="344" parent="291" name="device_id">
       <ColNames>device_id</ColNames>
       <UnderlyingIndexName>device_id</UnderlyingIndexName>
     </key>
-    <foreign-key id="342" parent="291" name="device_ibfk_1">
+    <foreign-key id="345" parent="291" name="device_ibfk_1">
       <ColNames>house_id</ColNames>
       <RefTableName>house</RefTableName>
       <RefColNames>house_id</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="343" parent="292" name="relation_id">
+    <column id="346" parent="292" name="relation_id">
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-      <ColumnKind>normal</ColumnKind>
+      <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="344" parent="292" name="parent_device_id">
+    <column id="347" parent="292" name="parent_device_id">
       <Position>2</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="345" parent="292" name="child_user_id">
+    <column id="348" parent="292" name="child_user_id">
       <Position>3</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="346" parent="292" name="relation_id">
+    <index id="349" parent="292" name="relation_id">
       <ColNames>relation_id</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="347" parent="292" name="parent_device_id">
+    <index id="350" parent="292" name="parent_device_id">
       <ColNames>parent_device_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="348" parent="292" name="child_user_id">
+    <index id="351" parent="292" name="child_user_id">
       <ColNames>child_user_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="349" parent="292" name="PRIMARY">
+    <key id="352" parent="292" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>relation_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="350" parent="292" name="relation_id">
+    <key id="353" parent="292" name="relation_id">
       <ColNames>relation_id</ColNames>
       <UnderlyingIndexName>relation_id</UnderlyingIndexName>
     </key>
-    <foreign-key id="351" parent="292" name="devicetouser_ibfk_1">
+    <foreign-key id="354" parent="292" name="devicetouser_ibfk_1">
       <ColNames>parent_device_id</ColNames>
       <RefTableName>device</RefTableName>
       <RefColNames>device_id</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="352" parent="292" name="devicetouser_ibfk_2">
+    <foreign-key id="355" parent="292" name="devicetouser_ibfk_2">
       <ColNames>child_user_id</ColNames>
       <RefTableName>user</RefTableName>
       <RefColNames>user_id</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="353" parent="293" name="house_id">
+    <column id="356" parent="293" name="house_id">
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-      <ColumnKind>normal</ColumnKind>
+      <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="354" parent="293" name="house_name">
+    <column id="357" parent="293" name="house_name">
       <Position>2</Position>
       <DataType>varchar(60)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="355" parent="293" name="house_code">
+    <column id="358" parent="293" name="house_code">
       <Position>3</Position>
       <DataType>varchar(15)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="356" parent="293" name="house_registration_id">
+    <column id="359" parent="293" name="house_registration_id">
       <Position>4</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="357" parent="293" name="house_id">
+    <index id="360" parent="293" name="house_id">
       <ColNames>house_id</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="358" parent="293" name="house_code">
+    <index id="361" parent="293" name="house_code">
       <ColNames>house_code</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="359" parent="293" name="house_registration_id">
+    <index id="362" parent="293" name="house_registration_id">
       <ColNames>house_registration_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="360" parent="293" name="PRIMARY">
+    <key id="363" parent="293" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>house_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="361" parent="293" name="house_id">
+    <key id="364" parent="293" name="house_id">
       <ColNames>house_id</ColNames>
       <UnderlyingIndexName>house_id</UnderlyingIndexName>
     </key>
-    <key id="362" parent="293" name="house_code">
+    <key id="365" parent="293" name="house_code">
       <ColNames>house_code</ColNames>
       <UnderlyingIndexName>house_code</UnderlyingIndexName>
     </key>
-    <foreign-key id="363" parent="293" name="house_ibfk_1">
+    <foreign-key id="366" parent="293" name="house_ibfk_1">
       <ColNames>house_registration_id</ColNames>
       <RefTableName>housecode</RefTableName>
       <RefColNames>house_code_id</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="364" parent="294" name="house_code_id">
+    <column id="367" parent="294" name="house_code_id">
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-      <ColumnKind>normal</ColumnKind>
+      <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="365" parent="294" name="house_registration_code">
+    <column id="368" parent="294" name="house_registration_code">
       <Position>2</Position>
       <DataType>varchar(20)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="366" parent="294" name="house_code_id">
+    <index id="369" parent="294" name="house_code_id">
       <ColNames>house_code_id</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="367" parent="294" name="PRIMARY">
+    <key id="370" parent="294" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>house_code_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="368" parent="294" name="house_code_id">
+    <key id="371" parent="294" name="house_code_id">
       <ColNames>house_code_id</ColNames>
       <UnderlyingIndexName>house_code_id</UnderlyingIndexName>
     </key>
-    <column id="369" parent="295" name="user_id">
+    <column id="372" parent="295" name="user_id">
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-      <ColumnKind>normal</ColumnKind>
+      <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="370" parent="295" name="user_name">
+    <column id="373" parent="295" name="user_name">
       <Position>2</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="371" parent="295" name="user_lastname">
+    <column id="374" parent="295" name="user_lastname">
       <Position>3</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="372" parent="295" name="user_email">
+    <column id="375" parent="295" name="user_email">
       <Position>4</Position>
       <DataType>varchar(125)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="373" parent="295" name="user_password">
+    <column id="376" parent="295" name="user_password">
       <Position>5</Position>
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="374" parent="295" name="house_id">
+    <column id="377" parent="295" name="house_id">
       <Position>6</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="375" parent="295" name="user_role">
+    <column id="378" parent="295" name="user_role">
       <Position>7</Position>
-      <DataType>varchar(30)|0s</DataType>
+      <DataType>varchar(15)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;USER&apos;</DefaultExpression>
-      <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="376" parent="295" name="user_id">
+    <index id="379" parent="295" name="user_id">
       <ColNames>user_id</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="377" parent="295" name="house_id">
+    <index id="380" parent="295" name="house_id">
       <ColNames>house_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="378" parent="295" name="PRIMARY">
+    <key id="381" parent="295" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>user_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="379" parent="295" name="user_id">
+    <key id="382" parent="295" name="user_id">
       <ColNames>user_id</ColNames>
       <UnderlyingIndexName>user_id</UnderlyingIndexName>
     </key>
-    <foreign-key id="380" parent="295" name="user_ibfk_1">
+    <foreign-key id="383" parent="295" name="user_ibfk_1">
       <ColNames>house_id</ColNames>
       <RefTableName>house</RefTableName>
       <RefColNames>house_id</RefColNames>

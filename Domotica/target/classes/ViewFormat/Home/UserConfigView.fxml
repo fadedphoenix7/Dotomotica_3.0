@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="525.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewFormat.Home.UserConfigView">
+   <children>
+      <JFXTextField labelFloat="true" layoutX="265.0" layoutY="52.0" promptText="User Name">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField labelFloat="true" layoutX="265.0" layoutY="141.0" promptText="User Last Name">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField editable="false" labelFloat="true" layoutX="265.0" layoutY="237.0" promptText="User email">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </JFXTextField>
+      <JFXPasswordField editable="false" layoutX="265.0" layoutY="343.0" promptText="User password">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </JFXPasswordField>
+      <JFXButton layoutX="349.0" layoutY="430.0" text="Update">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="711.0" layoutY="14.0" text="Back">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

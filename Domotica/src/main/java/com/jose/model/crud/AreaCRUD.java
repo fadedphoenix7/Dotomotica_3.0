@@ -3,12 +3,14 @@ package com.jose.model.crud;
 import com.jose.model.bootstraper.EMFBootstrapper;
 import com.jose.model.schemas.Area;
 import com.jose.model.schemas.User;
+import com.jose.model.schemas.UserRole;
 import org.hibernate.HibernateException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+import java.util.ArrayList;
 
 public class AreaCRUD {
 
@@ -25,6 +27,50 @@ public class AreaCRUD {
         } finally {
             manager.close();
             return area;
+        }
+    }
+
+    public static ArrayList<Area> getAreaManage(int userID, int houseID, UserRole Role){
+        EntityManager manager = EMFBootstrapper.openEntityManager();
+        ArrayList<Area> areas = null;
+        try {
+            if(Role.equals(UserRole.USER)){
+
+                Query query = manager.createQuery("Select area From Area area Left Join area.users au " +
+                        "Where area.ID_house =: houseID and (area.userRole <=: role or au.ID =: userID)")
+                        .setParameter("houseID",houseID)
+                        .setParameter("role", Role)
+                        .setParameter("userID", userID);
+                areas= (ArrayList<Area>) query.getResultList();
+            }
+            else{
+                Query query = manager.createQuery("Select area From Area area Left Join area.users au " +
+                        "Where area.ID_house =: houseID")
+                        .setParameter("houseID",houseID);
+                areas= (ArrayList<Area>) query.getResultList();
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            manager.close();
+            return areas;
+        }
+    }
+
+    public static ArrayList<Area> getAreaaFromArea(int areaID){
+        EntityManager manager = EMFBootstrapper.openEntityManager();
+        ArrayList<Area> areas = null;
+        try {
+            Query query = manager.createQuery("Select area From Area area JOIN area.areas ac where ac.ID = :areaID")
+                    .setParameter("areaID", areaID);
+
+            areas= (ArrayList<Area>) query.getResultList();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            manager.close();
+            return areas;
         }
     }
 
@@ -51,7 +97,7 @@ public class AreaCRUD {
         EntityTransaction transaction = manager.getTransaction();
         try {
             transaction.begin();
-            manager.persist(area);
+            manager.merge(area);
             transaction.commit();
             System.out.println("Se actualizo correctamente");
 

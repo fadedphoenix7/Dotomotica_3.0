@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="525.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jose.controller.Home.DeviceController">
+   <children>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="50.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="267.0" layoutY="93.0" text="Name:">
+         <font>
+            <Font name="Gadugi" size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="343.0" layoutY="93.0" text="Namde device" underline="true">
+         <font>
+            <Font name="Gadugi" size="22.0" />
+         </font>
+      </Label>
+      <JFXButton layoutX="663.0" layoutY="28.0" text="Config">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXTextArea editable="false" focusTraversable="false" labelFloat="true" layoutX="267.0" layoutY="240.0"
+                   prefHeight="202.0" prefWidth="452.0" promptText="Device description">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </JFXTextArea>
+      <Label layoutX="267.0" layoutY="165.0" text="state">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <JFXButton buttonType="RAISED" layoutX="330.0" layoutY="161.0" prefWidth="82.0" text="ON" >
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="427.0" layoutY="161.0" prefWidth="80.0" text="OFF">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="50.0" layoutY="442.0" prefHeight="44.0" prefWidth="80.0" text="Back" onAction="#backToDeviceListView">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

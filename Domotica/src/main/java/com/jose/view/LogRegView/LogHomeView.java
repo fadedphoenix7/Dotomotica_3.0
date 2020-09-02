@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXListView;
 import com.jose.controller.LogReg.LogRegController;
 import com.jose.model.schemas.User;
 import com.jose.view.DefaultView;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -25,58 +26,13 @@ import java.util.ArrayList;
 
 
 public class LogHomeView extends DefaultView {
-    private static LogRegController controller;
-    private static double xOffset = 0;
-    private static double yOffset = 0;
+    private static LogRegController controller = new LogRegController();
 
     public LogHomeView(){}
 
-    public LogHomeView(LogRegController _controller){
-        try {
-            initComponents();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void initComponents() throws Exception {
-        controller = new LogRegController();
-        launch();
-
-    }
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        primaryStage.initStyle(StageStyle.UNDECORATED);
-        Scene scene = new Scene(initLoginView());
-
-        scene.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                xOffset = primaryStage.getX() - event.getScreenX();
-                yOffset = primaryStage.getY() - event.getScreenY();
-            }
-        });
-
-        scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                primaryStage.setX(event.getScreenX() + xOffset);
-                primaryStage.setY(event.getScreenY() + yOffset);
-            }
-        });
-
-        LogRegController.setScene(scene);
-
-        primaryStage.setTitle("First JavaFX Application");
-        primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
-        primaryStage.show();
-    }
-
     public static Parent initLoginView() throws IOException {
         FXMLLoader loaderLogin = new FXMLLoader();
-        loaderLogin.setLocation(LogHomeView.class.getResource("/ViewFormat/Login.fxml"));
+        loaderLogin.setLocation(LogHomeView.class.getResource("/ViewFormat/LogRegFormat/Login.fxml"));
         Parent login = loaderLogin.load();
         login.getStylesheets().add("css/root.css");
 
@@ -100,13 +56,12 @@ public class LogHomeView extends DefaultView {
         codeField.textProperty().addListener((observable, oldValue, newValue) -> {
             controller.validateHouseCode(newValue,createButton);
         });
-
         return login;
     }
 
     public static Parent initRegisterView(String houseName) throws IOException {
         FXMLLoader loaderRegister = new FXMLLoader();
-        loaderRegister.setLocation(LogHomeView.class.getResource("/ViewFormat/Register.fxml"));
+        loaderRegister.setLocation(LogHomeView.class.getResource("/ViewFormat/LogRegFormat/Register.fxml"));
         Parent register = loaderRegister.load();
         register.getStylesheets().add("css/root.css");
 
@@ -147,7 +102,7 @@ public class LogHomeView extends DefaultView {
 
     public static Parent initRegisterHouseView(String code) throws IOException {
         FXMLLoader loaderRegisterHouse = new FXMLLoader();
-        loaderRegisterHouse.setLocation(LogHomeView.class.getResource("/ViewFormat/RegisterHouse.fxml"));
+        loaderRegisterHouse.setLocation(LogHomeView.class.getResource("/ViewFormat/LogRegFormat/RegisterHouse.fxml"));
         Parent registerHouse = loaderRegisterHouse.load();
         registerHouse.getStylesheets().add("css/root.css");
 
@@ -161,7 +116,7 @@ public class LogHomeView extends DefaultView {
 
     public static Parent initRegisterCodeView() throws IOException {
         FXMLLoader loaderRegisterCode = new FXMLLoader();
-        loaderRegisterCode.setLocation(LogHomeView.class.getResource("/ViewFormat/RegisterCode.fxml"));
+        loaderRegisterCode.setLocation(LogHomeView.class.getResource("/ViewFormat/LogRegFormat/RegisterCode.fxml"));
         Parent registerCode = loaderRegisterCode.load();
         registerCode.getStylesheets().add("css/root.css");
 
@@ -179,7 +134,7 @@ public class LogHomeView extends DefaultView {
 
     public static Parent selectUserView(ArrayList<User> users) throws IOException {
         FXMLLoader loaderSelectUser = new FXMLLoader();
-        loaderSelectUser.setLocation(LogHomeView.class.getResource("/ViewFormat/ListUsersLogView.fxml"));
+        loaderSelectUser.setLocation(LogHomeView.class.getResource("/ViewFormat/LogRegFormat/ListUsersLogView.fxml"));
         Parent ListUserView = loaderSelectUser.load();
         ListUserView.getStylesheets().add("css/root.css");
 

@@ -10,48 +10,49 @@ import com.jose.model.schemas.User;
 import com.jose.model.schemas.UserRole;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DeviceFunctions {
-    public static void addDevice(String name, int houseID, ArrayList<User> users, boolean usersCanUse){
+    public static void addDevice(String name, String deviceDescription, int houseID, ArrayList<User> users, UserRole role){
         Device newDevice = new Device();
         newDevice.setNameDevice(name);
+        newDevice.setDescriptionDevice(deviceDescription);
         newDevice.setID_house(houseID);
         newDevice.setUsers(users);
-        newDevice.setUsersCanUse(usersCanUse);
+        newDevice.setUserRole(role);
 
         DeviceCRUD.create(newDevice);
     }
 
-    public static void updateDevice(int deviceID,String newName, boolean usersCanUse){
+    public static void updateDevice(Device device,String newName, String descriptionDevice, UserRole role, List<User> users){
         try{
-            Device exitsDevice = DeviceCRUD.getDeviceByID(deviceID);
-            System.out.println(exitsDevice);
-            if(exitsDevice == null){
+            if(device == null){
                 throw new NoExitsException(Device.class);
             }
             else{
-                reConfigDevice(exitsDevice, newName, usersCanUse);
-                DeviceCRUD.update(exitsDevice);
+                reConfigDevice(device, newName, descriptionDevice, role, users);
+                DeviceCRUD.update(device);
             }
         } catch (NoExitsException error) {
             System.out.println(error.getMessage());
         }
     }
 
-    public static void reConfigDevice(Device device,String newName, boolean usersCanUse){
+    public static void reConfigDevice(Device device,String newName,String deviceDescription ,UserRole role, List<User> users){
         if(!newName.isEmpty() ||device.getNameDevice().equals(newName)) device.setNameDevice(newName);
-        device.setUsersCanUse(usersCanUse);
+        if(!deviceDescription.isEmpty() ||device.getDescriptionDevice().equals(deviceDescription)) device.setDescriptionDevice(deviceDescription);
+        device.setUserRole(role);
+        device.setUsers(users);
     }
 
-    public static void deleteDevice(int deviceID, UserRole userRole){
+    public static void deleteDevice(Device device, UserRole userRole){
         try{
-            Device exitsDevice = DeviceCRUD.getDeviceByID(deviceID);
-            if(exitsDevice == null){
+            if(device == null){
                 throw new NoExitsException(Device.class);
             }
             else{
                 if(userRole == UserRole.MODERATOR || userRole == UserRole.ADMIN){
-                    DeviceCRUD.delete(exitsDevice);
+                    DeviceCRUD.delete(device);
                 }
                 else{
                     throw new UserException(2);
@@ -64,9 +65,8 @@ public class DeviceFunctions {
         }
     }
 
-    public static void turnOnDevice(int deviceID){
+    public static void turnOnDevice(Device device){
         try{
-            Device device = DeviceCRUD.getDeviceByID(deviceID);
             if(device == null){
                 throw new NoExitsException(User.class);
             }
@@ -79,9 +79,8 @@ public class DeviceFunctions {
         }
     }
 
-    public static void turnOffDevice(int deviceID){
+    public static void turnOffDevice(Device device){
         try{
-            Device device = DeviceCRUD.getDeviceByID(deviceID);
             if(device == null){
                 throw new NoExitsException(Device.class);
             }
@@ -114,8 +113,28 @@ public class DeviceFunctions {
         }
     }
 
+    public static ArrayList<User> getUsersInHouse(int houseID, int deviceID){
+        return UserCRUD.getUsersInHouseAndNoDevice(houseID, deviceID);
+    }
+
+    public static ArrayList<User> getUsersInDevice(int deviceID, int houseID){
+        return UserCRUD.getUsersInDevice(deviceID, houseID);
+    }
+
+    public static ArrayList<Device> getDevicesFromArea(int areaID){
+        return DeviceCRUD.getDeviceFromArea(areaID);
+    }
+
     public static boolean exitsRelation(Device device, User user){
         return device.getUsers().contains(user);
+    }
+
+    public static ArrayList<Device> getDevicesOn(int userID, int houseID, UserRole role){
+        return DeviceCRUD.getDevicesOn(userID, houseID, role);
+    }
+
+    public static ArrayList<Device> getDeviceFromUser(int userID, int houseID, UserRole role){
+        return DeviceCRUD.getDeviceFromUser(userID, houseID, role);
     }
 
 }

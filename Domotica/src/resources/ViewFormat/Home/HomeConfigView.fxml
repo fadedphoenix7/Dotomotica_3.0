@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="525.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewFormat.Home.HomeConfigView">
+   <children>
+      <JFXTextField labelFloat="true" layoutX="275.0" layoutY="28.0" promptText="House Name">
+         <font>
+            <Font name="Gadugi" size="24.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField editable="false" labelFloat="true" layoutX="275.0" layoutY="111.0" promptText="Registration Code">
+         <font>
+            <Font name="Gadugi" size="24.0" />
+         </font>
+      </JFXTextField>
+      <JFXListView layoutX="14.0" layoutY="253.0" prefHeight="250.0" prefWidth="250.0" />
+      <JFXListView layoutX="275.0" layoutY="253.0" prefHeight="250.0" prefWidth="250.0" />
+      <JFXListView layoutX="536.0" layoutY="253.0" prefHeight="250.0" prefWidth="250.0" />
+      <JFXButton layoutX="359.0" layoutY="186.0" text="Update">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="711.0" layoutY="14.0" text="Back">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </JFXButton>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="39.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>

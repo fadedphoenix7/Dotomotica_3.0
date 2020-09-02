@@ -30,8 +30,10 @@ import java.util.ArrayList;
 public class App 
 {
     public static void main( String[] args ) {
-        Controller con = new Controller();
-        EMFBootstrapper.closeEntityManager();
 
+        Controller con = new Controller();
+//        DeviceCRUD.getDevicesOn(4,1,UserRole.USER);
+        EMFBootstrapper.closeEntityManager();
+//            Controller.initHomeView();
     }
 }

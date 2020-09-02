@@ -1,23 +1,22 @@
 package com.jose.controller.LogReg;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXListView;
+import com.jose.controller.Controller;
 import com.jose.model.Validation.StringValidation;
 import com.jose.model.operations.LogRegFunctions;
 import com.jose.model.schemas.House;
 import com.jose.model.schemas.User;
+import com.jose.view.DefaultView;
 import com.jose.view.LogRegView.LogHomeView;
 import com.jose.view.PopupView;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+
+import javax.xml.bind.annotation.XmlType;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -188,7 +187,7 @@ public class LogRegController {
     @FXML
     public void validateCodeToRegister(String code, Button confirmButton){
         boolean haveSpace = StringValidation.noSpace(code), disable;
-        disable = code.length() == 15 && !haveSpace;
+        disable = !(code.length() == 15 && !haveSpace);
         confirmButton.setDisable(disable);
     }
 
@@ -255,9 +254,12 @@ public class LogRegController {
         LogHomeView.activateSelectedUserButton(false, main.getRoot());
     }
 
-    public void loggedUser(){
+    @FXML
+    public void loggedUser(ActionEvent event){
         System.out.println(usersList.getSelectionModel().getSelectedItem());
         System.out.println(usersList.getSelectionModel().getSelectedItem().getClass());
+        Controller.setUserLogged((User) usersList.getSelectionModel().getSelectedItem());
+        DefaultView.setMainView();
     }
 
     public static House getHouseToRegister() {

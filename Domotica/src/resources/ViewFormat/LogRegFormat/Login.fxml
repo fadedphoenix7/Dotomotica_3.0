@@ -15,7 +15,7 @@
    <children>
 
       <ImageView fitHeight="600.0" fitWidth="400.0" layoutX="400.0" pickOnBounds="true" smooth="false">
-         <Image url="@../Images/LoginBack.jpg"/>
+         <Image url="@../../Images/LoginBack.jpg"/>
       </ImageView>
 
       <JFXTextField fx:id="emailText" labelFloat="true" layoutX="100.0" layoutY="100.0" prefHeight="30.0"

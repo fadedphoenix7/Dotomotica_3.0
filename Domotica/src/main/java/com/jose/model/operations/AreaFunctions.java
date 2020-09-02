@@ -14,9 +14,10 @@ import com.jose.model.schemas.UserRole;
 import java.util.ArrayList;
 
 public class AreaFunctions {
-    public static void addArea(String name, int houseID){
+    public static void addArea(String name,UserRole role, int houseID){
         Area newArea = new Area();
         newArea.setNameArea(name);
+        newArea.setUserRole(role);
         newArea.setID_house(houseID);
 
         AreaCRUD.create(newArea);
@@ -163,5 +164,17 @@ public class AreaFunctions {
 
     public static boolean exitsRelationAU(Area Parea, User Cuser){
         return Parea.getUsers().contains(Cuser);
+    }
+
+    public static ArrayList<Area> getAreasFromHouse(int userID, int houseID, UserRole userRole){
+        return AreaCRUD.getAreaManage(userID, houseID, userRole);
+    }
+
+    public static ArrayList<Area> getAreasFromArea(int areaID){
+        return AreaCRUD.getAreaaFromArea(areaID);
+    }
+
+    public static ArrayList<Area> getAreasManage(int userID, int houseID, UserRole role){
+        return AreaCRUD.getAreaManage(userID, houseID, role);
     }
 }

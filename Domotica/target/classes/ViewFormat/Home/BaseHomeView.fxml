@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.pannable.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.jose.controller.Home.MainHouseController">
+   <children>
+      <Pane prefHeight="75.0" prefWidth="800.0">
+         <children>
+            <JFXHamburger layoutX="14.0" layoutY="28.0" />
+            <Label layoutX="336.0" layoutY="19.0" text="Bienvenido">
+               <font>
+                  <Font name="Gadugi" size="26.0" />
+               </font>
+            </Label>
+            <Button layoutX="751.0" layoutY="19.0" mnemonicParsing="false" text="X" onAction="#closeWindow" />
+         </children>
+      </Pane>
+      <Pane layoutY="75.0" prefHeight="525.0" prefWidth="800.0" />
+      <JFXDrawer defaultDrawerSize="200.0" layoutY="75.0" prefHeight="525.0" prefWidth="200.0" fx:id="navbar">
+      </JFXDrawer>
+   </children>
+</Pane>

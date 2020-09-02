@@ -3,8 +3,10 @@ package com.jose.model.crud;
 import com.jose.model.bootstraper.EMFBootstrapper;
 import com.jose.model.schemas.Device;
 import com.jose.model.schemas.User;
+import com.jose.model.schemas.UserRole;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 
 public class DeviceCRUD {
 
@@ -22,6 +24,82 @@ public class DeviceCRUD {
         } finally {
             manager.close();
             return device;
+        }
+    }
+
+    public static ArrayList<Device> getDevicesOn(int userID, int houseID, UserRole role){
+        EntityManager manager = EMFBootstrapper.openEntityManager();
+        ArrayList<Device> devices = null;
+        try {
+            Query query;
+            if(role.equals(UserRole.USER)){
+                query = manager.createQuery("Select device From Device device left JOIN device.users u on" +
+                        "  device.ID_house =: houseID and device.state = true  and (device.userRole =: role or u.ID = :userID) ")
+                        .setParameter("houseID", houseID)
+                        .setParameter("userID", userID)
+                        .setParameter("role", role.name());
+            }
+            else{
+                query = manager.createQuery("Select device From Device device" +
+                        " where device.ID_house =: houseID and device.state = true")
+                        .setParameter("houseID", houseID);
+            }
+//            System.out.println(query.getResultList());
+
+            devices = (ArrayList<Device>) query.getResultList();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            throw e;
+        } finally {
+            manager.close();
+            return devices;
+        }
+    }
+
+    public static ArrayList<Device> getDeviceFromUser(int userID, int houseID, UserRole role){
+        EntityManager manager = EMFBootstrapper.openEntityManager();
+        ArrayList<Device> devices = null;
+        try {
+            Query query;
+            if(role.equals(UserRole.USER)){
+                query = manager.createQuery("Select device From Device device left JOIN device.users u on" +
+                        "  device.ID_house =: houseID  and (device.userRole =: role or u.ID = :userID) ")
+                        .setParameter("houseID", houseID)
+                        .setParameter("userID", userID)
+                        .setParameter("role", role.name());
+            }
+            else{
+                query = manager.createQuery("Select device From Device device" +
+                        " where device.ID_house =: houseID ")
+                        .setParameter("houseID", houseID);
+            }
+
+            devices = (ArrayList<Device>) query.getResultList();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            throw e;
+        } finally {
+            manager.close();
+            return devices;
+        }
+    }
+
+    public static ArrayList<Device> getDeviceFromArea(int areaID){
+        EntityManager manager = EMFBootstrapper.openEntityManager();
+        ArrayList<Device> devices = null;
+        try {
+            Query query = manager.createQuery("Select d From Device d JOIN d.areas da WHERE da.ID = :areaID")
+                    .setParameter("areaID",areaID);
+            devices = (ArrayList<Device>) query.getResultList();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            throw e;
+        } finally {
+            manager.close();
+            return devices;
         }
     }
 
@@ -70,7 +148,7 @@ public class DeviceCRUD {
         EntityTransaction transaction = manager.getTransaction();
         try {
             transaction.begin();
-            manager.persist(device);
+            manager.merge(device);
             transaction.commit();
             System.out.println("Se actualizo correctamente");
 
