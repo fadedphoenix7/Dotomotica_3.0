@@ -74,6 +74,23 @@ public class AreaCRUD {
         }
     }
 
+    public static ArrayList<Area> getAreaaFromHouseNotArea(int areaID, int houseID){
+        EntityManager manager = EMFBootstrapper.openEntityManager();
+        ArrayList<Area> areas = null;
+        try {
+            Query query = manager.createQuery("Select area From Area area Where area.ID_house = :houseID")
+                    .setParameter("houseID", houseID);
+
+            areas= (ArrayList<Area>) query.getResultList();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            manager.close();
+            return areas;
+        }
+    }
+
     public static void create(Area area){
         EntityManager manager = EMFBootstrapper.openEntityManager();
         EntityTransaction transaction = manager.getTransaction();
@@ -117,7 +134,6 @@ public class AreaCRUD {
             transaction.begin();
             int delete = manager.createQuery("Delete FROM Area  a where a.ID = :AreaID")
                     .setParameter("AreaID", area.getID()).executeUpdate();
-            System.out.println(delete);
             transaction.commit();
             System.out.println("Se borro correctamente");
 

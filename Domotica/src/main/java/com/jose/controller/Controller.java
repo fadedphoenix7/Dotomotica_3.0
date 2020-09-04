@@ -15,10 +15,6 @@ public class Controller {
         new DefaultView(1);
     }
 
-    public static void initHomeView(){
-        new MainView(new MainHouseController());
-    }
-
     public static User getUserLogged() {
         return userLogged;
     }

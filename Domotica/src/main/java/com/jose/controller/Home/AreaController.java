@@ -1,6 +1,7 @@
 package com.jose.controller.Home;
 
 import com.jose.controller.Controller;
+import com.jose.model.Validation.StringValidation;
 import com.jose.model.operations.AreaFunctions;
 import com.jose.model.operations.DeviceFunctions;
 import com.jose.model.schemas.Area;
@@ -9,9 +10,11 @@ import com.jose.model.schemas.UserRole;
 import com.jose.view.HomeView.AreaVIew;
 import com.jose.view.HomeView.DeviceView;
 import com.jose.view.HomeView.MainView;
+import com.jose.view.PopupView;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
@@ -25,6 +28,8 @@ public class AreaController {
     private TextField nameAreaField;
     @FXML
     private ComboBox roleComboBox;
+    @FXML
+    private ListView areaListArea, areaListHome, deviceListArea, deviceListHome;
 
     //------------ createViews --------------
     public void createNewAreaView(){
@@ -54,17 +59,82 @@ public class AreaController {
         }
     }
 
+    public void configArea(){
+        Parent mainParent = MainHouseController.getMain();
+        try {
+            AreaVIew.changeAreaConfigView(mainParent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     //------------ view actions -------------
+
     public void createNewArea(){
         String areaName = nameAreaField.getText();
         UserRole role = (UserRole) roleComboBox.getValue();
-        System.out.println(areaName + "  " + role.name());
         AreaFunctions.addArea(areaName, role, Controller.getUserLogged().getId_house());
         backToAreaList();
     }
 
-    public void configArea(){
+    public void addAreaToArea(){
+        Area chidArea = (Area) areaListHome.getSelectionModel().getSelectedItem();
+        AreaFunctions.areaAddArea(area, chidArea);
+        configArea();
+    }
 
+    public void addDeviceToArea(){
+        Device chidArea = (Device) deviceListHome.getSelectionModel().getSelectedItem();
+        AreaFunctions.areaAdDevice(area, chidArea);
+        configArea();
+    }
+
+    public void removeAreaToArea(){
+        Area chidArea = (Area) areaListArea.getSelectionModel().getSelectedItem();
+        AreaFunctions.removeAreaToArea(area, chidArea);
+        configArea();
+    }
+
+    public void removeDeviceToArea(){
+        Device device = (Device) deviceListArea.getSelectionModel().getSelectedItem();
+        AreaFunctions.removeDeviceToArea(area, device);
+        configArea();
+    }
+
+    public void updateArea(){
+        String name = nameAreaField.getText();
+        UserRole role = (UserRole) roleComboBox.getValue();
+        if(name.isEmpty() || StringValidation.noInitSpace(name)){
+            new PopupView("Nombre Invalido");
+        }
+        else{
+            area.setNameArea(name);
+            area.setUserRole(role);
+            AreaFunctions.updateArea(area);
+        }
+    }
+
+    public void turnOnArea(){
+        AreaFunctions.setPassedArea(new ArrayList<>());
+        AreaFunctions.turnOnArea(area);
+        enterArea();
+    }
+
+    public void turnOffArea(){
+        AreaFunctions.setPassedArea(new ArrayList<>());
+        AreaFunctions.turnOffArea(area);
+        enterArea();
+    }
+
+    public static void turnOnArea(Area area){
+        AreaFunctions.setPassedArea(new ArrayList<>());
+        AreaFunctions.turnOnArea(area);
+        enterArea();
+    }
+
+    public static void turnOffArea(Area area){
+        AreaFunctions.setPassedArea(new ArrayList<>());
+        AreaFunctions.turnOffArea(area);
+        enterArea();
     }
 
     //------------ calls to DB --------------
@@ -78,6 +148,14 @@ public class AreaController {
 
     public static ArrayList<Device> getDeviceFromArea(){
         return DeviceFunctions.getDevicesFromArea(area.getID());
+    }
+
+    public static ArrayList<Area> getAreaFromHouseNotArea(){
+        return AreaFunctions.getAreaFromHouseNotArea(area.getID(), area.getID_house());
+    }
+
+    public static ArrayList<Device> getDeviceFromHouseNotArea(){
+        return DeviceFunctions.getDevicesFromHouseNotArea(area.getID(), area.getID_house());
     }
 
     // ------------- set and get ------------

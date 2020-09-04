@@ -169,7 +169,7 @@ public class DeviceView {
             list.addAll(device);
 
             deviceList.setItems(list);
-            deviceList.setCellFactory(x -> new DeviceCell());
+            deviceList.setCellFactory(x -> new DeviceCell(deviceList));
         }
 
     }

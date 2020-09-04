@@ -1,6 +1,7 @@
 package com.jose.model.crud;
 
 import com.jose.model.bootstraper.EMFBootstrapper;
+import com.jose.model.schemas.Area;
 import com.jose.model.schemas.Device;
 import com.jose.model.schemas.User;
 import com.jose.model.schemas.UserRole;
@@ -103,6 +104,28 @@ public class DeviceCRUD {
         }
     }
 
+    public static ArrayList<Device> getDeviceFromHouseNotArea(int areaID, int houseID){
+        EntityManager manager = EMFBootstrapper.openEntityManager();
+        ArrayList<Device> devices = null;
+        try {
+            Query query = manager.createQuery("Select d From Device d Where d.ID_house =: houseID")
+                    .setParameter("houseID", houseID);
+            devices = (ArrayList<Device>) query.getResultList();
+            for(Device device : devices){
+                for(Area area : device.getAreas()){
+                    if(area.getID() == areaID) devices.remove(device);
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            throw e;
+        } finally {
+            manager.close();
+            return devices;
+        }
+    }
+
    /* public static boolean exitsRelation(int deviceID, int userID){
         boolean containUser = false;
         Device device  = null;
@@ -168,7 +191,6 @@ public class DeviceCRUD {
             transaction.begin();
             int delete = manager.createQuery("Delete FROM Device  d where d.ID = :deviceID")
                     .setParameter("deviceID", device.getID()).executeUpdate();
-            System.out.println(delete);
             transaction.commit();
             System.out.println("Se borro correctamente");
 

@@ -9,6 +9,7 @@ import com.jose.controller.LogReg.LogRegController;
 import com.jose.model.schemas.Area;
 import com.jose.model.schemas.Device;
 import com.jose.model.schemas.User;
+import com.jose.model.schemas.UserRole;
 import com.jose.view.DefaultView;
 import com.jose.view.LogRegView.LogHomeView;
 import javafx.collections.FXCollections;
@@ -35,57 +36,27 @@ public class MainView extends DefaultView {
 
     public MainView(){}
 
-    public MainView(MainHouseController _controller){
-        try {
-            initComponents();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void initComponents() throws Exception {
-        controller = new MainHouseController();
-        launch();
-
-    }
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        primaryStage.initStyle(StageStyle.UNDECORATED);
-        Scene scene = new Scene(initMainView());
-
-        scene.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                xOffset = primaryStage.getX() - event.getScreenX();
-                yOffset = primaryStage.getY() - event.getScreenY();
-            }
-        });
-
-        scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                primaryStage.setX(event.getScreenX() + xOffset);
-                primaryStage.setY(event.getScreenY() + yOffset);
-            }
-        });
-
-        primaryStage.setTitle("First JavaFX Application");
-        primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
-        primaryStage.show();
-    }
 
     public static Parent initMainView() throws IOException {
         FXMLLoader loaderMainVIew = new FXMLLoader();
         loaderMainVIew.setLocation(MainView.class.getResource("/ViewFormat/Home/BaseHomeView.fxml"));
         Parent mainView = loaderMainVIew.load();
-        mainView.getStylesheets().add("css/root.css");
+        mainView.getStylesheets().add("css/main.css");
 
         FXMLLoader loaderNavBar = new FXMLLoader();
         loaderNavBar.setLocation(MainView.class.getResource("/ViewFormat/Home/NavBarView.fxml"));
-        Parent navBarView = loaderNavBar.load();
-        navBarView.getStylesheets().add("css/root.css");
+        Pane navBarView = loaderNavBar.load();
+        navBarView.getStylesheets().add("css/main.css");
+
+        User user =  Controller.getUserLogged();
+
+        Button userButton = (Button) ((Pane) navBarView.getChildren().get(0)).getChildren().get(3);
+        userButton.setVisible(user.getUserRole() == UserRole.ADMIN ||
+                                user.getUserRole() == UserRole.MODERATOR);
+
+        Button homeButton = (Button) ((Pane) navBarView.getChildren().get(0)).getChildren().get(4);
+        homeButton.setVisible(user.getUserRole() == UserRole.ADMIN ||
+                user.getUserRole() == UserRole.MODERATOR);
 
         Pane mainParent = (Pane) mainView.getChildrenUnmodifiable().get(1);
         mainParent.getChildren().add(initMHomeMainView());
@@ -131,11 +102,14 @@ public class MainView extends DefaultView {
         FXMLLoader loaderHomeMain = new FXMLLoader();
         loaderHomeMain.setLocation(MainView.class.getResource("/ViewFormat/Home/MainView.fxml"));
         Pane homeMainView = loaderHomeMain.load();
-        homeMainView.getStylesheets().add("css/root.css");
+        homeMainView.getStylesheets().add("css/main.css");
 
 
         ListView deviceList = (ListView) homeMainView.getChildren().get(0);
         deviceListOnMain(deviceList);
+
+        ListView areaList = (ListView) homeMainView.getChildren().get(1);
+        areaListMain(areaList);
 
         return homeMainView;
     }
@@ -148,6 +122,7 @@ public class MainView extends DefaultView {
         if(device != null && !device.isEmpty()){
             list.addAll(device);
             deviceList.getItems().addAll(list);
+            deviceList.setCellFactory( device1 -> new DeviceCell(deviceList));
         }
     }
 
@@ -159,6 +134,7 @@ public class MainView extends DefaultView {
         if(area != null && !area.isEmpty()){
             list.addAll(area);
             areaList.getItems().addAll(list);
+            areaList.setCellFactory(area1 -> new AreaCell(areaList));
         }
     }
 
@@ -178,5 +154,23 @@ public class MainView extends DefaultView {
         Pane  p = (Pane) mainScene.getChildrenUnmodifiable().get(1);
         p.getChildren().remove(0);
         p.getChildren().add(initMHomeMainView());
+    }
+
+    public static void changeUsersView(Parent mainScene) throws IOException {
+        Pane  p = (Pane) mainScene.getChildrenUnmodifiable().get(1);
+        p.getChildren().remove(0);
+        p.getChildren().add(UserView.initUserListView());
+    }
+
+    public static void changeuserConfigView(Parent mainScene) throws IOException {
+        Pane  p = (Pane) mainScene.getChildrenUnmodifiable().get(1);
+        p.getChildren().remove(0);
+        p.getChildren().add(UserView.initConfigUserView());
+    }
+
+    public static void changeHouseConfigView(Parent mainScene) throws IOException {
+        Pane  p = (Pane) mainScene.getChildrenUnmodifiable().get(1);
+        p.getChildren().remove(0);
+        p.getChildren().add(HouseView.initHouseView());
     }
 }

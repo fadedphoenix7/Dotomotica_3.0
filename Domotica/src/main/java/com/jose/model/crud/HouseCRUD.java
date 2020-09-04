@@ -74,9 +74,7 @@ public class HouseCRUD {
         try {
             Query query = manager.createQuery("Select h From House h WHERE h.codeToRegister = :code")
                     .setParameter("code",registerCode);
-            System.out.println(query.getResultList());
-           house = (House) query.getResultList().get(0);
-
+           house = (House) query.getSingleResult();
         } catch (Exception e) {
             System.out.println(e.getMessage());
             throw e;
@@ -112,8 +110,6 @@ public class HouseCRUD {
             Query query = manager.createQuery("Select h From House h WHERE h.ID = :houseID")
                     .setParameter("houseID",houseID);
             house = (House) query.getResultList().get(0);
-            System.out.println(house);
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
             throw e;
@@ -129,7 +125,7 @@ public class HouseCRUD {
 
         try {
             transaction.begin();
-            manager.persist(house);
+            manager.merge(house);
             transaction.commit();
             System.out.println("Se Actualizo correctamente");
 
@@ -150,7 +146,6 @@ public class HouseCRUD {
             transaction.begin();
             int delete = manager.createQuery("Delete FROM House  h where h.ID = :houseID")
                         .setParameter("houseID", house.getID()).executeUpdate();
-            System.out.println(delete);
             transaction.commit();
             System.out.println("Se borro correctamente");
 

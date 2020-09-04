@@ -19,7 +19,7 @@ public class Area {
     @JoinTable(name = "AreaToArea",
             joinColumns = @JoinColumn(name = "parent_area_id"),
             inverseJoinColumns = @JoinColumn(name = "child_area_id"))
-    private List<Area> areas = new ArrayList<>();
+    private List<Area> areas_child = new ArrayList<>();
     @ManyToMany(cascade = {CascadeType.MERGE},fetch= FetchType.EAGER)
     @JoinTable(name = "AreaToUser",
             joinColumns = @JoinColumn(name = "parent_area_id"),
@@ -30,8 +30,11 @@ public class Area {
             joinColumns = @JoinColumn(name = "parent_area_id"),
             inverseJoinColumns = @JoinColumn(name = "child_device_id"))
     private List<Device> devices = new ArrayList<>();
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users")
-    private List<Area> areas_child = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+    @JoinTable(name = "AreaToArea",
+            joinColumns = @JoinColumn(name = "child_area_id"),
+            inverseJoinColumns = @JoinColumn(name = "parent_area_id"))
+    private List<Area> areas = new ArrayList<>();
     @Enumerated(EnumType.STRING)
     @Column(name = "area_role")
     private UserRole userRole = UserRole.USER;
@@ -121,8 +124,14 @@ public class Area {
     }
 
     public String toString(){
-        return "ID: " + this.ID + "\n\tNombre: " + this.nameArea
-                + "\n\tID_House: " + this.ID_house +"\n"
-                +"\t" + areas.toString() + "\n\t" + devices.toString() + "\n\t" + users.toString() + "\n";
+//        return "ID: " + this.ID + "\n\tNombre: " + this.nameArea
+//                + "\n\tID_House: " + this.ID_house +"\n"
+//                /*+"\tAreaParent: " + areas.toString() */+ "\n\tDevices: " + devices.toString() +
+//                "\n\tUsers: " + users.toString() + "\n\tAreaChilds: " + areas_child.toString();
+        return "ID: " + this.ID + "\n\tNombre: " + this.nameArea;
+    }
+
+    public boolean equals(Area area){
+        return this.getID() == area.getID();
     }
 }

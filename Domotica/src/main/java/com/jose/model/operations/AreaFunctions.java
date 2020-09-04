@@ -23,25 +23,19 @@ public class AreaFunctions {
         AreaCRUD.create(newArea);
     }
 
-    public static void updateArea(int areaID,String newName){
+    public static void updateArea(Area area){
         try{
-            Area exitsArea = AreaCRUD.getAreaByID(areaID);
-            System.out.println(exitsArea);
-            if(exitsArea == null){
+            if(area == null){
                 throw new NoExitsException(Area.class);
             }
             else{
-                reConfigDevice(exitsArea, newName);
-                AreaCRUD.update(exitsArea);
+                AreaCRUD.update(area);
             }
         } catch (NoExitsException error) {
             System.out.println(error.getMessage());
         }
     }
 
-    public static void reConfigDevice(Area area,String newName){
-        if(!newName.isEmpty() ||area.getNameArea().equals(newName)) area.setNameArea(newName);
-    }
 
     public static void deleteArea(int areaID, UserRole userRole){
         try{
@@ -94,17 +88,14 @@ public class AreaFunctions {
         }
     }
 
-    public static void areaAddArea(int areaID_parent, int areaID_child){
-        try{
-            Area parent_area = AreaCRUD.getAreaByID(areaID_parent);
-            Area children_area = AreaCRUD.getAreaByID(areaID_child);
-            if(parent_area == null)  throw new NoExitsException(Area.class);
-            if(children_area == null)    throw new NoExitsException(Area.class);
-            if(exitsRelationAA( parent_area, children_area)) throw new AreaException(1);
+    public static void areaAddArea(Area parentArea, Area childArea){
+        try{ ;
+            if(parentArea == null)  throw new NoExitsException(Area.class);
+            if(childArea == null)    throw new NoExitsException(Area.class);
+            if(exitsRelationAA( parentArea, childArea)) throw new AreaException(1);
             else{
-                parent_area.addArea(children_area);
-                children_area.getAreas_child().add(parent_area);
-                AreaCRUD.update(parent_area);
+                parentArea.getAreas_child().add(childArea);
+                AreaCRUD.update(parentArea);
             }
         }catch (NoExitsException error) {
             System.out.println(error.getMessage());
@@ -114,16 +105,47 @@ public class AreaFunctions {
         }
     }
 
-    public static void areaAdDevice(int areaID, int deviceID){
+    public static void areaAdDevice(Area area, Device device){
         try{
-            Area area = AreaCRUD.getAreaByID(areaID);
-            Device device = DeviceCRUD.getDeviceByID(deviceID);
             if(area == null)  throw new NoExitsException(Area.class);
             if(device == null)    throw new NoExitsException(Device.class);
             if(exitsRelationAD( area, device)) throw new AreaException(1);
             else{
                 area.addDevice(device);
-                device.getAreas().add(area);
+                AreaCRUD.update(area);
+            }
+        }catch (NoExitsException error) {
+            System.out.println(error.getMessage());
+        }
+        catch (AreaException error) {
+            System.out.println(error.getMessage());
+        }
+    }
+
+    public static void removeAreaToArea(Area parentArea, Area childArea){
+        try{ ;
+            if(parentArea == null)  throw new NoExitsException(Area.class);
+            if(childArea == null)    throw new NoExitsException(Area.class);
+            if(!exitsRelationAA( parentArea, childArea)) throw new AreaException(1);
+            else{
+                parentArea.getAreas_child().remove(childArea);
+                AreaCRUD.update(parentArea);
+            }
+        }catch (NoExitsException error) {
+            System.out.println(error.getMessage());
+        }
+        catch (AreaException error) {
+            System.out.println(error.getMessage());
+        }
+    }
+
+    public static void removeDeviceToArea(Area area, Device device){
+        try{
+            if(area == null)  throw new NoExitsException(Area.class);
+            if(device == null)    throw new NoExitsException(Device.class);
+            if(!exitsRelationAD( area, device)) throw new AreaException(1);
+            else{
+                area.getDevices().remove(device);
                 AreaCRUD.update(area);
             }
         }catch (NoExitsException error) {
@@ -155,7 +177,7 @@ public class AreaFunctions {
     }
 
     public static boolean exitsRelationAA(Area Parea, Area Carea){
-        return Parea.getAreas().contains(Carea);
+        return Parea.getAreas_child().contains(Carea);
     }
 
     public static boolean exitsRelationAD(Area Parea, Device Cdevice){
@@ -174,7 +196,50 @@ public class AreaFunctions {
         return AreaCRUD.getAreaaFromArea(areaID);
     }
 
+    public static ArrayList<Area> getAreaFromHouseNotArea(int areaID, int houseID){
+        ArrayList<Area> homeAreas = AreaCRUD.getAreaaFromHouseNotArea(areaID, houseID);
+        ArrayList<Area> areasFromArea = getAreasFromArea(areaID);
+        ArrayList<Area> finalAreas = new ArrayList<>();
+
+        homeAreas.forEach(area -> {
+            areasFromArea.forEach(areasChild -> {
+                if(area.equals(areasChild)) finalAreas.add(area);
+            });
+            if(area.getID() == areaID) finalAreas.add(area);
+        });
+
+        homeAreas.removeAll(finalAreas);
+
+        return homeAreas;
+    }
+
     public static ArrayList<Area> getAreasManage(int userID, int houseID, UserRole role){
         return AreaCRUD.getAreaManage(userID, houseID, role);
+    }
+
+    public static ArrayList<Integer> passedArea;
+
+    public static ArrayList<Integer> getPassedArea() {
+        return passedArea;
+    }
+
+    public static void setPassedArea(ArrayList<Integer> passedArea) {
+        AreaFunctions.passedArea = passedArea;
+    }
+
+    public static void turnOnArea(Area area){
+        passedArea.add(area.getID());
+        area.getDevices().forEach(device -> DeviceFunctions.turnOnDevice(device));
+        area.getAreas_child().forEach(childArea -> {
+            if(!passedArea.contains(childArea.getID())) turnOnArea(childArea);
+        });
+    }
+
+    public static void turnOffArea(Area area){
+        passedArea.add(area.getID());
+        area.getDevices().forEach(device -> DeviceFunctions.turnOffDevice(device));
+        area.getAreas_child().forEach(childArea -> {
+            if(!passedArea.contains(childArea.getID())) turnOffArea(childArea);
+        });
     }
 }

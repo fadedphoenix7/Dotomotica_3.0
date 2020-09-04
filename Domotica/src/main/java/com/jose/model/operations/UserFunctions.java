@@ -7,6 +7,8 @@ import com.jose.model.crud.UserCRUD;
 import com.jose.model.schemas.UserRole;
 import com.jose.model.schemas.User;
 
+import java.util.ArrayList;
+
 public class UserFunctions {
 
     public static void addUser(String userName, String lastName, String userEmail,
@@ -31,30 +33,17 @@ public class UserFunctions {
         }
     }
 
-    public static void updateUser(String userName, String lastName, String userEmail,
-                           String password, int idHouse, UserRole userRole){
+    public static void updateUser(User user){
         try{
-            User exitsUser = UserCRUD.getUserByEmail(userEmail,idHouse);
-            System.out.println(exitsUser);
-            if(exitsUser == null){
+            if(user == null){
                 throw new NoExitsException(User.class);
             }
             else{
-                reConfigUser(exitsUser, userName, lastName,userEmail, password, idHouse, userRole);
-                UserCRUD.update(exitsUser);
+                UserCRUD.update(user);
             }
         } catch (NoExitsException error) {
             System.out.println(error.getMessage());
         }
-    }
-
-    public static void reConfigUser(User user, String userName, String lastName, String userEmail,
-                             String password, int idHouse, UserRole userRole){
-        if(!user.getUserName().equals(userName) && !userName.isEmpty()) user.setUserName(userName);
-        if(!user.getLastName().equals(lastName) && !lastName.isEmpty()) user.setLastName(lastName);
-        if(!user.getEmail().equals(userEmail) && !userEmail.isEmpty()) user.setEmail(userEmail);
-        if(!user.getPassword().equals(password) && !password.isEmpty()) user.setPassword(password);
-        user.setUserRole(userRole);
     }
 
     public static void deleteUser(String userEmail, String password,int houseID){
@@ -76,6 +65,23 @@ public class UserFunctions {
         }catch (UserException error){
             System.out.println(error.getMessage());
         }
+    }
+
+    public static void deleteUser(User user,int houseID){
+        try{
+            if(user == null){
+                throw new NoExitsException(User.class);
+            }
+            else{
+                UserCRUD.delete(user);
+            }
+        } catch (NoExitsException error) {
+            System.out.println(error.getMessage());
+        }
+    }
+
+    public static ArrayList<User> getUsersFromHouse(int userID, int houseID, UserRole role){
+        return UserCRUD.getUsersInHouseRole(userID, houseID, role);
     }
 
 }

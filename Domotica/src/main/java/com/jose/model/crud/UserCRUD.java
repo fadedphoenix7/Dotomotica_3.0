@@ -28,8 +28,6 @@ public class UserCRUD {
                     .setParameter("userEmail",email)
                     .setParameter("houseID", houseID);
             User user = (User) query.getResultList().get(0);
-            System.out.println(user);
-
             if(user != null){
                 exits = true;
             }
@@ -145,6 +143,27 @@ public class UserCRUD {
 
     }
 
+    public static ArrayList<User> getUsersInHouseRole(int userID, int houseID, UserRole role){
+        EntityManager manager = EMFBootstrapper.openEntityManager();
+        ArrayList<User> users = new ArrayList<>();
+        try {
+            Query query = manager.createQuery("SELECT s FROM User  s where s.id_house = :houseID " +
+                    "and not s.ID = :userID and not (s.userRole = :userRole or s.userRole = :ADMIN)")
+                    .setParameter("houseID", houseID)
+                    .setParameter("userRole", role)
+                    .setParameter("userID", userID)
+                    .setParameter("ADMIN", UserRole.ADMIN);
+            users = (ArrayList<User>) query.getResultList();
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            manager.close();
+            return users;
+        }
+
+    }
+
     public static ArrayList<User> getUsersInHouseAndNoDevice(int houseID, int deviceID){
         EntityManager manager = EMFBootstrapper.openEntityManager();
         ArrayList<User> users = new ArrayList<>();
@@ -194,7 +213,6 @@ public class UserCRUD {
     public static void create(User user){
         EntityManager manager = EMFBootstrapper.openEntityManager();
         EntityTransaction transaction = manager.getTransaction();
-        System.out.println("XXXXX");
         try {
             transaction.begin();
             manager.persist(user);
@@ -214,7 +232,7 @@ public class UserCRUD {
         EntityTransaction transaction = manager.getTransaction();
         try {
             transaction.begin();
-            manager.persist(user);
+            manager.merge(user);
             transaction.commit();
             System.out.println("Se actualizo correctamente");
 
@@ -233,7 +251,6 @@ public class UserCRUD {
             transaction.begin();
             int delete = manager.createQuery("Delete FROM User  s where s.ID = :userID")
                     .setParameter("userID", user.getID()).executeUpdate();
-            System.out.println(delete);
             transaction.commit();
             System.out.println("Se borro correctamente");
 

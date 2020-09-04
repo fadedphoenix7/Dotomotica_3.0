@@ -7,23 +7,21 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.jose.controller.Home.MainHouseController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jose.controller.Home.MainHouseController">
    <children>
       <Pane prefHeight="75.0" prefWidth="800.0">
          <children>
             <JFXHamburger layoutX="14.0" layoutY="28.0" />
-            <Label layoutX="336.0" layoutY="19.0" text="Bienvenido">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="240.0" layoutY="19.0" prefHeight="38.0" prefWidth="321.0" text="Bienvenido" textAlignment="CENTER">
                <font>
                   <Font name="Gadugi" size="26.0" />
                </font>
             </Label>
-            <Button layoutX="751.0" layoutY="19.0" mnemonicParsing="false" text="X" onAction="#closeWindow" />
+            <Button layoutX="751.0" layoutY="19.0" mnemonicParsing="false" onAction="#closeWindow" text="X" />
          </children>
       </Pane>
       <Pane layoutY="75.0" prefHeight="525.0" prefWidth="800.0" />
-      <JFXDrawer defaultDrawerSize="200.0" layoutY="75.0" prefHeight="525.0" prefWidth="200.0" fx:id="navbar">
+      <JFXDrawer fx:id="navbar" defaultDrawerSize="200.0" layoutY="75.0" prefHeight="525.0" prefWidth="200.0">
       </JFXDrawer>
    </children>
 </Pane>

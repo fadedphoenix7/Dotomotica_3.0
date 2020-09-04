@@ -47,7 +47,7 @@ public class LogHomeView extends DefaultView {
             controller.emailValidation(newValue,emailLabel,loginButton);
         });
 
-        PasswordField passwordField = (PasswordField) login.getChildrenUnmodifiable().get(3);
+        PasswordField passwordField = (PasswordField) login.getChildrenUnmodifiable().get(2);
         passwordField.textProperty().addListener((observable, oldValue, newValue) -> {
             controller.passwordValidation(newValue,loginButton);
         });

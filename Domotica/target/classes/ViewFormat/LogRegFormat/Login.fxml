@@ -25,14 +25,15 @@
          </font>
       </JFXTextField>
 
+      <JFXPasswordField fx:id="passwordText" labelFloat="true" layoutX="100.0" layoutY="165.0" prefHeight="30.0"
+                        prefWidth="200.0" promptText="password" onAction="#login">
+         <font>
+            <Font name="Gadugi" size="16.0" />
+         </font>
+      </JFXPasswordField>
       <Button id="CloseButton" cancelButton="true" layoutX="762.0" layoutY="14.0" mnemonicParsing="false"
               onAction="#closeWindow" text="X" textAlignment="JUSTIFY" />
 
-      <JFXPasswordField fx:id="passwordText" labelFloat="true" layoutX="100.0" layoutY="165.0" prefHeight="30.0"
-                        prefWidth="200.0" promptText="password">
-         <font>
-            <Font name="Gadugi" size="16.0" />
-         </font></JFXPasswordField>
 
       <Line endX="100.0" startX="-100.0" />
       <Line endX="150.0" layoutX="200.0" layoutY="300.0" startX="-150.0" stroke="#7c7c7c" />

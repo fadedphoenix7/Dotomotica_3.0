@@ -35,7 +35,6 @@ public class DeviceController {
         UserRole role = (UserRole) deviceUserPermission.getValue();
         User user = Controller.getUserLogged();
         DeviceFunctions.addDevice(name,description,user.getId_house(),null, role);
-        System.out.println("Device Created");
         backToDeviceListView();
     }
 
@@ -138,7 +137,6 @@ public class DeviceController {
     }
 
     public static void setDevice(Device device) {
-        System.out.println(device);
         DeviceController.device = device;
     }
 

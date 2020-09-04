@@ -12,42 +12,44 @@
 <AnchorPane prefHeight="525.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.jose.controller.Home.AreaController">
    <children>
-      <JFXTextField labelFloat="true" layoutX="37.0" layoutY="32.0" prefHeight="51.0" prefWidth="230.0" promptText="Name area">
+      <JFXTextField labelFloat="true" layoutX="37.0" layoutY="32.0" prefHeight="51.0" prefWidth="230.0"
+                    promptText="Name area" fx:id="nameAreaField">
          <font>
             <Font size="24.0" />
          </font>
       </JFXTextField>
-      <JFXComboBox editable="true" layoutX="37.0" layoutY="116.0" prefHeight="31.0" prefWidth="230.0" promptText="User Permission" visibleRowCount="4" />
-      <JFXListView layoutX="27.0" layoutY="303.0" prefHeight="200.0" prefWidth="230.0" />
-      <JFXListView layoutX="273.0" layoutY="303.0" prefHeight="200.0" prefWidth="230.0" />
-      <JFXListView layoutX="285.0" layoutY="32.0" prefHeight="200.0" prefWidth="230.0" />
-      <JFXListView layoutX="540.0" layoutY="32.0" prefHeight="200.0" prefWidth="230.0" />
-      <JFXButton layoutX="91.0" layoutY="170.0" text="Update">
+      <JFXComboBox editable="true" layoutX="37.0" layoutY="116.0" prefHeight="31.0" prefWidth="230.0"
+                   promptText="User Permission" visibleRowCount="4" fx:id="roleComboBox" />
+      <JFXListView layoutX="27.0" layoutY="303.0" prefHeight="200.0" prefWidth="230.0" fx:id="areaListArea"/>
+      <JFXListView layoutX="273.0" layoutY="303.0" prefHeight="200.0" prefWidth="230.0"  fx:id="areaListHome"/>
+      <JFXListView layoutX="285.0" layoutY="32.0" prefHeight="200.0" prefWidth="230.0" fx:id="deviceListArea"/>
+      <JFXListView layoutX="540.0" layoutY="32.0" prefHeight="200.0" prefWidth="230.0" fx:id="deviceListHome"/>
+      <JFXButton layoutX="91.0" layoutY="170.0" text="Update" onAction="#updateArea">
          <font>
             <Font size="22.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="668.0" layoutY="455.0" text="Cancel" onAction="#backToAreaList">
+      <JFXButton layoutX="668.0" layoutY="455.0" text="Back" onAction="#backToAreaList">
          <font>
             <Font size="22.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="509.0" layoutY="346.0" text="Remove">
+      <JFXButton layoutX="509.0" layoutY="346.0" text="Remove Area" onAction="#removeAreaToArea">
          <font>
             <Font size="22.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="515.0" layoutY="403.0" prefHeight="48.0" prefWidth="95.0" text="Add">
+      <JFXButton layoutX="515.0" layoutY="403.0" prefHeight="48.0" prefWidth="95.0" text="Add Area" onAction="#addAreaToArea">
          <font>
             <Font size="22.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="400.0" layoutY="239.0" text="Remove">
+      <JFXButton layoutX="400.0" layoutY="239.0" text="Remove Device" onAction="#removeDeviceToArea">
          <font>
             <Font size="22.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="540.0" layoutY="239.0" text="Add">
+      <JFXButton layoutX="540.0" layoutY="239.0" text="Add Device" onAction="#addDeviceToArea">
          <font>
             <Font size="22.0" />
          </font>

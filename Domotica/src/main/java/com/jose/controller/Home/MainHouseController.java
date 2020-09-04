@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
 import com.jose.controller.Controller;
+import com.jose.model.crud.HouseCRUD;
 import com.jose.model.operations.AreaFunctions;
 import com.jose.model.operations.DeviceFunctions;
 import com.jose.model.schemas.Area;
@@ -63,7 +64,7 @@ public class MainHouseController {
 
 
     public void closeNavbar(){
-        burgerTaskClose.setRate(burgerTaskClose.getRate() * -1);
+        burgerTaskClose.setRate(-1.0);
         burgerTaskClose.play();
         navbar.close();
         navbar.setVisible(false);
@@ -109,6 +110,34 @@ public class MainHouseController {
         try {
             closeNavbar();
             MainView.changeMainView(main);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void initUsersView(){
+        try {
+            closeNavbar();
+            MainView.changeUsersView(main);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void initConfigUser(){
+        try {
+            closeNavbar();
+            MainView.changeuserConfigView(main);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void initConfigHouse(){
+        try {
+            closeNavbar();
+            HouseController.setHouse(HouseCRUD.getHouseByID(Controller.getUserLogged().getId_house()));
+            MainView.changeHouseConfigView(main);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -4,10 +4,10 @@ import com.jfoenix.controls.JFXButton;
 import com.jose.controller.Home.AreaController;
 import com.jose.controller.Home.DeviceController;
 import com.jose.model.schemas.Area;
-import com.jose.model.schemas.Device;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -24,7 +24,7 @@ public class AreaCell extends ListCell<Area> {
     JFXButton offButton = new JFXButton("OFF");
     JFXButton enterButton = new JFXButton("Enter");
 
-    public AreaCell(){
+    public AreaCell(ListView list){
         super();
         enterButton.setButtonType(JFXButton.ButtonType.RAISED);
         enterButton.setOnAction(e -> {
@@ -33,16 +33,18 @@ public class AreaCell extends ListCell<Area> {
         });
 
         onButton.setOnAction( e -> {
-//            DeviceController.turnOnButton(area);
+            AreaController.turnOnArea(area);
+            list.refresh();
         });
 
         offButton.setOnAction( e -> {
-//            DeviceController.turnOffButton(area);
+            AreaController.turnOffArea(area);
+            list.refresh();
         });
         Font font = new Font(24);
 
         labelName.setFont(font);
-        labelName.setPrefWidth(300);
+        labelName.setPrefWidth(250);
         labelStatus.setFont(font);
         labelStatus.setBackground(new Background(new BackgroundFill(Color.RED,
                 CornerRadii.EMPTY, Insets.EMPTY)));
@@ -59,7 +61,6 @@ public class AreaCell extends ListCell<Area> {
         setText(null);
         setGraphic(null);
         if (area != null && !empty) {
-            System.out.println(area);
             labelName.setText(area.getNameArea());
 //            labelStatus.setText(name.getState() + "");
             this.area = area;

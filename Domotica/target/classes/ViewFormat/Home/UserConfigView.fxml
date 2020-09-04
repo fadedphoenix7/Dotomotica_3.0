@@ -9,34 +9,35 @@
 <?import javafx.scene.layout.*?>
 
 
-<AnchorPane prefHeight="525.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewFormat.Home.UserConfigView">
+<AnchorPane prefHeight="525.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.jose.controller.Home.UserController">
    <children>
-      <JFXTextField labelFloat="true" layoutX="265.0" layoutY="52.0" promptText="User Name">
+      <JFXTextField labelFloat="true" layoutX="265.0" layoutY="52.0" promptText="User Name" fx:id="nameField">
          <font>
             <Font size="24.0" />
          </font>
       </JFXTextField>
-      <JFXTextField labelFloat="true" layoutX="265.0" layoutY="141.0" promptText="User Last Name">
+      <JFXTextField labelFloat="true" layoutX="265.0" layoutY="141.0" promptText="User Last Name" fx:id="lastNameField">
          <font>
             <Font size="24.0" />
          </font>
       </JFXTextField>
-      <JFXTextField editable="false" labelFloat="true" layoutX="265.0" layoutY="237.0" promptText="User email">
+      <JFXTextField editable="false" labelFloat="true" layoutX="265.0" layoutY="237.0" promptText="User email" fx:id="emailFIeld">
          <font>
             <Font size="24.0" />
          </font>
       </JFXTextField>
-      <JFXPasswordField editable="false" layoutX="265.0" layoutY="343.0" promptText="User password">
+      <JFXPasswordField labelFloat="true" editable="false" layoutX="265.0" layoutY="343.0" promptText="User password" fx:id="passwordField">
          <font>
             <Font size="24.0" />
          </font>
       </JFXPasswordField>
-      <JFXButton layoutX="349.0" layoutY="430.0" text="Update">
+      <JFXButton layoutX="349.0" layoutY="430.0" text="Update" onAction="#updateUser">
          <font>
             <Font size="22.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="711.0" layoutY="14.0" text="Back">
+      <JFXButton layoutX="711.0" layoutY="14.0" text="Back" onAction="#backToHome">
          <font>
             <Font size="22.0" />
          </font>

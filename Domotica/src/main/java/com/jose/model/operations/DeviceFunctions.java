@@ -125,6 +125,10 @@ public class DeviceFunctions {
         return DeviceCRUD.getDeviceFromArea(areaID);
     }
 
+    public static ArrayList<Device> getDevicesFromHouseNotArea(int areaID, int houseID){
+        return DeviceCRUD.getDeviceFromHouseNotArea(areaID, houseID);
+    }
+
     public static boolean exitsRelation(Device device, User user){
         return device.getUsers().contains(user);
     }

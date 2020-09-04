@@ -53,8 +53,8 @@ public class DefaultView extends Application {
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         globalPrimaryStage = primaryStage;
+        LogRegController.login("pepe@l.com", "pepeok12");
         primaryStage.show();
-
     }
 
     public static void setLoginView(){

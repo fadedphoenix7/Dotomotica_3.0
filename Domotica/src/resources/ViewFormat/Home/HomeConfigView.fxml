@@ -9,10 +9,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane prefHeight="525.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewFormat.Home.HomeConfigView">
+<AnchorPane prefHeight="525.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jose.controller.Home.HouseController">
    <children>
-      <JFXTextField labelFloat="true" layoutX="275.0" layoutY="28.0" promptText="House Name">
+      <JFXTextField labelFloat="true" layoutX="275.0" layoutY="28.0" promptText="House Name" fx:id="nameField">
          <font>
             <Font name="Gadugi" size="24.0" />
          </font>
@@ -22,19 +21,34 @@
             <Font name="Gadugi" size="24.0" />
          </font>
       </JFXTextField>
-      <JFXListView layoutX="14.0" layoutY="253.0" prefHeight="250.0" prefWidth="250.0" />
-      <JFXListView layoutX="275.0" layoutY="253.0" prefHeight="250.0" prefWidth="250.0" />
-      <JFXListView layoutX="536.0" layoutY="253.0" prefHeight="250.0" prefWidth="250.0" />
-      <JFXButton layoutX="359.0" layoutY="186.0" text="Update">
+      <JFXListView layoutX="14.0" layoutY="253.0" prefHeight="250.0" prefWidth="250.0" fx:id="deviceList" />
+      <JFXListView layoutX="275.0" layoutY="253.0" prefHeight="250.0" prefWidth="250.0" fx:id="areaList"/>
+      <JFXListView layoutX="536.0" layoutY="253.0" prefHeight="250.0" prefWidth="250.0" fx:id="userList"/>
+      <JFXButton layoutX="559.0" layoutY="30.0" text="Update" onAction="#updateHome">
          <font>
             <Font size="22.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="711.0" layoutY="14.0" text="Back">
+      <JFXButton layoutX="711.0" layoutY="14.0" text="Back" onAction="#backToHome">
          <font>
             <Font size="22.0" />
          </font>
       </JFXButton>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="39.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" />
+      <JFXButton layoutX="88.0" layoutY="198.0" text="Remove" onAction="#removeDevice">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="346.0" layoutY="198.0" text="Remove" onAction="#removeArea">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="607.0" layoutY="198.0" text="Remove" onAction="#removeUser">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>

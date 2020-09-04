@@ -9,6 +9,8 @@ public class UserException extends Exception{
                 message = "Contraseña incorrecta";break;
             case 2:
                 message = "Permisos incorrectos ";break;
+            case 3:
+                message = "Email o Password incorrectos";break;
         }
     }
 

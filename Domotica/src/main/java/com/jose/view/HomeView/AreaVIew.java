@@ -2,7 +2,6 @@ package com.jose.view.HomeView;
 
 import com.jose.controller.Controller;
 import com.jose.controller.Home.AreaController;
-import com.jose.controller.Home.DeviceController;
 import com.jose.model.schemas.Area;
 import com.jose.model.schemas.Device;
 import com.jose.model.schemas.User;
@@ -10,7 +9,6 @@ import com.jose.model.schemas.UserRole;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.ImageCursor;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -48,7 +46,7 @@ public class AreaVIew {
         try {
             Pane  p = (Pane) mainParent.getChildrenUnmodifiable().get(1);
             p.getChildren().remove(0);
-            p.getChildren().add(initAreaView());
+            p.getChildren().add(initConfigAreaView());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -61,7 +59,7 @@ public class AreaVIew {
         Pane areaListView = loaderAreaList.load();
         areaListView.getStylesheets().add("css/root.css");
 
-        ListView listDevice = (ListView) areaListView.getChildrenUnmodifiable().get(0);
+        ListView<Device> listDevice = (ListView) areaListView.getChildrenUnmodifiable().get(0);
         configListArea(listDevice);
 
         Button createButton = (Button) areaListView.getChildren().get(1);
@@ -129,9 +127,20 @@ public class AreaVIew {
         userRoleList.removeAll();
         userRoleList.addAll(UserRole.values());
         userPermissionList.setItems(userRoleList);
+        userPermissionList.setEditable(false);
         userPermissionList.setValue(area.getUserRole());
 
-        
+        ListView listAreasFromArea = (ListView) configView.getChildren().get(2);
+        ListView listAreasFromHouse = (ListView) configView.getChildren().get(3);
+        ListView listDeviceFromArea = (ListView) configView.getChildren().get(4);
+        ListView listDevicesFromHouse = (ListView) configView.getChildren().get(5);
+
+        configAreasOfAreaConfig(listAreasFromArea);
+        configAreaOfHouseNotArea(listAreasFromHouse);
+        configDevicesOfAreaConfig(listDeviceFromArea);
+        configDeviceOfHouseNotArea(listDevicesFromHouse);
+
+
 
         return configView;
     }
@@ -145,33 +154,70 @@ public class AreaVIew {
         ArrayList<Area> areas = AreaController.getAreaFromHouse(user.getID(), user.getId_house(), user.getUserRole());
         if(areas != null && !areas.isEmpty()){
             list.addAll(areas);
-
             listArea.setItems(list);
-            listArea.setCellFactory(x -> new AreaCell());
+            listArea.setCellFactory(x -> new AreaCell(listArea));
         }
     }
     private static void configAreasOfArea(ListView listArea){
-        User user = Controller.getUserLogged();
         ObservableList list = FXCollections.observableArrayList();
         list.removeAll();
         ArrayList<Area> areas = AreaController.getAreaOfArea();
         if(areas != null && !areas.isEmpty()){
-            list.addAll(areas);
-
+            list.addAll(AreaController.getArea().getAreas_child());
             listArea.setItems(list);
-            listArea.setCellFactory(x -> new AreaCell());
+            listArea.setCellFactory(x -> new AreaCell(listArea));
         }
     }
     private static void configDevicesOfArea(ListView listArea){
-        User user = Controller.getUserLogged();
         ObservableList list = FXCollections.observableArrayList();
         list.removeAll();
         ArrayList<Device> areas = AreaController.getDeviceFromArea();
         if(areas != null && !areas.isEmpty()){
+            list.addAll(AreaController.getArea().getDevices());
+
+            listArea.setItems(list);
+            listArea.setCellFactory(x -> new DeviceCell(listArea));
+        }
+    }
+
+    private static void configAreasOfAreaConfig(ListView listArea){
+        ObservableList list = FXCollections.observableArrayList();
+        list.removeAll();
+        list.addAll(AreaController.getArea().getAreas_child());
+
+        listArea.setItems(list);
+    }
+    private static void configDevicesOfAreaConfig(ListView listArea){
+        ObservableList list = FXCollections.observableArrayList();
+        list.removeAll();
+        list.addAll(AreaController.getArea().getDevices());
+
+        listArea.setItems(list);
+    }
+
+    private static void configDeviceOfHouseNotArea(ListView listArea){
+        ObservableList list = FXCollections.observableArrayList();
+        list.removeAll();
+        ArrayList<Device> areas = AreaController.getDeviceFromHouseNotArea();
+        if(areas != null && !areas.isEmpty()){
             list.addAll(areas);
 
             listArea.setItems(list);
-            listArea.setCellFactory(x -> new DeviceCell());
+//            listArea.setCellFactory(x -> new DeviceCell());
         }
     }
+
+    private static void configAreaOfHouseNotArea(ListView listArea){
+        ObservableList list = FXCollections.observableArrayList();
+        list.removeAll();
+        ArrayList<Area> areas = AreaController.getAreaFromHouseNotArea();
+        if(areas != null && !areas.isEmpty()){
+            list.addAll(areas);
+
+            listArea.setItems(list);
+//            listArea.setCellFactory(x -> new AreaCell());
+        }
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package com.jose.controller.LogReg;
 
+import com.jose.Exceptions.UserException;
 import com.jose.controller.Controller;
 import com.jose.model.Validation.StringValidation;
 import com.jose.model.operations.LogRegFunctions;
@@ -91,14 +92,34 @@ public class LogRegController {
     public void login(){
         String email = emailText.getText();
         String password = passwordText.getText();
-        System.out.println(email + "  " + password);
         ArrayList<User> usersLogged = LogRegFunctions.login(email, password);
-        System.out.println(usersLogged);
-
         try {
-            main.setRoot(LogHomeView.selectUserView(usersLogged));
-        } catch (IOException e) {
-            e.printStackTrace();
+            if(usersLogged.isEmpty()) throw new UserException(3);
+            if(usersLogged.size() == 1) {
+                Controller.setUserLogged(usersLogged.get(0));
+                DefaultView.setMainView();
+            }else{
+                main.setRoot(LogHomeView.selectUserView(usersLogged));
+            }
+        } catch (IOException | UserException e) {
+            new PopupView(e.getMessage());
+        }
+    }
+
+    public static void login(String email, String password){
+//        String email = emailText.getText();
+//        String password = passwordText.getText();
+        ArrayList<User> usersLogged = LogRegFunctions.login(email, password);
+        try {
+            if(usersLogged.isEmpty()) throw new UserException(3);
+            if(usersLogged.size() == 1) {
+                Controller.setUserLogged(usersLogged.get(0));
+                DefaultView.setMainView();
+            }else{
+                main.setRoot(LogHomeView.selectUserView(usersLogged));
+            }
+        } catch (IOException | UserException e) {
+            new PopupView(e.getMessage());
         }
     }
 
@@ -107,8 +128,6 @@ public class LogRegController {
     @FXML
     public void createNewHouse(){
         String code =homeCodeText.getText();
-        System.out.println("Aqui estoy");
-
         if(LogRegFunctions.registerNewHouseCode(code)) {
 
             try {
@@ -213,7 +232,6 @@ public class LogRegController {
     public void verifyIsEmailRegister(){
         String email = emailText.getText();
         boolean isRegister = LogRegFunctions.isEmailRegistered(email, getHouseToRegister().getID());
-        System.out.println(isRegister);
         LogHomeView.registerDisableView(isRegister, main.getRoot());
 
     }
@@ -228,7 +246,6 @@ public class LogRegController {
                 && !lastName.isEmpty();
         boolean validPassword = !StringValidation.noInitSpace(password) && !StringValidation.noValidChars(password)
                 && !StringValidation.noSpace(password) && !password.isEmpty() && password.length() >= 8;
-        System.out.println("name:" + validName + " lastName: " + validLastName + " pass: " + validPassword);
         if(validName){
             if(validLastName){
                 if(validPassword){
@@ -256,8 +273,6 @@ public class LogRegController {
 
     @FXML
     public void loggedUser(ActionEvent event){
-        System.out.println(usersList.getSelectionModel().getSelectedItem());
-        System.out.println(usersList.getSelectionModel().getSelectedItem().getClass());
         Controller.setUserLogged((User) usersList.getSelectionModel().getSelectedItem());
         DefaultView.setMainView();
     }

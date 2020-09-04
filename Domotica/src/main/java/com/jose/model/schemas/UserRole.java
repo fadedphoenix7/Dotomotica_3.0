@@ -1,8 +1,8 @@
 package com.jose.model.schemas;
 
 public enum UserRole {
-    USER,
     INVITED,
+    USER,
     MODERATOR,
     ADMIN,
 }
