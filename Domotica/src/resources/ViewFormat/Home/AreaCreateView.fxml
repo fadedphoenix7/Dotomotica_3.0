@@ -20,12 +20,12 @@
       </JFXTextField>
       <JFXComboBox labelFloat="true" layoutX="249.0" layoutY="247.0" prefWidth="300.0" promptText="Permission level"
                    visibleRowCount="4" fx:id="roleComboBox" />
-      <JFXButton layoutX="682.0" layoutY="14.0" text="Cancel" onAction="#backToAreaList">
+      <JFXButton layoutX="682.0" layoutY="14.0" text="Cancel" onAction="#backToAreaList" styleClass="backButton">
          <font>
             <Font size="24.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="348.0" layoutY="386.0" text="Create" onAction="#createNewArea">
+      <JFXButton layoutX="348.0" layoutY="386.0" text="Create" onAction="#createNewArea" styleClass="createButton">
          <font>
             <Font size="24.0" />
          </font>

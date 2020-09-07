@@ -106,23 +106,6 @@ public class LogRegController {
         }
     }
 
-    public static void login(String email, String password){
-//        String email = emailText.getText();
-//        String password = passwordText.getText();
-        ArrayList<User> usersLogged = LogRegFunctions.login(email, password);
-        try {
-            if(usersLogged.isEmpty()) throw new UserException(3);
-            if(usersLogged.size() == 1) {
-                Controller.setUserLogged(usersLogged.get(0));
-                DefaultView.setMainView();
-            }else{
-                main.setRoot(LogHomeView.selectUserView(usersLogged));
-            }
-        } catch (IOException | UserException e) {
-            new PopupView(e.getMessage());
-        }
-    }
-
 
 
     @FXML
@@ -136,6 +119,9 @@ public class LogRegController {
                 e.printStackTrace();
             }
 
+        }
+        else{
+            new PopupView("Codigo incorrecto");
         }
     }
 
@@ -165,7 +151,7 @@ public class LogRegController {
 
     @FXML
     public void loginFormListerner(Button _loginButton){
-        boolean disable = !emailForm && !passwordForm;
+        boolean disable = !emailForm || !passwordForm;
         _loginButton.setDisable(disable);
     }
 
@@ -174,7 +160,7 @@ public class LogRegController {
         boolean initSpace = StringValidation.noInitSpace(password);
         boolean haveSpace = StringValidation.noSpace(password);
 
-        passwordForm = !initSpace && !haveSpace && !password.isEmpty();
+        passwordForm = !initSpace && !haveSpace && !password.isEmpty() && password.length() >= 8;
         loginFormListerner(_loginButton);
 
     }

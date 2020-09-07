@@ -91,6 +91,17 @@ public class DeviceController {
         DeviceFunctions.turnOffDevice(device);
     }
 
+    public void turnOnButtonView(){
+        DeviceFunctions.turnOnDevice(device);
+        enterDevice(device);
+        System.out.println("XXXXXXXXXXXXXXXXXXXXXX");
+    }
+
+    public void turnOffButtonView(){
+        DeviceFunctions.turnOffDevice(device);
+        enterDevice(device);
+    }
+
     public void addUser(){
         device.addUser((User) usersOnHouse.getSelectionModel().getSelectedItem());
         updateDevice();

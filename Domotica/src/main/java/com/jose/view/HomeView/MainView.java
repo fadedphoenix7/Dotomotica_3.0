@@ -22,6 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -122,7 +123,7 @@ public class MainView extends DefaultView {
         if(device != null && !device.isEmpty()){
             list.addAll(device);
             deviceList.getItems().addAll(list);
-            deviceList.setCellFactory( device1 -> new DeviceCell(deviceList));
+            deviceList.setCellFactory( device1 -> new DeviceCell(deviceList, deviceList.getWidth() ));
         }
     }
 
@@ -134,7 +135,7 @@ public class MainView extends DefaultView {
         if(area != null && !area.isEmpty()){
             list.addAll(area);
             areaList.getItems().addAll(list);
-            areaList.setCellFactory(area1 -> new AreaCell(areaList));
+            areaList.setCellFactory(area1 -> new AreaCell(areaList, areaList.getWidth() ));
         }
     }
 

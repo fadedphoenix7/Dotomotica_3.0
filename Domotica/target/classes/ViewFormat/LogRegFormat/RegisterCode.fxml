@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import com.jfoenix.controls.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="600.0" prefWidth="800.0"
-      xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.jose.controller.LogReg.LogRegController"
-      id="registerCode">
+<Pane id="registerCode" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jose.controller.LogReg.LogRegController">
    <children>
+      <ImageView fitHeight="600.0" fitWidth="800.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
       <Pane layoutX="200.0" layoutY="125.0" prefHeight="350.0" prefWidth="400.0" style="-fx-background-color: #FFFFFF;">
          <children>
             <Label layoutX="42.0" layoutY="98.0" text="Put the code from the House to register">
@@ -20,24 +17,23 @@
                   <Font name="Gadugi" size="18.0" />
                </font>
             </Label>
-            <JFXTextField alignment="CENTER" labelFloat="true" layoutX="110.0" layoutY="163.0" promptText="Code"
-               fx:id="registerCodeText">
+            <JFXTextField fx:id="registerCodeText" alignment="CENTER" labelFloat="true" layoutX="110.0" layoutY="163.0" promptText="Code">
                <font>
                   <Font name="Gadugi" size="16.0" />
                </font>
             </JFXTextField>
-            <JFXButton layoutX="13.0" layoutY="14.0" text="Back" onAction="#backToLogin">
+            <JFXButton layoutX="13.0" layoutY="14.0" onAction="#backToLogin" text="Back">
                <font>
-                  <Font size="16.0" name="Gadugi" />
+                  <Font name="Gadugi" size="16.0" />
                </font>
             </JFXButton>
-            <JFXButton layoutX="161.0" layoutY="231.0" text="Confirm" onAction="#registerUserByCode" fx:id="confirmButton">
+            <JFXButton fx:id="confirmButton" layoutX="161.0" layoutY="231.0" onAction="#registerUserByCode" text="Confirm">
                <font>
-                  <Font size="16.0" name="Gadugi"/>
+                  <Font name="Gadugi" size="16.0" />
                </font>
             </JFXButton>
          </children>
       </Pane>
-      <JFXButton layoutX="762.0" layoutY="14.0" text="X" onAction="#closeWindow" id="CloseButton"/>
+      <JFXButton id="CloseButton" layoutX="762.0" layoutY="14.0" onAction="#closeWindow" text="X" />
    </children>
 </Pane>

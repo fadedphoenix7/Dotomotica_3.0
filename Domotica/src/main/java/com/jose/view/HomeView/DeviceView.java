@@ -111,17 +111,7 @@ public class DeviceView {
         deviceDescriptions.setText(device.getDescriptionDevice());
 
         Label deviceState = (Label) deviceView.getChildren().get(5);
-        deviceState.setText(device.getState() +"");
-
-        Button turnOnButton = (Button) deviceView.getChildren().get(6);
-        turnOnButton.setOnAction( x -> {
-            DeviceController.turnOnButton(device);
-        });
-
-        Button turnOffButton = (Button) deviceView.getChildren().get(7);
-        turnOffButton.setOnAction( x -> {
-            DeviceController.turnOffButton(device);
-        });
+        deviceState.setText(device.getState() ? "State: ON" : "State: OFF");
 
         return deviceView;
     }
@@ -169,7 +159,7 @@ public class DeviceView {
             list.addAll(device);
 
             deviceList.setItems(list);
-            deviceList.setCellFactory(x -> new DeviceCell(deviceList));
+            deviceList.setCellFactory(x -> new DeviceCell(deviceList, deviceList.getWidth() -10));
         }
 
     }

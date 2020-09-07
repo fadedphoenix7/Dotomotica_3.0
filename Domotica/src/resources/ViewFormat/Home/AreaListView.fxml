@@ -13,7 +13,7 @@
             fx:controller="com.jose.controller.Home.AreaController">
    <children>
       <JFXListView editable="true" layoutX="100.0" layoutY="33.0" prefHeight="400.0" prefWidth="600.0" />
-      <JFXButton layoutX="350.0" layoutY="451.0" text="Create" onAction="#createNewAreaView">
+      <JFXButton layoutX="350.0" layoutY="451.0" text="Create" onAction="#createNewAreaView" styleClass="createButton">
          <font>
             <Font size="24.0" name="Gadugi" />
          </font>

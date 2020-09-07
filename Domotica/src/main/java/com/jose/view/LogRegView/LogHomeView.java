@@ -16,6 +16,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -106,7 +108,7 @@ public class LogHomeView extends DefaultView {
         Parent registerHouse = loaderRegisterHouse.load();
         registerHouse.getStylesheets().add("css/root.css");
 
-        Pane registerHousePaneCode = (Pane) registerHouse.getChildrenUnmodifiable().get(0);
+        Pane registerHousePaneCode = (Pane) registerHouse.getChildrenUnmodifiable().get(1);
         TextField codeTxt = (TextField) registerHousePaneCode.getChildren().get(0);
         codeTxt.setText(code);
         codeTxt.setDisable(true);
@@ -120,7 +122,7 @@ public class LogHomeView extends DefaultView {
         Parent registerCode = loaderRegisterCode.load();
         registerCode.getStylesheets().add("css/root.css");
 
-        Pane registerPaneCode = (Pane) registerCode.getChildrenUnmodifiable().get(0);
+        Pane registerPaneCode = (Pane) registerCode.getChildrenUnmodifiable().get(1);
         Button registerCodeButton = (Button) registerPaneCode.getChildrenUnmodifiable().get(3);
         registerCodeButton.setDisable(true);
 

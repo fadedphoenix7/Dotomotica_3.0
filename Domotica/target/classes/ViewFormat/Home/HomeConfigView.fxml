@@ -24,28 +24,28 @@
       <JFXListView layoutX="14.0" layoutY="253.0" prefHeight="250.0" prefWidth="250.0" fx:id="deviceList" />
       <JFXListView layoutX="275.0" layoutY="253.0" prefHeight="250.0" prefWidth="250.0" fx:id="areaList"/>
       <JFXListView layoutX="536.0" layoutY="253.0" prefHeight="250.0" prefWidth="250.0" fx:id="userList"/>
-      <JFXButton layoutX="559.0" layoutY="30.0" text="Update" onAction="#updateHome">
+      <JFXButton layoutX="559.0" layoutY="30.0" text="Update" onAction="#updateHome" styleClass="createButton">
          <font>
             <Font size="22.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="711.0" layoutY="14.0" text="Back" onAction="#backToHome">
+      <JFXButton layoutX="711.0" layoutY="14.0" text="Back" onAction="#backToHome" styleClass="backButton">
          <font>
             <Font size="22.0" />
          </font>
       </JFXButton>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="39.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" />
-      <JFXButton layoutX="88.0" layoutY="198.0" text="Remove" onAction="#removeDevice">
+      <JFXButton layoutX="88.0" layoutY="198.0" text="Remove" onAction="#removeDevice" styleClass="removeButton">
          <font>
             <Font size="22.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="346.0" layoutY="198.0" text="Remove" onAction="#removeArea">
+      <JFXButton layoutX="346.0" layoutY="198.0" text="Remove" onAction="#removeArea" styleClass="removeButton">
          <font>
             <Font size="22.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="607.0" layoutY="198.0" text="Remove" onAction="#removeUser">
+      <JFXButton layoutX="607.0" layoutY="198.0" text="Remove" onAction="#removeUser" styleClass="removeButton">
          <font>
             <Font size="22.0" />
          </font>

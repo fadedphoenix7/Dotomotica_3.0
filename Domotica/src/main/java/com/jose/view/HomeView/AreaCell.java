@@ -24,7 +24,7 @@ public class AreaCell extends ListCell<Area> {
     JFXButton offButton = new JFXButton("OFF");
     JFXButton enterButton = new JFXButton("Enter");
 
-    public AreaCell(ListView list){
+    public AreaCell(ListView list, double size){
         super();
         enterButton.setButtonType(JFXButton.ButtonType.RAISED);
         enterButton.setOnAction(e -> {
@@ -41,19 +41,24 @@ public class AreaCell extends ListCell<Area> {
             AreaController.turnOffArea(area);
             list.refresh();
         });
-        Font font = new Font(24);
+        Font font = new Font(size < 400 ? 18 : 22);
 
         labelName.setFont(font);
-        labelName.setPrefWidth(250);
+//        labelName.setPrefWidth(size /2);
+
         labelStatus.setFont(font);
         labelStatus.setBackground(new Background(new BackgroundFill(Color.RED,
                 CornerRadii.EMPTY, Insets.EMPTY)));
         enterButton.setFont(font);
         onButton.setFont(font);
         offButton.setFont(font);
-//            xbox.setHg
-        xbox.setPrefSize(500,40);
+        xbox.setPrefHeight(40);
+//        xbox.setPrefSize(size,40);
         xbox.getChildren().addAll(labelName,labelStatus, onButton, offButton, enterButton);
+        this.setId("listCells");
+        enterButton.setId("enterButton");
+        onButton.setId("onButton");
+        offButton.setId("offButton");
     }
 
     public void updateItem(Area area, boolean empty) {

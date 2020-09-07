@@ -14,13 +14,13 @@
     <children>
         <Pane prefHeight="200.0" prefWidth="200.0">
             <children>
-                <JFXButton prefHeight="50.0" prefWidth="200.0" text="Menu" onAction="#initMainView" />
-                <JFXButton layoutY="50.0" prefHeight="50.0" prefWidth="200.0" text="Devices" onAction="#initDeviceList"/>
-                <JFXButton layoutY="100.0" prefHeight="50.0" prefWidth="200.0" text="Areas" onAction="#initAreaList"/>
-                <JFXButton layoutY="150.0" prefHeight="50.0" prefWidth="200.0" text="Users" onAction="#initUsersView"/>
-                <JFXButton layoutY="200.0" prefHeight="50.0" prefWidth="200.0" text="Home" onAction="#initConfigHouse"/>
-                <JFXButton layoutY="461.0" prefHeight="50.0" prefWidth="200.0" text="Log out"  onAction="#logOut"/>
-                <JFXButton layoutX="1.0" layoutY="416.0" prefHeight="50.0" prefWidth="200.0" text="Config" onAction="#initConfigUser"/>
+                <JFXButton prefHeight="50.0" prefWidth="200.0" text="Menu" onAction="#initMainView"  styleClass="navButton"/>
+                <JFXButton layoutY="50.0" prefHeight="50.0" prefWidth="200.0" text="Devices" onAction="#initDeviceList" styleClass="navButton"/>
+                <JFXButton layoutY="100.0" prefHeight="50.0" prefWidth="200.0" text="Areas" onAction="#initAreaList" styleClass="navButton"/>
+                <JFXButton layoutY="150.0" prefHeight="50.0" prefWidth="200.0" text="Users" onAction="#initUsersView" styleClass="navButton"/>
+                <JFXButton layoutY="200.0" prefHeight="50.0" prefWidth="200.0" text="Home" onAction="#initConfigHouse" styleClass="navButton"/>
+                <JFXButton layoutY="461.0" prefHeight="50.0" prefWidth="200.0" text="Log out"  onAction="#logOut" styleClass="navButton"/>
+                <JFXButton layoutY="416.0" prefHeight="50.0" prefWidth="200.0" text="Config" onAction="#initConfigUser" styleClass="navButton"/>
             </children>
         </Pane>
     </children>

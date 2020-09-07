@@ -13,7 +13,7 @@
             fx:controller="com.jose.controller.Home.UserController">
    <children>
       <JFXListView layoutX="100.0" layoutY="26.0" prefHeight="400.0" prefWidth="600.0" fx:id="listOfUsers"/>
-      <JFXButton layoutX="354.0" layoutY="451.0" text="Delete" onAction="#deleteUser">
+      <JFXButton layoutX="354.0" layoutY="451.0" text="Delete" onAction="#deleteUser" styleClass="removeButton">
          <font>
             <Font size="22.0" />
          </font>

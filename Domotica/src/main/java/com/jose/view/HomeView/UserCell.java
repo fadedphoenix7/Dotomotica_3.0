@@ -50,6 +50,8 @@ public class UserCell extends ListCell<User> {
         pane.getChildren().addAll(name, lastName);
         box.setPrefSize(500,40);
         box.getChildren().addAll(pane, roles, updateButon);
+        this.setId("listCells");
+        updateButon.setId("updateButton");
     }
 
     public void updateItem(User user, boolean empty) {

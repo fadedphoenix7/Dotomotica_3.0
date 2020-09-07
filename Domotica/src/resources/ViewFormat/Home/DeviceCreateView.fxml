@@ -7,12 +7,12 @@
 
 <AnchorPane prefHeight="525.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jose.controller.Home.DeviceController">
    <children>
-      <JFXButton buttonType="RAISED" layoutX="25.0" layoutY="25.0" onAction="#backToDeviceListView" text="Cancel">
+      <JFXButton buttonType="RAISED" layoutX="25.0" layoutY="25.0" onAction="#backToDeviceListView" text="Cancel" styleClass="backButton">
          <font>
             <Font name="Gadugi" size="24.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="createDeviceButton" buttonType="RAISED" layoutX="350.0" layoutY="448.0" onAction="#createNewDevice" text="Create">
+      <JFXButton fx:id="createDeviceButton" buttonType="RAISED" layoutX="350.0" layoutY="448.0" onAction="#createNewDevice" text="Create" styleClass="createButton">
          <font>
             <Font size="24.0" />
          </font>

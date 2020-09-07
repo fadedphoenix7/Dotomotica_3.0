@@ -155,7 +155,7 @@ public class AreaVIew {
         if(areas != null && !areas.isEmpty()){
             list.addAll(areas);
             listArea.setItems(list);
-            listArea.setCellFactory(x -> new AreaCell(listArea));
+            listArea.setCellFactory(x -> new AreaCell(listArea, listArea.getWidth()));
         }
     }
     private static void configAreasOfArea(ListView listArea){
@@ -165,7 +165,7 @@ public class AreaVIew {
         if(areas != null && !areas.isEmpty()){
             list.addAll(AreaController.getArea().getAreas_child());
             listArea.setItems(list);
-            listArea.setCellFactory(x -> new AreaCell(listArea));
+            listArea.setCellFactory(x -> new AreaCell(listArea, listArea.getWidth() ));
         }
     }
     private static void configDevicesOfArea(ListView listArea){
@@ -176,7 +176,7 @@ public class AreaVIew {
             list.addAll(AreaController.getArea().getDevices());
 
             listArea.setItems(list);
-            listArea.setCellFactory(x -> new DeviceCell(listArea));
+            listArea.setCellFactory(x -> new DeviceCell(listArea, listArea.getWidth() ));
         }
     }
 

@@ -2,36 +2,108 @@
     -fx-background-color: #ffffff;
 }
 
+#topPane{
+    -fx-background-color: #18B9AB;
+}
+
+#navbar{
+
+}
+
 .list-view{
     -fx-background-color: #ffffff;
     -fx-grid-lines-visible: false;
     -fx-border-width: 0;
-    -fx-padding: 5px;
     -fx-arrows-visible: false;
+    -fx-text-fill: #000000;
+    -fx-side: false;
+    -fx-alternative-column-fill-visible: false;
+    -fx-alternative-row-fill-visible: false;
+    -fx-font-size: 18;
 }
 
-.list-cell{
+#listCells{
     -fx-background-color: #ffffff;
     -fx-cell-size: 80;
     -fx-border-color: #000000;
     -fx-border-radius: 10;
     -fx-alternative-column-fill-visible: false;
-    /*-fx-padding: 25px, 0px, 25px, 0px;*/
-    -fx-padding: 10px;
     -fx-border-insets: 5px;
     -fx-background-insets: 5px;
+    -fx-content-display: center;
 }
 
-/*.list-cell:selected{*/
-/*    -fx-background-color: #ffffff;*/
-/*    -fx-text-fill: #000000;*/
-/*    -fx-cell-size: 50;*/
-/*    -fx-border-color: #000000;*/
-/*    -fx-border-radius: 2;*/
-/*    -fx-alternative-column-fill-visible: false;*/
-/*    -fx-padding: 20, 20, 20, 20;*/
-/*}*/
+#listCells:selected{
+    -fx-text-fill: #000000;
+    -fx-background-color: #d6d6d6;
+}
+
+#deviceCell:selected, label:selected{
+    -fx-text-fill: #000000;
+}
 
 .label {
     -fx-text-alignment: center;
+}
+
+.button {
+    -fx-background-color: #d9d8d8;
+}
+
+
+#closeButton{
+    -fx-border-radius: 100%;
+    -fx-background-color: #a70000;
+    -fx-text-fill: #ffffff;
+}
+.navButton{
+    -fx-background-color: #ffffff;
+    -fx-padding: 5;
+    /*-fx-padding: 10px;*/
+    -fx-border-insets: 1px;
+    -fx-background-insets: 1px;
+    -fx-text-fill: #000000;
+}
+
+.navButton:hover{
+    -fx-text-fill: #048ed4;
+    -fx-background-color: #d7d7d7;
+}
+
+.topLabel{
+    -fx-text-fill: #ffffff;
+}
+
+.turnOffButton{
+    -fx-background-color: #f53030;
+    -fx-text-fill: #ffffff;
+}
+
+#enterButton{
+    -fx-background-color: #13acff;
+    -fx-text-fill: #ffffff;
+}
+
+#onButton, .onButton{
+    -fx-background-color: #99D529;
+}
+
+#offButton, .offButton{
+    -fx-background-color: #E54145;
+    -fx-text-fill: #ffffff;
+}
+
+.configButton{
+    -fx-background-color: #d9d9d9;
+}
+
+.backButton , .removeButton{
+    -fx-background-color: #fc2a2a;
+    -fx-text-fill: #ffffff;
+}
+
+.addButton, .createButton{
+    -fx-background-color: #1785fa;
+    -fx-font-size: 22;
+    -fx-text-fill: #ffffff;
 }

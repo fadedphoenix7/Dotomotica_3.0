@@ -128,13 +128,11 @@ public class AreaController {
     public static void turnOnArea(Area area){
         AreaFunctions.setPassedArea(new ArrayList<>());
         AreaFunctions.turnOnArea(area);
-        enterArea();
     }
 
     public static void turnOffArea(Area area){
         AreaFunctions.setPassedArea(new ArrayList<>());
         AreaFunctions.turnOffArea(area);
-        enterArea();
     }
 
     //------------ calls to DB --------------
