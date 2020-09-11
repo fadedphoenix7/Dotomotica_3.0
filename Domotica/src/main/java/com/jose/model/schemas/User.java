@@ -120,8 +120,7 @@ public class User {
     }
 
     public String toString(){
-        return "ID: " + this.ID + "\n\tNombre: " + this.userName + "\n\tApellido: " + this.lastName
-                + "\n\tEmail: " + this.email + "\n\t idHouse: " + this.id_house + "\n\tUserRole: " + this.userRole.toString();
+        return "Name: " + this.userName + " " + this.lastName;
     }
 
 }

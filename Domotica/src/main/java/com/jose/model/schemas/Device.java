@@ -113,8 +113,6 @@ public class Device {
     }
 
     public String toString(){
-        if(users == null) return "Usuarios vacios";
-        return "ID:" + this.ID +"\n\tNombre: " + this.nameDevice +
-                "\n\tState: " + this.state + "\n\tID_house: " + this.ID_house +"\n\t" + users.toString() + "\n";
+        return "Name: " + this.nameDevice;
     }
 }

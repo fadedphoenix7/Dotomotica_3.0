@@ -57,6 +57,6 @@ public class House {
     }
 
     public String toString(){
-        return "ID:" + this.ID + " \n\tName: " + this.name + " \n\tCode: " + this.codeToRegister + " \n\tRegisterIDCode: " + this.registrationCodeID;
+        return "Name: " + this.name;
     }
 }

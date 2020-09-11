@@ -128,7 +128,7 @@ public class Area {
 //                + "\n\tID_House: " + this.ID_house +"\n"
 //                /*+"\tAreaParent: " + areas.toString() */+ "\n\tDevices: " + devices.toString() +
 //                "\n\tUsers: " + users.toString() + "\n\tAreaChilds: " + areas_child.toString();
-        return "ID: " + this.ID + "\n\tNombre: " + this.nameArea;
+        return "\nNombre: " + this.nameArea;
     }
 
     public boolean equals(Area area){

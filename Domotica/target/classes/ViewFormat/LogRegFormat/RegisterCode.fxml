@@ -9,7 +9,10 @@
 
 <Pane id="registerCode" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jose.controller.LogReg.LogRegController">
    <children>
-      <ImageView fitHeight="600.0" fitWidth="800.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="600.0" fitWidth="800.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../Images/userRegister.png" />
+         </image></ImageView>
       <Pane layoutX="200.0" layoutY="125.0" prefHeight="350.0" prefWidth="400.0" style="-fx-background-color: #FFFFFF;">
          <children>
             <Label layoutX="42.0" layoutY="98.0" text="Put the code from the House to register">

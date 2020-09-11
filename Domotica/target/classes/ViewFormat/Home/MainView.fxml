@@ -10,11 +10,21 @@
 
 <Pane prefHeight="525.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <JFXListView layoutX="426.0" layoutY="13.0" prefHeight="420.0" prefWidth="360.0" />
-      <JFXListView layoutX="14.0" layoutY="12.0" prefHeight="421.0" prefWidth="360.0" />
-      <Button layoutX="327.0" layoutY="460.0" mnemonicParsing="false" text="Turn off all" styleClass="turnOffButton">
+      <JFXListView layoutX="426.0" layoutY="79.0" prefHeight="354.0" prefWidth="360.0" />
+      <JFXListView layoutX="14.0" layoutY="79.0" prefHeight="354.0" prefWidth="360.0" />
+      <Button layoutX="333.0" layoutY="463.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="135.0" styleClass="turnOffButton" text="Turn off all">
          <font>
-            <Font size="24.0" />
+            <Font size="22.0" />
          </font></Button>
+      <Label layoutX="14.0" layoutY="33.0" text="Areas:">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="426.0" layoutY="33.0" text="Devices On:">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
    </children>
 </Pane>
