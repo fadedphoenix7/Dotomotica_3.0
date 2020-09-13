@@ -8,10 +8,10 @@
     <class>com.jose.model.schemas.HouseCode</class>
     <properties>
 <!--      34.69.21.108:3306-->
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://34.69.21.108:3306/domotica?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
-      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://DATABASE_LOCATION/domotica?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
+      <property name="javax.persistence.jdbc.user" value=USER/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.password" value="pepeok12"/>
+      <property name="javax.persistence.jdbc.password" value=PASSWORD/>
       <property name="hibernate.event.merge.entity_copy_observer" value="allow"/>
     </properties>
   </persistence-unit>
